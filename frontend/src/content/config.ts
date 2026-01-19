@@ -40,7 +40,7 @@ const modules = defineCollection({
         icon: z.string(),
         courses: z.array(z.object({
             name: z.string()
-        })).optional().default([]),
+        })).nullable().optional().default([]),
     })
 });
 
@@ -49,9 +49,9 @@ const lecturers = defineCollection({
     schema: z.object({
         name: z.string(),
         role: z.string(),
-        description: z.string().optional(),
-        image_url: z.string().optional(),
-        image: z.any().optional(), // Adding raw image field from Strapi
+        description: z.string().nullable().optional(),
+        image_url: z.string().nullable().optional(),
+        image: z.any().nullable().optional(), // Adding raw image field from Strapi
     })
 });
 
