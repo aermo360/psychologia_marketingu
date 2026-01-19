@@ -29,9 +29,8 @@
         "image": {
             "type": "media",
             "multiple": false,
-            "allowedTypes": [
-                "images"
-            ]
+            "required": false,
+            "configurable": true
         }
     }
 }
