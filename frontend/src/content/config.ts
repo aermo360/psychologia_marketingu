@@ -9,7 +9,7 @@ console.log("ASTRO CONFIG: Using Strapi URL:", STRAPI_URL);
 
 // Custom simple loader to bypass library issues
 const customStrapiLoader = (contentType: string) => async () => {
-    const url = `${STRAPI_URL}/api/${contentType}`;
+    const url = `${STRAPI_URL}/api/${contentType}?populate=*`;
     console.log(`[CustomLoader] Fetching ${url}`);
     try {
         const response = await fetch(url);
@@ -51,6 +51,7 @@ const lecturers = defineCollection({
         role: z.string(),
         description: z.string().optional(),
         image_url: z.string().optional(),
+        image: z.any().optional(), // Adding raw image field from Strapi
     })
 });
 

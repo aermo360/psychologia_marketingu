@@ -1,12 +1,27 @@
 ---
 import { getCollection } from "astro:content";
 
+const STRAPI_URL = import.meta.env.PUBLIC_STRAPI_URL || "http://localhost:1337";
 let lecturers = [];
 
 try {
     const strapiLecturers = await getCollection("lecturers");
     if (strapiLecturers && strapiLecturers.length > 0) {
-        lecturers = strapiLecturers.map((l: any) => l.data);
+        lecturers = strapiLecturers.map((l: any) => {
+            const data = l.data;
+            let finalImageUrl = data.image_url;
+
+            if (data.image?.url) {
+                finalImageUrl = data.image.url.startsWith("http")
+                    ? data.image.url
+                    : `${STRAPI_URL}${data.image.url}`;
+            }
+
+            return {
+                ...data,
+                finalImageUrl,
+            };
+        });
     }
 } catch (e) {
     console.warn("Could not fetch lecturers from Strapi.");
@@ -63,7 +78,7 @@ if (lecturers.length === 0) {
             image_url:
                 "https://images.unsplash.com/photo-1598550832205-d5b5fe4a018b?q=80&w=1000&auto=format&fit=crop",
         },
-    ];
+    ].map((l) => ({ ...l, finalImageUrl: l.image_url }));
 }
 ---
 
@@ -102,8 +117,8 @@ if (lecturers.length === 0) {
                     <div class="flex flex-col gap-4 p-5 bg-white dark:bg-background-dark/40 rounded-xl border border-[#f4f0f0] dark:border-[#3d2a2a] shadow-sm hover:shadow-md hover:-translate-y-1 transition-all">
                         <div
                             class="w-full bg-center bg-no-repeat aspect-[4/5] bg-cover rounded-lg grayscale hover:grayscale-0 transition-all duration-500"
-                            style={`background-image: url("${lecturer.image_url}");`}
-                        ></div>
+                            style={`background-image: url("${lecturer.finalImageUrl || lecturer.image_url}");`}
+                        />
                         <div class="flex flex-col gap-1">
                             <div class="flex justify-between items-start">
                                 <p class="text-primary text-xl font-bold leading-tight">
