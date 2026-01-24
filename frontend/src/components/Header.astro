@@ -103,32 +103,48 @@
 </header>
 
 <script is:inline>
-    const btn = document.getElementById("mobile-menu-button");
-    const menu = document.getElementById("mobile-menu");
-    const menuIcon = document.getElementById("menu-icon");
-    const closeIcon = document.getElementById("close-icon");
-    const links = document.querySelectorAll(".mobile-link");
+    // Ensure script runs after DOM is ready
+    document.addEventListener("DOMContentLoaded", () => {
+        const btn = document.getElementById("mobile-menu-button");
+        const menu = document.getElementById("mobile-menu");
+        const menuIcon = document.getElementById("menu-icon");
+        const closeIcon = document.getElementById("close-icon");
+        const links = document.querySelectorAll(".mobile-link");
 
-    function toggleMenu() {
-        const isHidden = menu.classList.contains("hidden");
-        if (isHidden) {
-            menu.classList.remove("hidden");
-            menuIcon.classList.add("hidden");
-            closeIcon.classList.remove("hidden");
-            document.body.classList.add("overflow-hidden");
-        } else {
-            menu.classList.add("hidden");
-            menuIcon.classList.remove("hidden");
-            closeIcon.classList.add("hidden");
-            document.body.classList.remove("overflow-hidden");
+        function toggleMenu() {
+            if (!menu || !menuIcon || !closeIcon) return;
+
+            const isHidden = menu.classList.contains("hidden");
+            if (isHidden) {
+                menu.classList.remove("hidden");
+                menuIcon.classList.add("hidden");
+                closeIcon.classList.remove("hidden");
+                document.body.classList.add("overflow-hidden");
+            } else {
+                menu.classList.add("hidden");
+                menuIcon.classList.remove("hidden");
+                closeIcon.classList.add("hidden");
+                document.body.classList.remove("overflow-hidden");
+            }
         }
-    }
 
-    btn?.addEventListener("click", toggleMenu);
+        if (btn) {
+            btn.addEventListener("click", (e) => {
+                e.stopPropagation(); // Prevent bubbling issues
+                toggleMenu();
+            });
+        }
 
-    links.forEach((link) => {
-        link.addEventListener("click", () => {
-            toggleMenu();
+        links.forEach((link) => {
+            link.addEventListener("click", () => {
+                // Force close
+                if (menu) {
+                    menu.classList.add("hidden");
+                    menuIcon?.classList.remove("hidden");
+                    closeIcon?.classList.add("hidden");
+                    document.body.classList.remove("overflow-hidden");
+                }
+            });
         });
     });
 </script>
