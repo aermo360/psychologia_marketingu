@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: http://157.180.18.130:4322/sitemap.xml
+Sitemap: http://praktycznymarketing.edu.pl/sitemap.xml

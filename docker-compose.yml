@@ -16,7 +16,7 @@ services:
       - ./backend/.tmp:/app/.tmp
       - ./backend/public/uploads:/app/public/uploads
     ports:
-      - "13388:1337"
+      - "0.0.0.0:13388:1337"
     networks:
       - pwr-studia-network
 
@@ -25,16 +25,17 @@ services:
       context: ./frontend
       dockerfile: Dockerfile.prod
       args:
-        PUBLIC_STRAPI_URL: http://157.180.18.130:13388
+        PUBLIC_STRAPI_URL: http://praktycznymarketing.edu.pl:13388
         STRAPI_URL: http://backend:1337
     container_name: pwr-studia-frontend
     restart: unless-stopped
     environment:
-      - PUBLIC_STRAPI_URL=http://157.180.18.130:13388
+      - PUBLIC_STRAPI_URL=http://praktycznymarketing.edu.pl:13388
       - STRAPI_URL=http://backend:1337
       - NODE_OPTIONS=--dns-result-order=ipv4first
+      - HOST=0.0.0.0
     ports:
-      - "4322:4321"
+      - "0.0.0.0:4322:4321"
     depends_on:
       - backend
     # We use a custom entrypoint to ensure runtime sync
