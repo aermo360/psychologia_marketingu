@@ -31,6 +31,10 @@
             "multiple": false,
             "required": false,
             "configurable": true
+        },
+        "order": {
+            "type": "integer",
+            "default": 0
         }
     }
 }

@@ -8,8 +8,8 @@ const STRAPI_URL = process.env.STRAPI_URL || import.meta.env.PUBLIC_STRAPI_URL |
 console.log("ASTRO CONFIG: Using Strapi URL:", STRAPI_URL);
 
 // Custom simple loader to bypass library issues
-const customStrapiLoader = (contentType: string) => async () => {
-    const url = `${STRAPI_URL}/api/${contentType}?populate=*`;
+const customStrapiLoader = (contentType: string, queryParams: string = "") => async () => {
+    const url = `${STRAPI_URL}/api/${contentType}?populate=*${queryParams}`;
     console.log(`[CustomLoader] Fetching ${url}`);
     try {
         const response = await fetch(url);
@@ -45,10 +45,11 @@ const modules = defineCollection({
 });
 
 const lecturers = defineCollection({
-    loader: customStrapiLoader("lecturers"),
+    loader: customStrapiLoader("lecturers", "&sort=order:asc"),
     schema: z.object({
         name: z.string(),
         role: z.string(),
+        order: z.number().optional().default(0),
         description: z.string().nullable().optional(),
         image_url: z.string().nullable().optional(),
         image: z.any().nullable().optional(), // Adding raw image field from Strapi
