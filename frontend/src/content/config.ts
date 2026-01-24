@@ -49,7 +49,7 @@ const lecturers = defineCollection({
     schema: z.object({
         name: z.string(),
         role: z.string(),
-        order: z.number().optional().default(0),
+        order: z.number().nullable().optional(),
         description: z.string().nullable().optional(),
         image_url: z.string().nullable().optional(),
         image: z.any().nullable().optional(), // Adding raw image field from Strapi
