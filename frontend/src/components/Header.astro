@@ -98,30 +98,28 @@
 </header>
 
 <script is:inline>
-    // Ensure script runs after DOM is ready
-    document.addEventListener("DOMContentLoaded", () => {
+    (function () {
         const btn = document.getElementById("mobile-menu-button");
         const menu = document.getElementById("mobile-menu");
         const links = document.querySelectorAll(".mobile-link");
 
         function toggleMenu() {
-            menu?.classList.toggle("hidden");
+            menu.classList.toggle("hidden");
             document.body.classList.toggle("overflow-hidden");
         }
 
         if (btn) {
-            btn.addEventListener("click", (e) => {
-                e.stopPropagation(); // Prevent bubbling issues
+            btn.onclick = (e) => {
+                e.stopPropagation();
                 toggleMenu();
-            });
+            };
         }
 
         links.forEach((link) => {
             link.addEventListener("click", () => {
-                // Force close
-                menu?.classList.add("hidden");
+                menu.classList.add("hidden");
                 document.body.classList.remove("overflow-hidden");
             });
         });
-    });
+    })();
 </script>
