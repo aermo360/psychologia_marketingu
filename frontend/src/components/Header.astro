@@ -52,5 +52,79 @@
                 Zapisz się
             </button>
         </div>
+
+        <!-- Mobile Menu Button -->
+        <button
+            id="mobile-menu-button"
+            class="md:hidden text-[#181111] dark:text-white p-2"
+            aria-label="Toggle Menu"
+        >
+            <span class="material-symbols-outlined !text-[32px]">menu</span>
+        </button>
+    </div>
+
+    <!-- Mobile Menu Container -->
+    <div
+        id="mobile-menu"
+        class="hidden fixed inset-0 z-[100] bg-white dark:bg-background-dark md:hidden"
+    >
+        <div class="flex flex-col h-full">
+            <div
+                class="flex items-center justify-between px-6 h-16 border-b border-[#e6dbdb] dark:border-[#3d2a2a]"
+            >
+                <h2 class="text-lg font-bold">Menu</h2>
+                <button id="close-menu" class="p-2">
+                    <span class="material-symbols-outlined !text-[32px]"
+                        >close</span
+                    >
+                </button>
+            </div>
+            <nav class="flex flex-col p-6 gap-6">
+                <a
+                    class="mobile-link text-2xl font-bold border-b pb-4 border-gray-100 dark:border-gray-800"
+                    href="/#program">Program</a
+                >
+                <a
+                    class="mobile-link text-2xl font-bold border-b pb-4 border-gray-100 dark:border-gray-800"
+                    href="/wykladowcy">Wykładowcy</a
+                >
+                <a
+                    class="mobile-link text-2xl font-bold border-b pb-4 border-gray-100 dark:border-gray-800"
+                    href="/#rekrutacja">Rekrutacja</a
+                >
+                <a
+                    class="mobile-link text-2xl font-bold border-b pb-4 border-gray-100 dark:border-gray-800"
+                    href="#kontakt">Kontakt</a
+                >
+
+                <button
+                    class="mt-4 bg-primary text-white py-4 rounded-xl text-xl font-bold shadow-lg shadow-primary/20"
+                >
+                    Zapisz się
+                </button>
+            </nav>
+        </div>
     </div>
 </header>
+
+<script>
+    const btn = document.getElementById("mobile-menu-button");
+    const closeBtn = document.getElementById("close-menu");
+    const menu = document.getElementById("mobile-menu");
+    const links = document.querySelectorAll(".mobile-link");
+
+    function toggleMenu() {
+        menu?.classList.toggle("hidden");
+        document.body.classList.toggle("overflow-hidden");
+    }
+
+    btn?.addEventListener("click", toggleMenu);
+    closeBtn?.addEventListener("click", toggleMenu);
+
+    links.forEach((link) => {
+        link.addEventListener("click", () => {
+            menu?.classList.add("hidden");
+            document.body.classList.remove("overflow-hidden");
+        });
+    });
+</script>
