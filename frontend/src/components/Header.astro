@@ -62,11 +62,6 @@
             <span id="menu-icon" class="material-symbols-outlined !text-[32px]"
                 >menu</span
             >
-            <span
-                id="close-icon"
-                class="material-symbols-outlined !text-[32px] hidden"
-                >close</span
-            >
         </button>
     </div>
 
@@ -107,25 +102,11 @@
     document.addEventListener("DOMContentLoaded", () => {
         const btn = document.getElementById("mobile-menu-button");
         const menu = document.getElementById("mobile-menu");
-        const menuIcon = document.getElementById("menu-icon");
-        const closeIcon = document.getElementById("close-icon");
         const links = document.querySelectorAll(".mobile-link");
 
         function toggleMenu() {
-            if (!menu || !menuIcon || !closeIcon) return;
-
-            const isHidden = menu.classList.contains("hidden");
-            if (isHidden) {
-                menu.classList.remove("hidden");
-                menuIcon.classList.add("hidden");
-                closeIcon.classList.remove("hidden");
-                document.body.classList.add("overflow-hidden");
-            } else {
-                menu.classList.add("hidden");
-                menuIcon.classList.remove("hidden");
-                closeIcon.classList.add("hidden");
-                document.body.classList.remove("overflow-hidden");
-            }
+            menu?.classList.toggle("hidden");
+            document.body.classList.toggle("overflow-hidden");
         }
 
         if (btn) {
@@ -138,12 +119,8 @@
         links.forEach((link) => {
             link.addEventListener("click", () => {
                 // Force close
-                if (menu) {
-                    menu.classList.add("hidden");
-                    menuIcon?.classList.remove("hidden");
-                    closeIcon?.classList.add("hidden");
-                    document.body.classList.remove("overflow-hidden");
-                }
+                menu?.classList.add("hidden");
+                document.body.classList.remove("overflow-hidden");
             });
         });
     });
