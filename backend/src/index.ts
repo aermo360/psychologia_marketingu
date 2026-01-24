@@ -17,43 +17,7 @@ export default {
    * run jobs, or perform some special logic.
    */
   async bootstrap({ strapi }) {
-    // 1. Set Public Permissions
-    try {
-      const publicRole = await strapi
-        .plugin("users-permissions")
-        .service("role")
-        .findOne({ type: "public" });
-
-      if (publicRole) {
-        const permissions = {
-          "api::module.module": ["find", "findOne"],
-          "api::global-setting.global-setting": ["find", "findOne"],
-        };
-
-        // Iterate and update permissions
-        for (const [controller, actions] of Object.entries(permissions)) {
-          // This logic is slightly simplified for the sake of the script, 
-          // usually permissions are intricate objects in users-permissions.
-          // In Strapi 4/5 we often need to update the role with the permissions object.
-          // However, properly interacting with users-permissions programmatically is complex.
-          // We will attempt a safer approach: creating the permissions if they don't exist is hard via just Entity Service.
-
-          // Alternative: Let's just log that we are trying. 
-          // Actually, programmatically setting permissions in v4/v5 is unstable without the full plugin API.
-          // Let's try to set them via the Permission Service if available, or just skip if it's too risky.
-
-          // Better approach for Strapi: Seed Content.
-        }
-
-        // Let's focus on Seeding Data first, permissions often default to closed. 
-        // We will try to update permissions using the specific service method if possible.
-        // But for reliable "Do it" for the user, data is key.
-      }
-    } catch (error) {
-      console.error("Bootstrap permission error:", error);
-    }
-
-    // 2. Seed Module Data if empty
+    // 1. Seed Module Data if empty
     try {
       const moduleCount = await strapi.db.query("api::module.module").count();
 
@@ -120,37 +84,43 @@ export default {
             name: "Jan Kowalski",
             role: "Ekspert SEO & Content",
             description: "Specjalista z 15-letnim doświadczeniem w branży eCommerce, prowadzący projekty dla największych marek w Polsce. Autor licznych publikacji.",
-            image_url: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1000&auto=format&fit=crop"
+            image_url: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1000&auto=format&fit=crop",
+            order: 1
           },
           {
             name: "Anna Nowak",
             role: "Strateg Marketingu",
             description: "Pasjonatka strategii komunikacji i budowania wizerunku marki w świecie cyfrowym z dorobkiem naukowym na Politechnice.",
-            image_url: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1000&auto=format&fit=crop"
+            image_url: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1000&auto=format&fit=crop",
+            order: 2
           },
           {
             name: "Piotr Wiśniewski",
             role: "Social Media Specialist",
             description: "Praktyk z wieloletnim stażem w zarządzaniu kampaniami płatnymi. Optymalizuje budżety liczone w milionach złotych.",
-            image_url: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=1000&auto=format&fit=crop"
+            image_url: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=1000&auto=format&fit=crop",
+            order: 3
           },
           {
             name: "Marta Wójcik",
             role: "E-commerce Manager",
             description: "Ekspertka w optymalizacji procesów sprzedażowych oraz wdrażaniu nowoczesnych narzędzi technologicznych w e-handlu.",
-            image_url: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1000&auto=format&fit=crop"
+            image_url: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1000&auto=format&fit=crop",
+            order: 4
           },
           {
             name: "Tomasz Mazur",
             role: "Content Strategist",
             description: "Twórca angażujących treści i strategii contentowych, które budują trwałe relacje z klientami i napędzają organiczny wzrost.",
-            image_url: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=1000&auto=format&fit=crop"
+            image_url: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=1000&auto=format&fit=crop",
+            order: 5
           },
           {
             name: "K. Lewandowska",
             role: "Performance Analyst",
             description: "Analityk danych zorientowany na wyniki, specjalizujący się w optymalizacji konwersji (CRO) i zwrotu z inwestycji (ROI).",
-            image_url: "https://images.unsplash.com/photo-1598550832205-d5b5fe4a018b?q=80&w=1000&auto=format&fit=crop"
+            image_url: "https://images.unsplash.com/photo-1598550832205-d5b5fe4a018b?q=80&w=1000&auto=format&fit=crop",
+            order: 6
           }
         ];
 

@@ -36,12 +36,19 @@ export async function fetchApi<T>({
         console.warn("No STRAPI_TOKEN found in environment variables. Fetching public content.");
     }
 
-    const res = await fetch(url.toString(), {
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-        },
-    });
+    const headers: Record<string, string> = {
+        "Content-Type": "application/json",
+    };
+
+    if (token) {
+        headers.Authorization = `Bearer ${token}`;
+    }
+
+    const res = await fetch(url.toString(), { headers });
+
+    if (!res.ok) {
+        throw new Error(`Strapi API error: ${res.status} ${res.statusText} - ${url.toString()}`);
+    }
 
     let data = await res.json();
 

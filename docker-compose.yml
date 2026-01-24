@@ -7,16 +7,11 @@ services:
       dockerfile: Dockerfile
     container_name: pwr-studia-backend
     restart: unless-stopped
-    env_file: .env
+    env_file: ./backend/.env
     environment:
       - NODE_ENV=production
-      - DATABASE_CLIENT=sqlite
-      - DATABASE_FILENAME=.tmp/data.db
-      - JWT_SECRET=TO_BE_REPLACED_WITH_SECURE_SECRET
-      - APP_KEYS=TO_BE_REPLACED_WITH_SECURE_KEYS
-      - API_TOKEN_SALT=TO_BE_REPLACED_WITH_SECURE_SALT
-      - ADMIN_JWT_SECRET=TO_BE_REPLACED_WITH_SECURE_ADMIN_SECRET
-      - TRANSFER_TOKEN_SALT=TO_BE_REPLACED_WITH_SECURE_TRANSFER_SALT
+      - DATABASE_CLIENT=${DATABASE_CLIENT:-sqlite}
+      - DATABASE_FILENAME=${DATABASE_FILENAME:-.tmp/data.db}
     volumes:
       - ./backend/.tmp:/app/.tmp
       - ./backend/public/uploads:/app/public/uploads

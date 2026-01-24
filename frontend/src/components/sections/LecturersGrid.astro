@@ -112,18 +112,25 @@ if (lecturers.length === 0) {
             {
                 lecturers.map((lecturer: any) => (
                     <div class="flex flex-col gap-4 p-5 bg-white dark:bg-background-dark/40 rounded-xl border border-[#f4f0f0] dark:border-[#3d2a2a] shadow-sm hover:shadow-md hover:-translate-y-1 transition-all">
-                        <div
-                            class="w-full bg-center bg-no-repeat aspect-[4/5] bg-cover rounded-lg grayscale hover:grayscale-0 transition-all duration-500"
-                            style={`background-image: url("${lecturer.finalImageUrl || lecturer.image_url}");`}
-                        />
+                        <div class="w-full aspect-[4/5] rounded-lg overflow-hidden grayscale hover:grayscale-0 transition-all duration-500">
+                            <img
+                                src={lecturer.finalImageUrl || lecturer.image_url}
+                                alt={`${lecturer.name} - ${lecturer.role}`}
+                                class="w-full h-full object-cover"
+                                width="400"
+                                height="500"
+                                loading="lazy"
+                            />
+                        </div>
                         <div class="flex flex-col gap-1">
                             <div class="flex justify-between items-start">
                                 <p class="text-primary text-xl font-bold leading-tight">
                                     {lecturer.name}
                                 </p>
                                 <a
-                                    class="text-[#896161] hover:text-[#0077b5] transition-colors"
+                                    class="text-[#896161] hover:text-[#0077b5] transition-colors p-2 -m-2"
                                     href="#"
+                                    aria-label={`Udostępnij profil ${lecturer.name}`}
                                 >
                                     <span class="material-symbols-outlined !text-[20px]">
                                         share

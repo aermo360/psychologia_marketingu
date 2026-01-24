@@ -21,10 +21,16 @@ const customStrapiLoader = (contentType: string, queryParams: string = "") => as
         // The collection loader expects an array of items.
         // We map 'documentId' to 'id' for compatibility if needed, but Astro handles ID generation.
         if (Array.isArray(json.data)) {
-            return json.data.map((item: any) => ({
-                ...item,
-                id: item.documentId || item.id // Use documentId as stable ID if available
-            }));
+            return json.data.map((item: any) => {
+                // Normalize courses to always be an array (handle null/undefined)
+                if (item.courses === null || item.courses === undefined) {
+                    item.courses = [];
+                }
+                return {
+                    ...item,
+                    id: item.documentId || item.id // Use documentId as stable ID if available
+                };
+            });
         }
         return [];
     } catch (e) {
