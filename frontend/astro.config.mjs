@@ -14,8 +14,11 @@ export default defineConfig({
       strictPort: true,
       allowedHosts: [
         'praktycznymarketing.edu.pl',
+        'www.praktycznymarketing.edu.pl',
+        'cms.praktycznymarketing.edu.pl',
         '157.180.18.130',
-        'localhost'
+        'localhost',
+        '127.0.0.1'
       ]
     }
   }
