@@ -45,5 +45,5 @@ npx astro sync
 echo "Building production build..."
 npm run build
 
-echo "Starting preview server..."
-npx astro preview --host --port 4321
+echo "Starting static file server..."
+npx serve dist -l 4321
