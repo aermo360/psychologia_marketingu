@@ -35,7 +35,7 @@ const customStrapiLoader = (contentType: string, queryParams: string = "") => as
         return [];
     } catch (e) {
         console.error(`[CustomLoader] Error fetching ${contentType}:`, e);
-        throw e;
+        return [];
     }
 };
 

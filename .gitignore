@@ -1,7 +1,11 @@
 node_modules
 .DS_Store
 .env
+.env.*
 .tmp
 dist
 build
 .cache
+.strapi
+.strapi-updater.json
+.claude/settings.local.json
