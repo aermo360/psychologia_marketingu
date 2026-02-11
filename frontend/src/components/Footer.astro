@@ -122,14 +122,56 @@
             <p class="text-xs text-gray-500">
                 © 2024 Politechnika Wrocławska. Wszystkie prawa zastrzeżone.
             </p>
-            <div class="flex gap-6">
+            <div class="flex items-center gap-6">
                 <a class="text-xs text-gray-500 hover:text-primary" href="#"
                     >Polityka prywatności</a
                 >
                 <a class="text-xs text-gray-500 hover:text-primary" href="#"
                     >Deklaracja dostępności</a
                 >
+                <button
+                    id="theme-toggle"
+                    class="flex items-center gap-1.5 text-xs text-gray-500 hover:text-primary transition-colors cursor-pointer"
+                    aria-label="Przełącz motyw"
+                >
+                    <span id="theme-icon" class="material-symbols-outlined !text-sm">dark_mode</span>
+                    <span id="theme-label">Ciemny</span>
+                </button>
             </div>
         </div>
     </div>
 </footer>
+
+<script is:inline>
+    (function () {
+        const html = document.documentElement;
+        const saved = localStorage.getItem("theme");
+        if (saved === "dark" || (!saved && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+            html.classList.replace("light", "dark");
+        }
+        updateToggleUI();
+
+        const btn = document.getElementById("theme-toggle");
+        if (btn) {
+            btn.addEventListener("click", function () {
+                const isDark = html.classList.contains("dark");
+                if (isDark) {
+                    html.classList.replace("dark", "light");
+                    localStorage.setItem("theme", "light");
+                } else {
+                    html.classList.replace("light", "dark");
+                    localStorage.setItem("theme", "dark");
+                }
+                updateToggleUI();
+            });
+        }
+
+        function updateToggleUI() {
+            const icon = document.getElementById("theme-icon");
+            const label = document.getElementById("theme-label");
+            const isDark = html.classList.contains("dark");
+            if (icon) icon.textContent = isDark ? "light_mode" : "dark_mode";
+            if (label) label.textContent = isDark ? "Jasny" : "Ciemny";
+        }
+    })();
+</script>
