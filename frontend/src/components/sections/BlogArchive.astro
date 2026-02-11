@@ -1,0 +1,212 @@
+---
+import { getCollection } from "astro:content";
+
+const STRAPI_URL = process.env.STRAPI_URL || import.meta.env.PUBLIC_STRAPI_URL || "http://localhost:1337";
+
+interface Article {
+    title: string;
+    slug: string;
+    excerpt?: string;
+    category?: string;
+    author_name?: string;
+    featured_image_url?: string;
+    featured_image?: any;
+    publish_date?: string;
+    read_time?: number;
+    featured?: boolean;
+}
+
+let articles: Article[] = [];
+try {
+    const strapiArticles = await getCollection("articles");
+    if (strapiArticles && strapiArticles.length > 0) {
+        articles = strapiArticles.map((a: any) => {
+            const data = a.data;
+            let imageUrl = data.featured_image_url;
+            if (data.featured_image?.url) {
+                imageUrl = data.featured_image.url.startsWith("http")
+                    ? data.featured_image.url
+                    : `${STRAPI_URL}${data.featured_image.url}`;
+            }
+            return { ...data, featured_image_url: imageUrl };
+        });
+    }
+} catch (e) {
+    console.warn("Could not fetch articles from Strapi, using fallback data");
+}
+
+// Fallback static data
+if (articles.length === 0) {
+    articles = [
+        {
+            title: "Jak sztuczna inteligencja zmienia strategie w social media marketingu?",
+            slug: "ai-zmienia-social-media-marketing",
+            excerpt: "Poznaj najnowsze narzędzia i techniki wykorzystania AI w planowaniu komunikacji w mediach społecznościowych. Od generowania treści po zaawansowaną analitykę sentymentu.",
+            category: "Social Media",
+            author_name: "dr Jan Kowalski",
+            featured_image_url: "https://lh3.googleusercontent.com/aida-public/AB6AXuAQvQHJiQPL2Pxs6EomE_3Y-yFtua8jaC9DvOXmugCkc-TgXlSSrkS24k60_lyyD6mYaUuDnhAv2f_qaIRm6z5UamcG_ZFZ2VgjaxNR4Fr8OZur-ldeMcnIj7is_WRQbNT2LKAV9WsCSzcY8wYraZNVxNUBFr_lKKJb00J_-XVtYBsL0J7Brwh_6z6ryhGp8fCjAYzAoi6_B3YNN2G5PEkGAcLPaHlOIm7dH9et6U8oNDd8UJ_Lgn79NtRJ_Hvo_OK5kyZ8ihr6FYg",
+            publish_date: "2024-06-24",
+            read_time: 5,
+            featured: true,
+        },
+        {
+            title: "Przyszłość e-marketingu: Kompetencje poszukiwane przez pracodawców",
+            slug: "kompetencje-e-marketing-pracodawcy",
+            excerpt: "Analiza rynku pracy pod kątem najbardziej pożądanych umiejętności w branży digital.",
+            category: "Kariera",
+            featured_image_url: "https://lh3.googleusercontent.com/aida-public/AB6AXuCEoG70Njkur1lN9s1vaQDx7uHOEY4Mc4wmCmi1z4ukg-1lVVvjWcB5JIT1NZhKQlq_C_or0SvOkTh6IQp4lda2rB46PSHte2_T1DsebWWUNjXDKc7rUUTvVjzn9xpFRW0Rx7g3_EqucJzv1A9A7ophcRHGrVk9MZ3zrSdCGFFv2iCvxwIZS4Q2VrtNEECSoqttm1qrHkCz-pW8DUENRVwkjwMNglnTDOxQExLi9WlsqMxTzF7w72OVMm9keEj5aZkrT_IuO7umnKY",
+            publish_date: "2024-06-18",
+            read_time: 4,
+            featured: false,
+        },
+        {
+            title: "Google Analytics 4 - co musisz wiedzieć po wdrożeniu?",
+            slug: "google-analytics-4-przewodnik",
+            excerpt: "Praktyczny przewodnik po najważniejszych raportach i metrykach w nowej odsłonie narzędzia.",
+            category: "Analityka",
+            featured_image_url: "https://lh3.googleusercontent.com/aida-public/AB6AXuDHf4apKGmaGxFR68nycqWiKIFzgoW1XFYi1paC1ef8_mRVyccjKKkU6ELiurBW5B2lnh1hyLveKKf_fZ7Ea5pzsq37v6-LErIiPtiBPXwjy8EuDJ-mV100Xx23YgoeoyqofDcWos9FplT_LHxy02RAXcEMFaSbszAf7Jtbsjpd1a5qJYi94RTiOyA-csIGpV1gEYP3srPXd-DiCsPTzg6OqW6cJCyxJIobJCMeZoejIzhGJoHx4d58nxcwcCyw6ocrUdAw7b-noPE",
+            publish_date: "2024-06-12",
+            read_time: 6,
+            featured: false,
+        },
+        {
+            title: "Psychologia koloru w reklamach na Instagramie",
+            slug: "psychologia-koloru-instagram",
+            excerpt: "Jak dobór palety barw wpływa na CTR i zaangażowanie użytkowników w kampaniach wizualnych.",
+            category: "Social Media",
+            featured_image_url: "https://lh3.googleusercontent.com/aida-public/AB6AXuDiQVHLXLX7aM9h66iuVA59T5x7FOe-9fPna6v5dmx0xLE-JC-gfLR8r_nBTPsTZeXZ3NSkDbSRyR1XxHqPT_Mnp8vB5mlPhJjciPPUdaTa-SvySGse2m1zWLV_RdfIMF1FCTUlCtETb9G4Nt87JVWsbp6Hrlqsvd-8ec68jiXQlrDwCv8-1eezaRW1bKuKCzWikjpHS5MTHJjaeh0pA9QD7JQU7IY0pUrmwSy1FfcBxV9ocCm1mSfbna2tJbtTNMKPyy6qBRtDKYs",
+            publish_date: "2024-06-05",
+            read_time: 4,
+            featured: false,
+        },
+        {
+            title: "UX Writing w sklepie internetowym - dobre praktyki",
+            slug: "ux-writing-sklep-internetowy",
+            excerpt: "Słowa mają znaczenie. Jak projektować komunikaty, które prowadzą klienta do kasy.",
+            category: "E-commerce",
+            featured_image_url: "https://lh3.googleusercontent.com/aida-public/AB6AXuD1bd2ysHtCkIUvbo20_hH3ISPmQzPNrgsTSys176SjbNR9tOQBVLpjit-dQUWeFrDsdDYEmEyEEOiSBf0Y0jzp0IwQK8HhWL2rfrpBzWyw3IenlS3vWc9o7BRUZE8hOXixv4FeX1zlCoYNFB97RPLi97PkJ6dmRcU9puZTaASEyIeLZbDebXUdQxnflEcX0GsrBhq79noDKHqK-yPa-VDkOu4E4nnqo5vkDpmXnAb2EzWSh928Y5a4V2grNKf7dHaW6g2pbIRd2HI",
+            publish_date: "2024-05-28",
+            read_time: 5,
+            featured: false,
+        },
+        {
+            title: "Aktualizacja algorytmu Google - Marzec 2024",
+            slug: "aktualizacja-algorytmu-google-marzec-2024",
+            excerpt: "Co zmieniło się w rankingowaniu stron i jak przygotować serwis na nowe wytyczne jakościowe.",
+            category: "SEO",
+            featured_image_url: "https://lh3.googleusercontent.com/aida-public/AB6AXuDMv8D54-J8y_8jKxH5LG-Zc7hIVQUQepSkCFxUPRZPuTvi8rZDQS8B1zzMOsAq4gM_P4931oPiCgDsLgtQvKy3Qy_YEUWhVJ_yET6DvtNpmGQCzZ6tQERQO_cDOBoPS8ivolaQjiWGXYHTjDJCLp3mwVUS2NmZyRQyFJygcifXjeCGJgrhgPBvIJAkdf0v2ygTk0PfgVcc8vVmRWhcxgA-Z-ifTZK4YdiVBxTuq1TgfAw8LoxvrK4C3-ePylLVyqTem4ds9Apbba4",
+            publish_date: "2024-05-20",
+            read_time: 6,
+            featured: false,
+        },
+        {
+            title: "Budowanie lejka sprzedażowego B2B na LinkedIn",
+            slug: "lejek-sprzedazowy-b2b-linkedin",
+            excerpt: "Od personal brandingu do lead generation. Skuteczne taktyki social sellingu.",
+            category: "Strategia",
+            featured_image_url: "https://lh3.googleusercontent.com/aida-public/AB6AXuC42OX6hWFZmNFU0B9azRP_8ysWVSuEa-ZIcEQUMh6KImO6U3ftlV99yGey-9eDyVS83EbNWhnMHd_m0YsnMGaVKhlaaLLczs6T7-AEIdxR1GniVk90cE9Z1TbfHvgq8UOp1Mt-DZNpOWEuJQ_viWR4fGd54PyUigHRu44pxwMc_4eYA5h5k6wgW1UigxqgQdcPniGpTri55i2sHfNfKhMlbXBwEGOXOj9shG6av8608EDiEotAQrvwc-sF4EmNXh7J31u1ImHzxTI",
+            publish_date: "2024-05-15",
+            read_time: 7,
+            featured: false,
+        },
+    ];
+}
+
+const featuredArticle = articles.find(a => a.featured) || articles[0];
+const regularArticles = articles.filter(a => a !== featuredArticle);
+
+// Get unique categories
+const categories = [...new Set(articles.map(a => a.category).filter(Boolean))];
+
+function formatDate(dateStr?: string) {
+    if (!dateStr) return "";
+    const date = new Date(dateStr);
+    return date.toLocaleDateString("pl-PL", { day: "numeric", month: "long", year: "numeric" });
+}
+---
+
+<!-- Header section -->
+<section class="max-w-[1280px] mx-auto px-6 lg:px-20 pt-12 pb-8">
+    <div class="border-b border-[#e6dbdb] dark:border-[#3d2a2a] pb-6 flex flex-col md:flex-row justify-between items-end gap-4">
+        <div>
+            <p class="text-primary font-bold uppercase tracking-widest text-xs mb-2">Blog edukacyjny</p>
+            <h1 class="text-3xl lg:text-5xl font-black tracking-tight text-[#181111] dark:text-white">
+                Baza wiedzy i aktualności
+            </h1>
+        </div>
+        <div class="flex gap-2 text-sm font-medium flex-wrap">
+            <a class="px-4 py-2 rounded-full bg-primary text-white" href="/blog">Wszystkie</a>
+            {categories.map(cat => (
+                <span class="px-4 py-2 rounded-full bg-white dark:bg-white/5 border border-[#e6dbdb] dark:border-[#3d2a2a] hover:border-primary/50 transition-colors cursor-default">{cat}</span>
+            ))}
+        </div>
+    </div>
+</section>
+
+<!-- Featured article -->
+{featuredArticle && (
+<section class="max-w-[1280px] mx-auto px-6 lg:px-20 pb-12">
+    <a href={`/blog/${featuredArticle.slug}`} class="group relative rounded-3xl overflow-hidden bg-white dark:bg-[#1a0c0c] border border-[#e6dbdb] dark:border-[#3d2a2a] shadow-lg hover:shadow-xl transition-all block">
+        <div class="grid grid-cols-1 lg:grid-cols-2">
+            <div class="aspect-[16/10] lg:aspect-auto lg:min-h-[400px] w-full overflow-hidden">
+                <div class="h-full w-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style={`background-image: url("${featuredArticle.featured_image_url}");`}>
+                </div>
+            </div>
+            <div class="p-8 lg:p-12 flex flex-col justify-center">
+                <div class="flex items-center gap-3 text-xs font-bold uppercase tracking-wider mb-4">
+                    <span class="text-primary">{featuredArticle.category}</span>
+                    <span class="w-1 h-1 rounded-full bg-gray-300"></span>
+                    <span class="text-gray-500">{formatDate(featuredArticle.publish_date)}</span>
+                </div>
+                <h2 class="text-2xl lg:text-4xl font-black mb-4 leading-tight group-hover:text-primary transition-colors">
+                    {featuredArticle.title}
+                </h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-8 line-clamp-3 leading-relaxed">
+                    {featuredArticle.excerpt}
+                </p>
+                <div>
+                    <span class="inline-flex items-center gap-2 text-primary font-bold text-sm uppercase tracking-widest group-hover:gap-3 transition-all">
+                        Czytaj więcej <span class="material-symbols-outlined text-lg">arrow_forward</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </a>
+</section>
+)}
+
+<!-- Articles grid -->
+<section class="max-w-[1280px] mx-auto px-6 lg:px-20 pb-20">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {regularArticles.map(article => (
+            <article class="flex flex-col group h-full">
+                <a href={`/blog/${article.slug}`} class="block">
+                    <div class="aspect-[16/10] rounded-2xl overflow-hidden mb-4 bg-gray-100 dark:bg-gray-800 relative">
+                        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" style={`background-image: url("${article.featured_image_url}");`}></div>
+                        {article.category && (
+                            <div class="absolute top-4 left-4">
+                                <span class="px-3 py-1 bg-white/90 dark:bg-black/80 backdrop-blur-sm rounded-lg text-xs font-bold uppercase tracking-wider text-primary">{article.category}</span>
+                            </div>
+                        )}
+                    </div>
+                </a>
+                <div class="flex-1 flex flex-col">
+                    <div class="text-xs text-gray-500 font-medium mb-2">{formatDate(article.publish_date)}</div>
+                    <a href={`/blog/${article.slug}`}>
+                        <h3 class="text-xl font-bold mb-3 leading-tight group-hover:text-primary transition-colors">
+                            {article.title}
+                        </h3>
+                    </a>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm line-clamp-2 mb-4">
+                        {article.excerpt}
+                    </p>
+                    <div class="mt-auto pt-4 border-t border-gray-100 dark:border-white/5">
+                        <a class="text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all" href={`/blog/${article.slug}`}>
+                            Czytaj dalej <span class="material-symbols-outlined text-base">arrow_right_alt</span>
+                        </a>
+                    </div>
+                </div>
+            </article>
+        ))}
+    </div>
+</section>

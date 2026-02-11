@@ -1,0 +1,65 @@
+{
+    "kind": "collectionType",
+    "collectionName": "articles",
+    "info": {
+        "singularName": "article",
+        "pluralName": "articles",
+        "displayName": "Article",
+        "description": "Blog articles for the knowledge base."
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "title": {
+            "type": "string",
+            "required": true
+        },
+        "slug": {
+            "type": "uid",
+            "targetField": "title",
+            "required": true
+        },
+        "excerpt": {
+            "type": "text"
+        },
+        "content": {
+            "type": "richtext"
+        },
+        "category": {
+            "type": "string"
+        },
+        "author_name": {
+            "type": "string"
+        },
+        "author_role": {
+            "type": "string"
+        },
+        "author_bio": {
+            "type": "text"
+        },
+        "author_image_url": {
+            "type": "string"
+        },
+        "featured_image_url": {
+            "type": "string"
+        },
+        "featured_image": {
+            "type": "media",
+            "multiple": false,
+            "required": false
+        },
+        "publish_date": {
+            "type": "date"
+        },
+        "read_time": {
+            "type": "integer",
+            "default": 5
+        },
+        "featured": {
+            "type": "boolean",
+            "default": false
+        }
+    }
+}

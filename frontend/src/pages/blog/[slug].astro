@@ -1,0 +1,261 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { getCollection } from "astro:content";
+
+const STRAPI_URL = process.env.STRAPI_URL || import.meta.env.PUBLIC_STRAPI_URL || "http://localhost:1337";
+
+interface Article {
+    title: string;
+    slug: string;
+    excerpt?: string;
+    content?: string;
+    category?: string;
+    author_name?: string;
+    author_role?: string;
+    author_bio?: string;
+    author_image_url?: string;
+    featured_image_url?: string;
+    featured_image?: any;
+    publish_date?: string;
+    read_time?: number;
+    featured?: boolean;
+}
+
+// Fallback articles data
+const fallbackArticles: Article[] = [
+    {
+        title: "Przyszłość marketingu: Jak AI zmienia strategie cyfrowe w 2024 roku",
+        slug: "ai-zmienia-social-media-marketing",
+        excerpt: "Dynamiczny rozwój narzędzi opartych na sztucznej inteligencji redefiniuje pojęcie efektywności w marketingu cyfrowym.",
+        content: `<p class="lead text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">Dynamiczny rozwój narzędzi opartych na sztucznej inteligencji redefiniuje pojęcie efektywności w marketingu cyfrowym. Od automatyzacji prostych zadań po skomplikowane analizy predykcyjne – AI staje się nieodzownym elementem strategii każdej nowoczesnej organizacji.</p>
+
+<h2 class="text-2xl font-bold text-[#181111] dark:text-white mb-4 mt-12">Personalizacja na skalę masową</h2>
+<p class="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">Jeszcze kilka lat temu hiperpersonalizacja była dostępna tylko dla gigantów technologicznych dysponujących ogromnymi budżetami. Dziś, dzięki demokratyzacji narzędzi AI, nawet mniejsze firmy mogą dostarczać treści dopasowane do indywidualnych preferencji użytkownika w czasie rzeczywistym. Algorytmy analizują historię przeglądania, wcześniejsze zakupy i interakcje, by przewidzieć, co klient będzie chciał zobaczyć w następnej kolejności.</p>
+
+<blockquote class="my-10 pl-6 border-l-4 border-primary italic text-xl text-gray-800 dark:text-gray-200 bg-background-light dark:bg-background-dark/50 p-6 rounded-r-lg">"Sztuczna inteligencja nie zastąpi marketerów, ale marketerzy używający sztucznej inteligencji zastąpią tych, którzy jej nie używają."</blockquote>
+
+<h2 class="text-2xl font-bold text-[#181111] dark:text-white mb-4 mt-12">Kluczowe obszary transformacji</h2>
+<p class="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">Wdrożenie rozwiązań AI w dziale marketingu to proces wieloetapowy. Warto skupić się na obszarach, które przynoszą najszybszy zwrot z inwestycji (ROI). Na naszych studiach podyplomowych szczegółowo omawiamy następujące aspekty:</p>
+
+<ul class="space-y-4 mb-8">
+    <li class="flex gap-3"><span class="text-primary material-symbols-outlined mt-0.5">check_circle</span><span class="text-gray-700 dark:text-gray-300"><strong>Generowanie treści (Generative AI):</strong> Szybkie tworzenie opisów produktów, postów w social media i szkiców artykułów blogowych.</span></li>
+    <li class="flex gap-3"><span class="text-primary material-symbols-outlined mt-0.5">check_circle</span><span class="text-gray-700 dark:text-gray-300"><strong>Analityka predykcyjna:</strong> Prognozowanie trendów sprzedażowych i zachowań klientów na podstawie danych historycznych.</span></li>
+    <li class="flex gap-3"><span class="text-primary material-symbols-outlined mt-0.5">check_circle</span><span class="text-gray-700 dark:text-gray-300"><strong>Chatboty i obsługa klienta:</strong> Inteligentni asystenci dostępni 24/7, którzy potrafią rozwiązywać złożone problemy użytkowników.</span></li>
+</ul>
+
+<h2 class="text-2xl font-bold text-[#181111] dark:text-white mb-4 mt-12">Wyzwania etyczne i prawne</h2>
+<p class="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">Wdrażanie AI wiąże się również z nowymi wyzwaniami. Kwestie praw autorskich do treści generowanych przez maszyny, transparentność algorytmów oraz ochrona danych osobowych to tematy, które każdy e-marketer musi brać pod uwagę. Rozporządzenia takie jak AI Act w Unii Europejskiej wyznaczają nowe ramy prawne, w których musimy się poruszać.</p>
+
+<p class="text-gray-600 dark:text-gray-300 leading-relaxed">Podsumowując, rok 2024 to czas, w którym eksperymenty z AI przechodzą w fazę dojrzałych wdrożeń biznesowych. Gotowość do adaptacji tych technologii będzie kluczowym czynnikiem konkurencyjności na rynku pracy.</p>`,
+        category: "Sztuczna Inteligencja",
+        author_name: "dr Jan Kowalski",
+        author_role: "Wykładowca PWr / Ekspert Strategii Cyfrowej",
+        author_bio: "Specjalizuje się w wykorzystaniu sztucznej inteligencji w procesach biznesowych. Prowadzi zajęcia z zakresu \"Technologia i AI w marketingu\" na studiach podyplomowych Praktyczny e-marketing. Doradza firmom z sektora e-commerce w zakresie transformacji cyfrowej.",
+        author_image_url: "https://lh3.googleusercontent.com/aida-public/AB6AXuBugX0m8LN54jID6PeY8b1cg6aTnADeoKLnAgx7oWKCc3Cg9c7OpXw6RQST8o5VIEPvKmJgE56Vzvjz29ezu-fXMKRJUkhCKa4UUJD9_-vrZkfikG5Bs_mlNSWWi65B_zxVh8Wc6ZPad9DGNEXOu-TVopZVCPOyfTwuZNts_Yp7km-w5RAg55QIw-s54Ernsy8Splpu8dAEkJOmhStjSOoNMMhS84-iVISpqOBcBRQqJ2G-FxN2ZWa-ljQqY6kkIlltfFvZoY2xuQ0",
+        featured_image_url: "https://lh3.googleusercontent.com/aida-public/AB6AXuAQvQHJiQPL2Pxs6EomE_3Y-yFtua8jaC9DvOXmugCkc-TgXlSSrkS24k60_lyyD6mYaUuDnhAv2f_qaIRm6z5UamcG_ZFZ2VgjaxNR4Fr8OZur-ldeMcnIj7is_WRQbNT2LKAV9WsCSzcY8wYraZNVxNUBFr_lKKJb00J_-XVtYBsL0J7Brwh_6z6ryhGp8fCjAYzAoi6_B3YNN2G5PEkGAcLPaHlOIm7dH9et6U8oNDd8UJ_Lgn79NtRJ_Hvo_OK5kyZ8ihr6FYg",
+        publish_date: "2024-03-14",
+        read_time: 5,
+        featured: true,
+    },
+    {
+        title: "Przyszłość e-marketingu: Kompetencje poszukiwane przez pracodawców",
+        slug: "kompetencje-e-marketing-pracodawcy",
+        excerpt: "Analiza rynku pracy pod kątem najbardziej pożądanych umiejętności w branży digital.",
+        content: "<p class='text-gray-600 dark:text-gray-300 leading-relaxed'>Analiza rynku pracy pod kątem najbardziej pożądanych umiejętności w branży digital.</p>",
+        category: "Kariera",
+        author_name: "dr Jan Kowalski",
+        author_role: "Wykładowca PWr",
+        featured_image_url: "https://lh3.googleusercontent.com/aida-public/AB6AXuCEoG70Njkur1lN9s1vaQDx7uHOEY4Mc4wmCmi1z4ukg-1lVVvjWcB5JIT1NZhKQlq_C_or0SvOkTh6IQp4lda2rB46PSHte2_T1DsebWWUNjXDKc7rUUTvVjzn9xpFRW0Rx7g3_EqucJzv1A9A7ophcRHGrVk9MZ3zrSdCGFFv2iCvxwIZS4Q2VrtNEECSoqttm1qrHkCz-pW8DUENRVwkjwMNglnTDOxQExLi9WlsqMxTzF7w72OVMm9keEj5aZkrT_IuO7umnKY",
+        publish_date: "2024-06-18",
+        read_time: 4,
+    },
+    {
+        title: "Google Analytics 4 - co musisz wiedzieć po wdrożeniu?",
+        slug: "google-analytics-4-przewodnik",
+        excerpt: "Praktyczny przewodnik po najważniejszych raportach i metrykach w nowej odsłonie narzędzia.",
+        content: "<p class='text-gray-600 dark:text-gray-300 leading-relaxed'>Praktyczny przewodnik po najważniejszych raportach i metrykach w nowej odsłonie narzędzia.</p>",
+        category: "Analityka",
+        author_name: "dr Jan Kowalski",
+        author_role: "Wykładowca PWr",
+        featured_image_url: "https://lh3.googleusercontent.com/aida-public/AB6AXuDHf4apKGmaGxFR68nycqWiKIFzgoW1XFYi1paC1ef8_mRVyccjKKkU6ELiurBW5B2lnh1hyLveKKf_fZ7Ea5pzsq37v6-LErIiPtiBPXwjy8EuDJ-mV100Xx23YgoeoyqofDcWos9FplT_LHxy02RAXcEMFaSbszAf7Jtbsjpd1a5qJYi94RTiOyA-csIGpV1gEYP3srPXd-DiCsPTzg6OqW6cJCyxJIobJCMeZoejIzhGJoHx4d58nxcwcCyw6ocrUdAw7b-noPE",
+        publish_date: "2024-06-12",
+        read_time: 6,
+    },
+    {
+        title: "Budowanie lejka sprzedażowego B2B na LinkedIn",
+        slug: "lejek-sprzedazowy-b2b-linkedin",
+        excerpt: "Od personal brandingu do lead generation. Skuteczne taktyki social sellingu.",
+        content: "<p class='text-gray-600 dark:text-gray-300 leading-relaxed'>Od personal brandingu do lead generation. Skuteczne taktyki social sellingu.</p>",
+        category: "Strategia",
+        author_name: "dr Jan Kowalski",
+        author_role: "Wykładowca PWr",
+        featured_image_url: "https://lh3.googleusercontent.com/aida-public/AB6AXuC42OX6hWFZmNFU0B9azRP_8ysWVSuEa-ZIcEQUMh6KImO6U3ftlV99yGey-9eDyVS83EbNWhnMHd_m0YsnMGaVKhlaaLLczs6T7-AEIdxR1GniVk90cE9Z1TbfHvgq8UOp1Mt-DZNpOWEuJQ_viWR4fGd54PyUigHRu44pxwMc_4eYA5h5k6wgW1UigxqgQdcPniGpTri55i2sHfNfKhMlbXBwEGOXOj9shG6av8608EDiEotAQrvwc-sF4EmNXh7J31u1ImHzxTI",
+        publish_date: "2024-05-15",
+        read_time: 7,
+    },
+];
+
+let articles: Article[] = [];
+try {
+    const strapiArticles = await getCollection("articles");
+    if (strapiArticles && strapiArticles.length > 0) {
+        articles = strapiArticles.map((a: any) => {
+            const data = a.data;
+            let imageUrl = data.featured_image_url;
+            if (data.featured_image?.url) {
+                imageUrl = data.featured_image.url.startsWith("http")
+                    ? data.featured_image.url
+                    : `${STRAPI_URL}${data.featured_image.url}`;
+            }
+            let authorImageUrl = data.author_image_url;
+            return { ...data, featured_image_url: imageUrl, author_image_url: authorImageUrl };
+        });
+    }
+} catch (e) {
+    console.warn("Could not fetch articles from Strapi, using fallback data");
+}
+
+if (articles.length === 0) {
+    articles = fallbackArticles;
+}
+
+export function getStaticPaths() {
+    // Return fallback paths - Strapi articles will also generate paths at build time
+    return [
+        { params: { slug: "ai-zmienia-social-media-marketing" } },
+        { params: { slug: "kompetencje-e-marketing-pracodawcy" } },
+        { params: { slug: "google-analytics-4-przewodnik" } },
+        { params: { slug: "psychologia-koloru-instagram" } },
+        { params: { slug: "ux-writing-sklep-internetowy" } },
+        { params: { slug: "aktualizacja-algorytmu-google-marzec-2024" } },
+        { params: { slug: "lejek-sprzedazowy-b2b-linkedin" } },
+    ];
+}
+
+const { slug } = Astro.params;
+const article = articles.find(a => a.slug === slug);
+
+if (!article) {
+    return Astro.redirect("/blog");
+}
+
+// Get related articles (same category, excluding current)
+const relatedArticles = articles
+    .filter(a => a.slug !== slug && a.category === article.category)
+    .slice(0, 3);
+
+// If not enough related by category, fill with other articles
+const moreArticles = relatedArticles.length < 3
+    ? [...relatedArticles, ...articles.filter(a => a.slug !== slug && !relatedArticles.includes(a)).slice(0, 3 - relatedArticles.length)]
+    : relatedArticles;
+
+function formatDate(dateStr?: string) {
+    if (!dateStr) return "";
+    const date = new Date(dateStr);
+    return date.toLocaleDateString("pl-PL", { day: "numeric", month: "long", year: "numeric" });
+}
+---
+
+<Layout title={`${article.title} | Blog - Politechnika Wrocławska`}>
+    <Header />
+    <main class="flex-1">
+        <!-- Article header -->
+        <section class="max-w-[1280px] mx-auto px-6 lg:px-20 pt-16 pb-12 max-w-4xl text-center">
+            {article.category && (
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider mb-6">
+                    <span class="material-symbols-outlined text-sm">label</span>
+                    {article.category}
+                </div>
+            )}
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-[#181111] dark:text-white leading-tight mb-6">
+                {article.title}
+            </h1>
+            <div class="flex flex-wrap items-center justify-center gap-6 text-sm text-gray-500 dark:text-gray-400">
+                {article.publish_date && (
+                    <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-lg">calendar_today</span>
+                        <span>{formatDate(article.publish_date)}</span>
+                    </div>
+                )}
+                {article.read_time && (
+                    <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-lg">schedule</span>
+                        <span>{article.read_time} min czytania</span>
+                    </div>
+                )}
+                {article.author_name && (
+                    <div class="flex items-center gap-2">
+                        {article.author_image_url && (
+                            <div class="size-6 rounded-full bg-gray-200 overflow-hidden">
+                                <img alt={article.author_name} class="w-full h-full object-cover" src={article.author_image_url} />
+                            </div>
+                        )}
+                        <span class="font-medium text-[#181111] dark:text-white">{article.author_name}</span>
+                    </div>
+                )}
+            </div>
+        </section>
+
+        <!-- Featured image -->
+        {article.featured_image_url && (
+        <section class="max-w-[1280px] mx-auto px-6 lg:px-20 mb-16">
+            <div class="aspect-[21/9] w-full bg-cover bg-center rounded-[2rem] shadow-xl overflow-hidden relative" style={`background-image: url("${article.featured_image_url}");`}>
+                <div class="absolute inset-0 bg-black/10"></div>
+            </div>
+        </section>
+        )}
+
+        <!-- Article content -->
+        <article class="max-w-[1280px] mx-auto px-6 lg:px-20 mb-20">
+            <div class="max-w-3xl mx-auto prose prose-lg prose-slate dark:prose-invert">
+                <Fragment set:html={article.content} />
+            </div>
+
+            <!-- Author card -->
+            {article.author_name && (
+            <div class="max-w-3xl mx-auto mt-16 bg-white dark:bg-[#1a0c0c] border border-[#e6dbdb] dark:border-[#3d2a2a] rounded-2xl p-8 flex flex-col sm:flex-row gap-6 items-center sm:items-start text-center sm:text-left">
+                {article.author_image_url && (
+                    <div class="size-20 shrink-0 rounded-full bg-gray-200 overflow-hidden ring-4 ring-primary/10">
+                        <img alt={article.author_name} class="w-full h-full object-cover" src={article.author_image_url} />
+                    </div>
+                )}
+                <div>
+                    <h3 class="text-lg font-bold text-[#181111] dark:text-white mb-1">{article.author_name}</h3>
+                    {article.author_role && (
+                        <p class="text-xs font-semibold text-primary uppercase tracking-wider mb-3">{article.author_role}</p>
+                    )}
+                    {article.author_bio && (
+                        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{article.author_bio}</p>
+                    )}
+                </div>
+            </div>
+            )}
+        </article>
+
+        <!-- Related articles -->
+        {moreArticles.length > 0 && (
+        <section class="px-6 lg:px-20 py-16 border-t border-[#e6dbdb] dark:border-[#3d2a2a] bg-white dark:bg-[#1a0c0c]">
+            <div class="max-w-[1280px] mx-auto">
+                <h3 class="text-2xl font-bold mb-8 text-[#181111] dark:text-white">Zobacz także</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {moreArticles.map(related => (
+                        <a class="group block" href={`/blog/${related.slug}`}>
+                            <div class="aspect-video bg-gray-100 rounded-xl overflow-hidden mb-4 relative">
+                                <div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" style={`background-image: url("${related.featured_image_url}");`}></div>
+                            </div>
+                            {related.category && (
+                                <div class="text-xs font-bold text-primary mb-2 uppercase">{related.category}</div>
+                            )}
+                            <h4 class="font-bold text-lg leading-snug group-hover:text-primary transition-colors mb-2">{related.title}</h4>
+                            <p class="text-sm text-gray-500">{formatDate(related.publish_date)}</p>
+                        </a>
+                    ))}
+                </div>
+            </div>
+        </section>
+        )}
+    </main>
+    <Footer />
+</Layout>

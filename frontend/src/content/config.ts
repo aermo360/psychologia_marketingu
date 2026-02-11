@@ -62,8 +62,28 @@ const lecturers = defineCollection({
     })
 });
 
+const articles = defineCollection({
+    loader: customStrapiLoader("articles", "&sort=publish_date:desc"),
+    schema: z.object({
+        title: z.string(),
+        slug: z.string(),
+        excerpt: z.string().nullable().optional(),
+        content: z.string().nullable().optional(),
+        category: z.string().nullable().optional(),
+        author_name: z.string().nullable().optional(),
+        author_role: z.string().nullable().optional(),
+        author_bio: z.string().nullable().optional(),
+        author_image_url: z.string().nullable().optional(),
+        featured_image_url: z.string().nullable().optional(),
+        featured_image: z.any().nullable().optional(),
+        publish_date: z.string().nullable().optional(),
+        read_time: z.number().nullable().optional().default(5),
+        featured: z.boolean().nullable().optional().default(false),
+    })
+});
+
 export const collections = {
     modules,
     lecturers,
-    // 'global-setting': globalSettings
+    articles,
 };
