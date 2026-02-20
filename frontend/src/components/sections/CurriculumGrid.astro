@@ -1,23 +1,5 @@
 ---
-import { getCollection } from "astro:content";
-
-let modules = [];
-
-try {
-    // Attempt to fetch from Strapi via Content Collections
-    const strapiModules = await getCollection("modules");
-    if (strapiModules && strapiModules.length > 0) {
-        modules = strapiModules.map((m: any) => m.data);
-    }
-} catch (e) {
-    console.warn(
-        "Could not fetch modules from Strapi. Ensure Strapi is running and 'modules' collection is populated.",
-    );
-}
-
-// Fallback static data if Strapi is empty or fails
-if (modules.length === 0) {
-    modules = [
+const modules = [
         {
             title: "Strategia i zarządzanie marketingiem cyfrowym",
             icon: "insights",
@@ -68,7 +50,6 @@ if (modules.length === 0) {
             ],
         },
     ];
-}
 ---
 
 <section class="max-w-[1280px] mx-auto px-6 lg:px-20 py-10" id="program">
