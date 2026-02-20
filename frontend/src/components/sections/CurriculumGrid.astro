@@ -19,39 +19,52 @@ try {
 if (modules.length === 0) {
     modules = [
         {
-            title: "Strategia",
+            title: "Strategia i zarządzanie marketingiem cyfrowym",
             icon: "insights",
             courses: [
-                { name: "SEO / SEM" },
-                { name: "Marketing B2B" },
-                { name: "Strategia komunikacji" },
+                { name: "Strategia i planowanie e-marketingowe" },
+                { name: "Branding w internecie" },
+                { name: "Account based marketing i strategie e-marketingowe B2B" },
             ],
         },
         {
-            title: "Content i Social",
+            title: "Content, komunikacja i social media",
             icon: "campaign",
             courses: [
-                { name: "Social Media Ads" },
-                { name: "Branding & Design" },
-                { name: "Videomarketing i PR" },
+                { name: "Tworzenie nowoczesnych treści internetowych SEO i content marketing" },
+                { name: "Social media" },
+                { name: "Videomarketing" },
+                { name: "E-PR" },
+                { name: "Influencer marketing" },
+                { name: "Email marketing" },
             ],
         },
         {
-            title: "Technologia i AI",
+            title: "Performance marketing i kanały wzrostu",
+            icon: "trending_up",
+            courses: [
+                { name: "Płatne kampanie reklamowe PPC" },
+                { name: "Marketing afiliacyjny" },
+                { name: "Growth hacking" },
+            ],
+        },
+        {
+            title: "Technologia, AI i ekosystem martech",
             icon: "smart_toy",
             courses: [
-                { name: "AI w marketingu" },
-                { name: "E-commerce tools" },
-                { name: "Web Development" },
+                { name: "Marketing automation i big data" },
+                { name: "Wykorzystanie sztucznej inteligencji w online marketingu" },
+                { name: "Web development i e-commerce" },
+                { name: "CRM" },
             ],
         },
         {
-            title: "Analityka i UX",
+            title: "Analityka, badania i doświadczenie użytkownika",
             icon: "leaderboard",
             courses: [
-                { name: "UX / CX Design" },
-                { name: "Analityka danych" },
-                { name: "Badania marketingowe" },
+                { name: "E-badania marketingowe" },
+                { name: "Analityka internetowa" },
+                { name: "Projektowanie doświadczeń klientów (customer experience)" },
             ],
         },
     ];
@@ -68,7 +81,7 @@ if (modules.length === 0) {
             nowoczesnego e-marketingu, przygotowany przez praktyków rynkowych.
         </p>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {
             modules.map((module: any) => (
                 <div class="group bg-white dark:bg-[#1a0c0c] p-8 rounded-2xl border border-[#e6dbdb] dark:border-[#3d2a2a] hover:border-primary/50 transition-all shadow-sm flex flex-col">
