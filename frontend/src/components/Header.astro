@@ -9,8 +9,8 @@
         class="max-w-[1280px] mx-auto px-6 lg:px-20 h-16 flex items-center justify-between"
     >
         <a href="/" class="flex items-center">
-            <img src="/logo-pwr-color.png" alt="Politechnika Wrocławska" class="h-12 dark:hidden" />
-            <img src="/logo-pwr-white.png" alt="Politechnika Wrocławska" class="h-12 hidden dark:block" />
+            <img src="/logo-pwr-color.png" alt="Politechnika Wrocławska" class="h-14 dark:hidden" />
+            <img src="/logo-pwr-white.png" alt="Politechnika Wrocławska" class="h-14 hidden dark:block" />
         </a>
         <div class="hidden md:flex items-center gap-8">
             <nav class="flex gap-6">
@@ -26,10 +26,12 @@
                     class="text-sm font-medium hover:text-primary transition-colors"
                     href="/#rekrutacja">Rekrutacja</a
                 >
-                <a
-                    class="text-sm font-medium hover:text-primary transition-colors"
-                    href="/blog">Blog</a
-                >
+                <span class="relative">
+                    <span
+                        class="text-sm font-medium text-gray-400 dark:text-gray-600 cursor-default"
+                    >Blog</span>
+                    <span class="absolute -top-3 -right-6 bg-primary text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full leading-none">wkr&oacute;tce</span>
+                </span>
                 <a
                     class="text-sm font-medium hover:text-primary transition-colors"
                     href="/faq">FAQ</a
@@ -81,10 +83,10 @@
             class="mobile-link text-2xl font-bold border-b pb-4 border-gray-100 dark:border-gray-800 text-[#181111] dark:text-white"
             href="/#rekrutacja">Rekrutacja</a
         >
-        <a
-            class="mobile-link text-2xl font-bold border-b pb-4 border-gray-100 dark:border-gray-800 text-[#181111] dark:text-white"
-            href="/blog">Blog</a
-        >
+        <span class="relative text-2xl font-bold border-b pb-4 border-gray-100 dark:border-gray-800 text-gray-400 dark:text-gray-600">
+            Blog
+            <span class="absolute -top-2 ml-2 bg-primary text-white text-[10px] font-bold px-2 py-0.5 rounded-full leading-none">wkr&oacute;tce</span>
+        </span>
         <a
             class="mobile-link text-2xl font-bold border-b pb-4 border-gray-100 dark:border-gray-800 text-[#181111] dark:text-white"
             href="/faq">FAQ</a
