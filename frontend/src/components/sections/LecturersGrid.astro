@@ -112,7 +112,7 @@ if (lecturers.length === 0) {
             {
                 lecturers.map((lecturer: any) => (
                     <div class="flex flex-col gap-4 p-5 bg-white dark:bg-background-dark/40 rounded-xl border border-[#f4f0f0] dark:border-[#3d2a2a] shadow-sm hover:shadow-md hover:-translate-y-1 transition-all">
-                        <div class="w-full aspect-[4/5] rounded-lg overflow-hidden grayscale hover:grayscale-0 transition-all duration-500">
+                        <div class="w-full aspect-[4/5] rounded-lg overflow-hidden md:grayscale hover:grayscale-0 transition-all duration-500">
                             <img
                                 src={lecturer.finalImageUrl || lecturer.image_url}
                                 alt={`${lecturer.name} - ${lecturer.role}`}

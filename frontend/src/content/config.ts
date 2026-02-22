@@ -1,11 +1,14 @@
 import { defineCollection, z } from 'astro:content';
 import { strapiLoader } from "strapi-community-astro-loader";
 
-// Environment check to avoid build errors if not set
-// In Docker (Node runtime), we use process.env. In Client (Vite), we use import.meta.env.
+// Prefer runtime env (Docker), fall back to Vite env, then localhost
 const STRAPI_URL = process.env.STRAPI_URL || import.meta.env.PUBLIC_STRAPI_URL || "http://localhost:1337";
 
-console.log("ASTRO CONFIG: Using Strapi URL:", STRAPI_URL);
+if (!STRAPI_URL || STRAPI_URL === "http://localhost:1337") {
+    console.warn("[Config] STRAPI_URL not set — using localhost fallback. Set PUBLIC_STRAPI_URL in .env.");
+} else {
+    console.log("[Config] Strapi URL:", STRAPI_URL);
+}
 
 // Custom simple loader to bypass library issues
 const customStrapiLoader = (contentType: string, queryParams: string = "") => async () => {
@@ -39,16 +42,7 @@ const customStrapiLoader = (contentType: string, queryParams: string = "") => as
     }
 };
 
-const modules = defineCollection({
-    loader: customStrapiLoader("modules"), // Strapi 5 API is pluralized
-    schema: z.object({
-        title: z.string(),
-        icon: z.string(),
-        courses: z.array(z.object({
-            name: z.string()
-        })).nullable().optional().default([]),
-    })
-});
+// Note: modules collection removed — CurriculumGrid uses static data (Strapi had outdated data)
 
 const lecturers = defineCollection({
     loader: customStrapiLoader("lecturers", "&sort=order:asc"),
@@ -83,7 +77,6 @@ const articles = defineCollection({
 });
 
 export const collections = {
-    modules,
     lecturers,
     articles,
 };

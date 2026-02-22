@@ -1,3 +1,6 @@
+/* Self-hosted Inter Variable font — eliminates Google Fonts IP transfer for body text */
+@import "@fontsource-variable/inter";
+
 @import "tailwindcss";
 @plugin "@tailwindcss/forms";
 @plugin "@tailwindcss/container-queries";
@@ -9,8 +12,8 @@
     --color-background-light: #f8f6f6;
     --color-background-dark: #221010;
 
-    --font-display: "Inter", sans-serif;
-    --font-sans: "Inter", sans-serif;
+    --font-display: "Inter Variable", "Inter", sans-serif;
+    --font-sans: "Inter Variable", "Inter", sans-serif;
 
     --radius-lg: 0.5rem;
     --radius-xl: 0.75rem;

@@ -1,11 +1,17 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-
+import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'http://praktycznymarketing.edu.pl',
+  site: 'https://praktycznymarketing.edu.pl',
+  integrations: [
+    sitemap({
+      // Exclude blog pages — blog not yet live ("wkrótce")
+      filter: (page) => !page.includes('/blog'),
+    }),
+  ],
   vite: {
     plugins: [tailwindcss()],
     server: {
@@ -16,7 +22,6 @@ export default defineConfig({
         'praktycznymarketing.edu.pl',
         'www.praktycznymarketing.edu.pl',
         'cms.praktycznymarketing.edu.pl',
-        '157.180.18.130',
         'localhost',
         '127.0.0.1'
       ]

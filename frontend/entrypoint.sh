@@ -1,3 +1,6 @@
+#!/bin/sh
+set -e
+
 echo "Current STRAPI_URL (Configured): $STRAPI_URL"
 
 # Resolve hostname to IP to avoid Node DNS issues in Alpine
