@@ -74,13 +74,21 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://praktycz
 		<meta property="twitter:description" content={description} />
 		<meta property="twitter:image" content={image} />
 
-		<!-- Material Symbols (icon subset only — reduces payload ~90%) -->
+		<!-- Material Symbols (icon subset — loaded async to avoid render-blocking) -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
-			href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_back,arrow_forward,arrow_right_alt,calendar_today,call,campaign,check,check_circle,chevron_right,close,dark_mode,edit_note,expand_more,help_center,insights,label,leaderboard,light_mode,link,location_on,mail,menu,person,schedule,school,share,smart_toy,social_leaderboard,trending_up,videocam,workspace_premium&display=block"
-			rel="stylesheet"
+			rel="preload"
+			as="style"
+			href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_back,arrow_forward,arrow_right_alt,calendar_today,call,campaign,check,check_circle,chevron_right,close,dark_mode,edit_note,expand_more,help_center,insights,label,leaderboard,light_mode,link,location_on,mail,menu,person,schedule,school,share,smart_toy,social_leaderboard,trending_up,videocam,workspace_premium&display=swap"
+			onload="this.onload=null;this.rel='stylesheet'"
 		/>
+		<noscript>
+			<link
+				href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_back,arrow_forward,arrow_right_alt,calendar_today,call,campaign,check,check_circle,chevron_right,close,dark_mode,edit_note,expand_more,help_center,insights,label,leaderboard,light_mode,link,location_on,mail,menu,person,schedule,school,share,smart_toy,social_leaderboard,trending_up,videocam,workspace_premium&display=swap"
+				rel="stylesheet"
+			/>
+		</noscript>
 
 		<!-- Structured Data -->
 		<script type="application/ld+json" is:inline>
