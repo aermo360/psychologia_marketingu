@@ -1,5 +1,4 @@
-# robots.txt for Praktyczny e-marketing - PWr
 User-agent: *
 Allow: /
 
-Sitemap: http://praktycznymarketing.edu.pl/sitemap.xml
+Sitemap: https://psychologiamarketingu.edu.pl/sitemap.xml

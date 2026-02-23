@@ -2,83 +2,31 @@
 import { getCollection } from "astro:content";
 
 const STRAPI_URL = import.meta.env.PUBLIC_STRAPI_URL || "http://localhost:1337";
-let lecturers = [];
+let lecturers: any[] = [];
 
 try {
     const strapiLecturers = await getCollection("lecturers");
     if (strapiLecturers && strapiLecturers.length > 0) {
-        lecturers = strapiLecturers.map((l: any) => {
-            const data = l.data;
-            let finalImageUrl = data.image_url;
+        lecturers = strapiLecturers
+            .map((l: any) => {
+                const data = l.data;
+                let finalImageUrl = data.image_url;
 
-            if (data.image?.url) {
-                finalImageUrl = data.image.url.startsWith("http")
-                    ? data.image.url
-                    : `${STRAPI_URL}${data.image.url}`;
-            }
+                if (data.image?.url) {
+                    finalImageUrl = data.image.url.startsWith("http")
+                        ? data.image.url
+                        : `${STRAPI_URL}${data.image.url}`;
+                }
 
-            return {
-                ...data,
-                finalImageUrl,
-            };
-        });
+                return {
+                    ...data,
+                    finalImageUrl,
+                };
+            })
+            .sort((a: any, b: any) => (a.order || 99) - (b.order || 99));
     }
 } catch (e) {
     console.warn("Could not fetch lecturers from Strapi.");
-}
-
-// Fallback static data mimicking code1.html
-if (lecturers.length === 0) {
-    lecturers = [
-        {
-            name: "Jan Kowalski",
-            role: "Ekspert SEO & Content",
-            description:
-                "Specjalista z 15-letnim doświadczeniem w branży eCommerce, prowadzący projekty dla największych marek w Polsce. Autor licznych publikacji.",
-            image_url:
-                "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1000&auto=format&fit=crop",
-        },
-        {
-            name: "Anna Nowak",
-            role: "Strateg Marketingu",
-            description:
-                "Pasjonatka strategii komunikacji i budowania wizerunku marki w świecie cyfrowym z dorobkiem naukowym na Politechnice.",
-            image_url:
-                "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1000&auto=format&fit=crop",
-        },
-        {
-            name: "Piotr Wiśniewski",
-            role: "Social Media Specialist",
-            description:
-                "Praktyk z wieloletnim stażem w zarządzaniu kampaniami płatnymi. Optymalizuje budżety liczone w milionach złotych.",
-            image_url:
-                "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=1000&auto=format&fit=crop",
-        },
-        {
-            name: "Marta Wójcik",
-            role: "E-commerce Manager",
-            description:
-                "Ekspertka w optymalizacji procesów sprzedażowych oraz wdrażaniu nowoczesnych narzędzi technologicznych w e-handlu.",
-            image_url:
-                "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1000&auto=format&fit=crop",
-        },
-        {
-            name: "Tomasz Mazur",
-            role: "Content Strategist",
-            description:
-                "Twórca angażujących treści i strategii contentowych, które budują trwałe relacje z klientami i napędzają organiczny wzrost.",
-            image_url:
-                "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=1000&auto=format&fit=crop",
-        },
-        {
-            name: "K. Lewandowska",
-            role: "Performance Analyst",
-            description:
-                "Analityk danych zorientowany na wyniki, specjalizujący się w optymalizacji konwersji (CRO) i zwrotu z inwestycji (ROI).",
-            image_url:
-                "https://images.unsplash.com/photo-1598550832205-d5b5fe4a018b?q=80&w=1000&auto=format&fit=crop",
-        },
-    ].map((l) => ({ ...l, finalImageUrl: l.image_url }));
 }
 ---
 
@@ -94,20 +42,26 @@ if (lecturers.length === 0) {
                     Eksperci: doświadczeni praktycy i dydaktycy
                 </p>
             </div>
-            <h1
+            <h2
                 class="text-[#181111] dark:text-white text-4xl md:text-5xl font-black leading-tight tracking-[-0.033em]"
             >
                 Nasza kadra
-            </h1>
+            </h2>
             <p
                 class="text-[#896161] dark:text-[#b59a9a] text-lg font-normal leading-relaxed max-w-2xl"
             >
                 Poznaj zespół wybitnych wykładowców akademickich oraz cenionych
                 ekspertów z branży, którzy podzielą się z Tobą unikalną,
-                praktyczną wiedzą z zakresu marketingu cyfrowego.
+                praktyczną wiedzą z zakresu psychologii marketingu i komunikacji.
             </p>
         </div>
         <!-- ImageGrid / Teacher Cards -->
+        {lecturers.length === 0 ? (
+            <div class="mb-16 py-16 text-center border border-dashed border-[#e6dbdb] dark:border-[#3d2a2a] rounded-2xl">
+                <span class="material-symbols-outlined text-4xl text-gray-300 dark:text-gray-700 mb-3 block" aria-hidden="true">group</span>
+                <p class="text-gray-500 dark:text-gray-400">Profile wykładowców pojawią się wkrótce.</p>
+            </div>
+        ) : (
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
             {
                 lecturers.map((lecturer: any) => (
@@ -127,15 +81,6 @@ if (lecturers.length === 0) {
                                 <p class="text-primary text-xl font-bold leading-tight">
                                     {lecturer.name}
                                 </p>
-                                <a
-                                    class="text-[#896161] hover:text-[#0077b5] transition-colors p-2 -m-2"
-                                    href="#"
-                                    aria-label={`Udostępnij profil ${lecturer.name}`}
-                                >
-                                    <span class="material-symbols-outlined !text-[20px]">
-                                        share
-                                    </span>
-                                </a>
                             </div>
                             <p class="text-[#181111] dark:text-white text-sm font-semibold uppercase tracking-wider">
                                 {lecturer.role}
@@ -148,6 +93,7 @@ if (lecturers.length === 0) {
                 ))
             }
         </div>
+        )}
         <!-- CTASection -->
         <div
             class="rounded-2xl overflow-hidden bg-primary/5 dark:bg-primary/10 border border-primary/20 p-8 md:p-12 mb-16"
@@ -156,7 +102,7 @@ if (lecturers.length === 0) {
                 <h2
                     class="text-[#181111] dark:text-white text-3xl md:text-4xl font-black leading-tight tracking-tight max-w-[720px]"
                 >
-                    Zacznij swoją karierę w e-marketingu
+                    Zacznij swoją karierę w marketingu behawioralnym
                 </h2>
                 <p
                     class="text-[#896161] dark:text-[#b59a9a] text-lg font-normal leading-normal max-w-[600px]"
@@ -167,9 +113,9 @@ if (lecturers.length === 0) {
                 </p>
                 <a
                     class="flex min-w-[180px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-8 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:scale-105 transition-all shadow-lg shadow-primary/20"
-                    href="https://irk.usos.pwr.edu.pl/pl/offer/PDS_2025_2026/programme/PDS-PEMP-000P-NNPW2/?from=field:PEM"
+                    href="https://irk.usos.pwr.edu.pl/pl/offer/PDS_2025_2026/programme/PDS-PKMP-000P-NNPW2/?from=field:PKM"
                     target="_blank"
-                    rel="noopener"
+                    rel="noopener noreferrer"
                 >
                     <span class="truncate">Zapisz się teraz</span>
                 </a>

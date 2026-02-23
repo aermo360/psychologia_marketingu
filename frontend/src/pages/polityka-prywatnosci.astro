@@ -4,83 +4,82 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 ---
 
-<Layout title="Polityka prywatności - Praktyczny e-marketing | Politechnika Wrocławska">
+<Layout title="Polityka prywatności - Psychologia komunikacji marketingowej | Politechnika Wrocławska">
     <Header />
-    <main class="flex-1">
+    <main id="main-content" class="flex-1">
         <section class="max-w-[1280px] mx-auto px-6 lg:px-20 pt-16 pb-8">
-            <div class="flex items-center gap-2 text-sm text-gray-500 mb-6">
+            <nav aria-label="Breadcrumb" class="flex items-center gap-2 text-sm text-gray-500 mb-6">
                 <a class="hover:text-primary" href="/">Strona główna</a>
-                <span class="material-symbols-outlined text-xs">chevron_right</span>
-                <span class="text-gray-900 dark:text-white font-medium">Polityka prywatności</span>
-            </div>
+                <span class="material-symbols-outlined text-xs" aria-hidden="true">chevron_right</span>
+                <span class="text-gray-900 dark:text-white font-medium" aria-current="page">Polityka prywatności</span>
+            </nav>
             <h1 class="text-4xl lg:text-5xl font-black text-[#181111] dark:text-white tracking-tight mb-4">
                 Polityka prywatności
             </h1>
         </section>
 
         <section class="max-w-[1280px] mx-auto px-6 lg:px-20 pb-24">
-            <div class="max-w-3xl prose prose-gray dark:prose-invert prose-headings:font-bold prose-headings:text-gray-900 dark:prose-headings:text-white prose-a:text-primary">
-
-                <h2 class="text-2xl font-bold mt-8 mb-4 text-gray-900 dark:text-white">1. Administrator danych osobowych</h2>
-                <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-                    Administratorem danych osobowych jest Politechnika Wrocławska z siedzibą przy Wybrzeżu Wyspiańskiego 27, 50-370 Wrocław (dalej: „Administrator").
+            <div class="prose prose-lg dark:prose-invert max-w-3xl">
+                <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
+                    Niniejsza Polityka Prywatności określa zasady przetwarzania i ochrony danych osobowych przekazanych przez użytkowników w związku z korzystaniem ze strony internetowej studiów podyplomowych „Psychologia komunikacji marketingowej i zachowań konsumenckich" prowadzonych przez Politechnikę Wrocławską.
                 </p>
 
-                <h2 class="text-2xl font-bold mt-8 mb-4 text-gray-900 dark:text-white">2. Inspektor Ochrony Danych</h2>
-                <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-                    W sprawach związanych z ochroną danych osobowych można kontaktować się z Inspektorem Ochrony Danych Politechniki Wrocławskiej pod adresem e-mail: <a class="text-primary hover:underline" href="mailto:IOD@pwr.edu.pl">IOD@pwr.edu.pl</a>.
+                <h2 class="text-2xl font-bold mt-10 mb-4">1. Administrator danych</h2>
+                <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
+                    Administratorem danych osobowych jest Politechnika Wrocławska z siedzibą przy Wybrzeże Stanisława Wyspiańskiego 27, 50-370 Wrocław, NIP: 896-000-58-51.
                 </p>
 
-                <h2 class="text-2xl font-bold mt-8 mb-4 text-gray-900 dark:text-white">3. Cel i podstawa przetwarzania danych</h2>
-                <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">Dane osobowe przetwarzane są w celu:</p>
-                <ul class="list-disc pl-5 space-y-2 text-gray-600 dark:text-gray-400 mb-4">
-                    <li>przeprowadzenia procesu rekrutacji na studia podyplomowe „Praktyczny e-marketing" (art. 6 ust. 1 lit. b RODO),</li>
-                    <li>realizacji obowiązków prawnych ciążących na Administratorze (art. 6 ust. 1 lit. c RODO),</li>
-                    <li>prowadzenia analityki internetowej w celu poprawy jakości strony (art. 6 ust. 1 lit. f RODO).</li>
+                <h2 class="text-2xl font-bold mt-10 mb-4">2. Inspektor Ochrony Danych</h2>
+                <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
+                    W sprawach dotyczących przetwarzania danych osobowych można kontaktować się z Inspektorem Ochrony Danych Politechniki Wrocławskiej pod adresem e-mail: <a class="text-primary hover:underline" href="mailto:IOD@pwr.edu.pl">IOD@pwr.edu.pl</a>.
+                </p>
+
+                <h2 class="text-2xl font-bold mt-10 mb-4">3. Cel i podstawa przetwarzania danych</h2>
+                <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">Dane osobowe przetwarzane są w celu:</p>
+                <ul class="list-disc pl-6 space-y-2 text-gray-600 dark:text-gray-300 mb-6">
+                    <li>realizacji procesu rekrutacji na studia podyplomowe (art. 6 ust. 1 lit. b RODO),</li>
+                    <li>wypełnienia obowiązków prawnych ciążących na Administratorze (art. 6 ust. 1 lit. c RODO),</li>
+                    <li>udzielenia odpowiedzi na zapytania kierowane drogą elektroniczną lub telefoniczną (art. 6 ust. 1 lit. f RODO),</li>
+                    <li>prowadzenia analiz statystycznych ruchu na stronie internetowej (art. 6 ust. 1 lit. f RODO).</li>
                 </ul>
 
-                <h2 class="text-2xl font-bold mt-8 mb-4 text-gray-900 dark:text-white">4. Pliki cookies i zgoda</h2>
-                <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-                    Strona wykorzystuje pliki cookies. Pliki cookies to niewielkie pliki tekstowe przechowywane na urządzeniu użytkownika.
-                    Podczas pierwszej wizyty wyświetlamy baner z prośbą o zgodę na używanie plików cookies analitycznych.
-                </p>
-                <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">Używamy następujących rodzajów plików cookies:</p>
-                <ul class="list-disc pl-5 space-y-2 text-gray-600 dark:text-gray-400 mb-4">
-                    <li><strong>Niezbędne</strong> — zapewniają prawidłowe działanie strony (zapamiętanie preferencji motywu jasny/ciemny, zapamiętanie decyzji dotyczącej cookies). Nie wymagają zgody.</li>
-                    <li><strong>Analityczne (opcjonalne)</strong> — pomagają zrozumieć, jak użytkownicy korzystają ze strony (Google Analytics: <code>_ga</code>, <code>_ga_*</code>, okres ważności: 2 lata). Są aktywowane wyłącznie po udzieleniu zgody przez użytkownika.</li>
-                </ul>
-                <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-                    Zgodę można wycofać w każdej chwili poprzez wyczyszczenie danych localStorage w przeglądarce lub kontaktując się z nami.
+                <h2 class="text-2xl font-bold mt-10 mb-4">4. Pliki cookies i analityka</h2>
+                <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
+                    Strona wykorzystuje pliki cookies oraz narzędzie Google Analytics do celów statystycznych i analitycznych. Google Analytics zbiera anonimowe informacje o sposobie korzystania ze strony, takie jak liczba odwiedzin, czas spędzony na stronie oraz źródła ruchu. Dane te nie pozwalają na bezpośrednią identyfikację użytkownika. Użytkownik może zarządzać ustawieniami plików cookies w swojej przeglądarce internetowej.
                 </p>
 
-                <h2 class="text-2xl font-bold mt-8 mb-4 text-gray-900 dark:text-white">5. Google Analytics</h2>
-                <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-                    Strona korzysta z usługi Google Analytics (ID: G-KJ5FY3DR7Q) świadczonej przez Google LLC, 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA.
-                    Google Analytics jest uruchamiane wyłącznie po wyrażeniu zgody przez użytkownika (Consent Mode v2). Bez zgody żadne dane analityczne nie są zbierane ani przekazywane.
-                </p>
-                <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-                    Czcionki ikonowe (Material Symbols) pobierane są z serwerów Google Fonts w celu prawidłowego wyświetlania interfejsu strony. Więcej informacji: <a class="text-primary hover:underline" href="https://policies.google.com/privacy" target="_blank" rel="noopener">Polityka prywatności Google</a>.
+                <h2 class="text-2xl font-bold mt-10 mb-4">5. Okres przechowywania danych</h2>
+                <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
+                    Dane osobowe przechowywane są przez okres niezbędny do realizacji celów, dla których zostały zebrane, a po tym czasie przez okres wymagany przepisami prawa, w szczególności ustawy Prawo o szkolnictwie wyższym i nauce oraz przepisów archiwalnych.
                 </p>
 
-                <h2 class="text-2xl font-bold mt-8 mb-4 text-gray-900 dark:text-white">6. Prawa użytkownika</h2>
-                <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">Każdemu użytkownikowi przysługuje prawo do:</p>
-                <ul class="list-disc pl-5 space-y-2 text-gray-600 dark:text-gray-400 mb-4">
+                <h2 class="text-2xl font-bold mt-10 mb-4">6. Prawa użytkownika</h2>
+                <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">Użytkownikowi przysługuje prawo do:</p>
+                <ul class="list-disc pl-6 space-y-2 text-gray-600 dark:text-gray-300 mb-6">
                     <li>dostępu do swoich danych osobowych,</li>
                     <li>sprostowania danych,</li>
-                    <li>usunięcia danych,</li>
+                    <li>usunięcia danych (prawo do bycia zapomnianym),</li>
                     <li>ograniczenia przetwarzania,</li>
                     <li>przenoszenia danych,</li>
                     <li>wniesienia sprzeciwu wobec przetwarzania,</li>
                     <li>wniesienia skargi do Prezesa Urzędu Ochrony Danych Osobowych.</li>
                 </ul>
 
-                <h2 class="text-2xl font-bold mt-8 mb-4 text-gray-900 dark:text-white">7. Kontakt</h2>
-                <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-                    W sprawach dotyczących przetwarzania danych osobowych prosimy o kontakt:<br />
-                    Inspektor Ochrony Danych Politechniki Wrocławskiej<br />
-                    E-mail: <a class="text-primary hover:underline" href="mailto:IOD@pwr.edu.pl">IOD@pwr.edu.pl</a>
+                <h2 class="text-2xl font-bold mt-10 mb-4">7. Odbiorcy danych</h2>
+                <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
+                    Dane osobowe mogą być udostępniane podmiotom uprawnionym na podstawie przepisów prawa oraz podmiotom przetwarzającym dane na zlecenie Administratora (np. dostawcom usług IT, hostingowych). Dane analityczne mogą być przetwarzane przez Google LLC w ramach usługi Google Analytics.
                 </p>
 
+                <h2 class="text-2xl font-bold mt-10 mb-4">8. Kontakt</h2>
+                <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
+                    W sprawach związanych z ochroną danych osobowych prosimy o kontakt:<br />
+                    Centrum Kształcenia Ustawicznego, Dział Kształcenia<br />
+                    bud. L-1, ul. Na Grobli 15, 50-421 Wrocław<br />
+                    e-mail: <a class="text-primary hover:underline" href="mailto:anna.fafara@pwr.edu.pl">anna.fafara@pwr.edu.pl</a><br />
+                    tel. 71 340 75 15
+                </p>
+
+                <p class="text-sm text-gray-400 mt-12">Ostatnia aktualizacja: luty 2026</p>
             </div>
         </section>
     </main>

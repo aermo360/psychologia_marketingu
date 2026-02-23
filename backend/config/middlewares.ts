@@ -6,7 +6,7 @@ export default [
     name: 'strapi::cors',
     config: {
       enabled: true,
-      origin: ['http://localhost:4321', 'http://localhost:4322', 'http://127.0.0.1:4322', 'http://127.0.0.1:13388', 'http://praktycznymarketing.edu.pl', 'http://www.praktycznymarketing.edu.pl', 'http://cms.praktycznymarketing.edu.pl'],
+      origin: ['http://localhost:4321', 'http://localhost:4322', 'http://127.0.0.1:4322', 'http://127.0.0.1:13388', 'https://psychologiamarketingu.edu.pl', 'https://www.psychologiamarketingu.edu.pl', 'https://cms.psychologiamarketingu.edu.pl'],
       headers: '*',
     }
   },

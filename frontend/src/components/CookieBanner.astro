@@ -1,30 +1,30 @@
 ---
-
 ---
 
 <div
     id="cookie-banner"
-    class="hidden fixed bottom-0 left-0 right-0 z-50 bg-white dark:bg-[#1a0c0c] border-t border-[#e6dbdb] dark:border-[#3d2a2a] shadow-2xl"
+    style="display:none"
+    class="fixed bottom-0 left-0 right-0 z-50 bg-white dark:bg-[#1a0c0c] border-t border-[#e6dbdb] dark:border-[#3d2a2a] shadow-2xl"
 >
-    <div
-        class="max-w-[1280px] mx-auto px-6 lg:px-20 py-4 flex flex-col sm:flex-row items-center gap-4 justify-between"
-    >
-        <p class="text-sm text-gray-600 dark:text-gray-400">
-            Ta strona używa plików cookies Google Analytics do analizy ruchu, co pomaga nam ulepszać treści.
-            Szczegóły: <a href="/polityka-prywatnosci" class="text-primary hover:underline font-medium">Polityka prywatności</a>.
+    <div class="max-w-[1280px] mx-auto px-6 lg:px-20 py-4 flex flex-col sm:flex-row items-center gap-3">
+        <p class="text-sm text-gray-600 dark:text-gray-400 flex-1 text-center sm:text-left">
+            <span class="material-symbols-outlined text-base align-middle text-primary mr-1" aria-hidden="true">cookie</span>
+            Ta strona używa Google Analytics do analizy ruchu i ulepszania serwisu.
+            <a href="/polityka-prywatnosci" class="text-primary hover:underline font-medium whitespace-nowrap ml-1">Polityka prywatności</a>
         </p>
         <div class="flex gap-3 shrink-0">
             <button
-                id="cookie-reject"
-                class="px-4 py-2 text-sm font-medium border border-gray-300 dark:border-[#3d2a2a] rounded-lg hover:border-primary transition-colors focus-visible:ring-2 focus-visible:ring-primary outline-none"
+                id="reject-cookies"
+                class="px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary border border-[#e6dbdb] dark:border-[#3d2a2a] rounded-lg transition-colors"
             >
-                Odrzuć
+                Odrzucam
             </button>
             <button
-                id="cookie-accept"
-                class="px-4 py-2 text-sm font-bold bg-primary text-white rounded-lg hover:bg-red-700 transition-colors focus-visible:ring-2 focus-visible:ring-red-400 outline-none"
+                id="accept-cookies"
+                class="px-5 py-2 text-sm font-bold bg-primary hover:bg-red-700 text-white rounded-lg transition-colors flex items-center gap-1.5"
             >
                 Akceptuję
+                <span class="material-symbols-outlined text-base" aria-hidden="true">check</span>
             </button>
         </div>
     </div>
@@ -32,24 +32,48 @@
 
 <script is:inline>
     (function () {
-        var banner = document.getElementById("cookie-banner");
-        var stored = localStorage.getItem("cookie_consent");
+        var GA_ID = "G-35E0W8JJHW";
 
-        if (!stored) {
-            banner.classList.remove("hidden");
+        function loadGA() {
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            window.gtag = gtag;
+            gtag("js", new Date());
+            gtag("config", GA_ID);
+            var s = document.createElement("script");
+            s.async = true;
+            s.src = "https://www.googletagmanager.com/gtag/js?id=" + GA_ID;
+            document.head.appendChild(s);
         }
 
-        document.getElementById("cookie-accept").addEventListener("click", function () {
-            localStorage.setItem("cookie_consent", "granted");
-            banner.classList.add("hidden");
-            if (typeof gtag !== "undefined") {
-                gtag("consent", "update", { analytics_storage: "granted" });
-            }
-        });
+        function hideBanner() {
+            var b = document.getElementById("cookie-banner");
+            if (b) b.style.display = "none";
+        }
 
-        document.getElementById("cookie-reject").addEventListener("click", function () {
-            localStorage.setItem("cookie_consent", "denied");
-            banner.classList.add("hidden");
-        });
+        var consent = localStorage.getItem("cookieConsent");
+        if (consent === "true") {
+            loadGA();
+        } else if (consent === null) {
+            var banner = document.getElementById("cookie-banner");
+            if (banner) banner.style.display = "block";
+        }
+
+        var acceptBtn = document.getElementById("accept-cookies");
+        if (acceptBtn) {
+            acceptBtn.addEventListener("click", function () {
+                localStorage.setItem("cookieConsent", "true");
+                loadGA();
+                hideBanner();
+            });
+        }
+
+        var rejectBtn = document.getElementById("reject-cookies");
+        if (rejectBtn) {
+            rejectBtn.addEventListener("click", function () {
+                localStorage.setItem("cookieConsent", "false");
+                hideBanner();
+            });
+        }
     })();
 </script>

@@ -24,6 +24,10 @@ interface Article {
     featured?: boolean;
 }
 
+// Only allow http(s) URLs in CSS style attributes to prevent injection
+const safeImageUrl = (url?: string | null): string =>
+    url && /^https?:\/\//.test(url) ? url : "";
+
 export async function getStaticPaths() {
     try {
         const strapiArticles = await getCollection("articles");
@@ -33,7 +37,6 @@ export async function getStaticPaths() {
     } catch (e) {
         console.error("[Blog] Failed to get static paths from Strapi:", e);
     }
-    // No blog articles available — no pages generated
     return [];
 }
 
@@ -49,8 +52,7 @@ try {
                     ? data.featured_image.url
                     : `${STRAPI_URL}${data.featured_image.url}`;
             }
-            let authorImageUrl = data.author_image_url;
-            return { ...data, featured_image_url: imageUrl, author_image_url: authorImageUrl };
+            return { ...data, featured_image_url: imageUrl, author_image_url: data.author_image_url };
         });
     }
 } catch (e) {
@@ -82,12 +84,11 @@ const safeContent = article.content
       })
     : "";
 
-// Get related articles (same category, excluding current)
+// Related articles: same category first, then fill with others
 const relatedArticles = articles
     .filter(a => a.slug !== slug && a.category === article.category)
     .slice(0, 3);
 
-// If not enough related by category, fill with other articles
 const moreArticles = relatedArticles.length < 3
     ? [...relatedArticles, ...articles.filter(a => a.slug !== slug && !relatedArticles.includes(a)).slice(0, 3 - relatedArticles.length)]
     : relatedArticles;
@@ -99,15 +100,14 @@ function formatDate(dateStr?: string) {
 }
 ---
 
-<!-- Blog not yet live — noindex to avoid indexing draft content -->
-<Layout title={`${article.title} | Blog - Politechnika Wrocławska`} noindex={true}>
+<Layout title={`${article.title} | Blog - Politechnika Wrocławska`}>
     <Header />
-    <main class="flex-1">
+    <main id="main-content" class="flex-1">
         <!-- Article header -->
-        <section class="max-w-[1280px] mx-auto px-6 lg:px-20 pt-16 pb-12 max-w-4xl text-center">
+        <section class="max-w-[1280px] mx-auto px-6 lg:px-20 pt-16 pb-12 text-center">
             {article.category && (
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider mb-6">
-                    <span class="material-symbols-outlined text-sm">label</span>
+                    <span class="material-symbols-outlined text-sm" aria-hidden="true">label</span>
                     {article.category}
                 </div>
             )}
@@ -117,13 +117,13 @@ function formatDate(dateStr?: string) {
             <div class="flex flex-wrap items-center justify-center gap-6 text-sm text-gray-500 dark:text-gray-400">
                 {article.publish_date && (
                     <div class="flex items-center gap-2">
-                        <span class="material-symbols-outlined text-lg">calendar_today</span>
+                        <span class="material-symbols-outlined text-lg" aria-hidden="true">calendar_today</span>
                         <span>{formatDate(article.publish_date)}</span>
                     </div>
                 )}
                 {article.read_time && (
                     <div class="flex items-center gap-2">
-                        <span class="material-symbols-outlined text-lg">schedule</span>
+                        <span class="material-symbols-outlined text-lg" aria-hidden="true">schedule</span>
                         <span>{article.read_time} min czytania</span>
                     </div>
                 )}
@@ -141,9 +141,12 @@ function formatDate(dateStr?: string) {
         </section>
 
         <!-- Featured image -->
-        {article.featured_image_url && (
+        {safeImageUrl(article.featured_image_url) && (
         <section class="max-w-[1280px] mx-auto px-6 lg:px-20 mb-16">
-            <div class="aspect-[21/9] w-full bg-cover bg-center rounded-[2rem] shadow-xl overflow-hidden relative" style={`background-image: url("${article.featured_image_url}");`}>
+            <div
+                class="aspect-[21/9] w-full bg-cover bg-center rounded-[2rem] shadow-xl overflow-hidden relative"
+                style={`background-image: url("${safeImageUrl(article.featured_image_url)}");`}
+            >
                 <div class="absolute inset-0 bg-black/10"></div>
             </div>
         </section>
@@ -185,7 +188,10 @@ function formatDate(dateStr?: string) {
                     {moreArticles.map(related => (
                         <a class="group block" href={`/blog/${related.slug}`}>
                             <div class="aspect-video bg-gray-100 rounded-xl overflow-hidden mb-4 relative">
-                                <div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" style={`background-image: url("${related.featured_image_url}");`}></div>
+                                <div
+                                    class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                                    style={safeImageUrl(related.featured_image_url) ? `background-image: url("${safeImageUrl(related.featured_image_url)}");` : ""}
+                                ></div>
                             </div>
                             {related.category && (
                                 <div class="text-xs font-bold text-primary mb-2 uppercase">{related.category}</div>

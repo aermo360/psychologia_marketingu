@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html class="light" lang="pl"><head>
+<html lang="pl"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -30,298 +30,344 @@
             },
         }
     </script>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-    </style>
+<title>Psychologia komunikacji marketingowej - PWr</title>
 </head>
-<body class="bg-background-light dark:bg-background-dark text-[#181111] dark:text-white transition-colors duration-200">
+<body class="bg-background-light dark:bg-background-dark font-display text-[#181111] antialiased">
+<div class="relative flex h-auto min-h-screen w-full flex-col bg-white group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
 <!-- Top Navigation Bar -->
-<header class="sticky top-0 z-50 w-full bg-white/90 dark:bg-background-dark/90 backdrop-blur-md border-b border-[#e6dbdb] dark:border-[#3d2a2a]">
-<div class="max-w-[1280px] mx-auto px-6 lg:px-20 h-16 flex items-center justify-between">
-<div class="flex items-center gap-3">
-<div class="text-primary">
-<svg class="w-8 h-8" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f4f0f0] px-6 md:px-20 py-4 bg-white sticky top-0 z-50">
+<div class="flex items-center gap-4 text-[#181111]">
+<div class="size-8 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
 <path clip-rule="evenodd" d="M39.475 21.6262C40.358 21.4363 40.6863 21.5589 40.7581 21.5934C40.7876 21.655 40.8547 21.857 40.8082 22.3336C40.7408 23.0255 40.4502 24.0046 39.8572 25.2301C38.6799 27.6631 36.5085 30.6631 33.5858 33.5858C30.6631 36.5085 27.6632 38.6799 25.2301 39.8572C24.0046 40.4502 23.0255 40.7407 22.3336 40.8082C21.8571 40.8547 21.6551 40.7875 21.5934 40.7581C21.5589 40.6863 21.4363 40.358 21.6262 39.475C21.8562 38.4054 22.4689 36.9657 23.5038 35.2817C24.7575 33.2417 26.5497 30.9744 28.7621 28.762C30.9744 26.5497 33.2417 24.7574 35.2817 23.5037C36.9657 22.4689 38.4054 21.8562 39.475 21.6262ZM4.41189 29.2403L18.7597 43.5881C19.8813 44.7097 21.4027 44.9179 22.7217 44.7893C24.0585 44.659 25.5148 44.1631 26.9723 43.4579C29.9052 42.0387 33.2618 39.5667 36.4142 36.4142C39.5667 33.2618 42.0387 29.9052 43.4579 26.9723C44.1631 25.5148 44.659 24.0585 44.7893 22.7217C44.9179 21.4027 44.7097 19.8813 43.5881 18.7597L29.2403 4.41187C27.8527 3.02428 25.8765 3.02573 24.2861 3.36776C22.6081 3.72863 20.7334 4.58419 18.8396 5.74801C16.4978 7.18716 13.9881 9.18353 11.5858 11.5858C9.18354 13.988 7.18717 16.4978 5.74802 18.8396C4.58421 20.7334 3.72865 22.6081 3.36778 24.2861C3.02574 25.8765 3.02429 27.8527 4.41189 29.2403Z" fill="currentColor" fill-rule="evenodd"></path>
 </svg>
 </div>
-<h2 class="text-lg font-bold leading-tight tracking-tight">Politechnika Wrocławska</h2>
+<h2 class="text-[#181111] text-lg font-bold leading-tight tracking-[-0.015em]">Politechnika Wrocławska</h2>
 </div>
-<div class="hidden md:flex items-center gap-8">
-<nav class="flex gap-6">
-<a class="text-sm font-medium hover:text-primary transition-colors" href="#program">Program</a>
-<a class="text-sm font-medium hover:text-primary transition-colors" href="#wykladowcy">Wykładowcy</a>
-<a class="text-sm font-medium hover:text-primary transition-colors" href="#rekrutacja">Rekrutacja</a>
-<a class="text-sm font-medium hover:text-primary transition-colors" href="#kontakt">Kontakt</a>
+<div class="flex flex-1 justify-end gap-8 items-center">
+<nav class="hidden lg:flex items-center gap-9">
+<a class="text-[#181111] text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Program</a>
+<a class="text-[#181111] text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Wykładowcy</a>
+<a class="text-[#181111] text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Dlaczego My?</a>
+<a class="text-[#181111] text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Kontakt</a>
 </nav>
-<button class="bg-primary hover:bg-red-700 text-white px-5 py-2 rounded-lg text-sm font-bold transition-all transform hover:scale-105">
-                    Zapisz się
-                </button>
-</div>
+<button class="flex min-w-[120px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-6 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:brightness-110 transition-all">
+                        Rekrutacja
+                    </button>
 </div>
 </header>
-<main class="max-w-[1280px] mx-auto">
+<main class="flex flex-col items-center">
+<div class="max-w-[1200px] w-full px-6 md:px-10 py-10">
 <!-- Hero Section -->
-<section class="px-6 lg:px-20 py-12 lg:py-24">
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-<div class="space-y-6">
-<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider">
-<span class="material-symbols-outlined text-sm">online_prediction</span>
-                        100% Online
-                    </div>
-<h1 class="text-[#181111] dark:text-white text-5xl lg:text-7xl font-black leading-[1.1] tracking-tight">
-                        Praktyczny <br/><span class="text-primary">e-marketing</span>
-</h1>
-<p class="text-lg text-gray-600 dark:text-gray-300 max-w-lg leading-relaxed">
-                        Wydział Zarządzania Politechniki Wrocławskiej. Zdobądź nowoczesne kompetencje w marketingu cyfrowym i zarządzaniu kampaniami online od czołowych ekspertów z branży.
-                    </p>
-<div class="flex flex-col sm:flex-row gap-4 pt-4">
-<button class="bg-primary text-white h-14 px-8 rounded-xl font-bold text-lg hover:shadow-lg transition-all active:scale-95">
-                            Zapisz się na studia
-                        </button>
-<button class="bg-white dark:bg-transparent border-2 border-[#e6dbdb] dark:border-[#3d2a2a] h-14 px-8 rounded-xl font-bold text-lg hover:bg-gray-50 dark:hover:bg-white/5 transition-all">
-                            Pobierz informator
-                        </button>
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-10">
+<div class="flex flex-col gap-6">
+<div class="flex flex-col gap-4">
+<h1 class="text-[#181111] text-4xl font-black leading-tight tracking-[-0.033em] md:text-5xl lg:text-6xl">
+                                    Psychologia komunikacji marketingowej i zachowań konsumenckich
+                                </h1>
+<h2 class="text-[#555] text-lg md:text-xl font-normal leading-relaxed border-l-4 border-primary pl-4">
+                                    Marketing behawioralny w praktyce: decyzje oparte na wiedzy, nie na intuicji.
+                                </h2>
+</div>
+<div class="flex flex-wrap gap-4 pt-4">
+<button class="flex min-w-[280px] cursor-pointer items-center justify-center rounded-lg h-14 px-8 bg-primary text-white text-base font-bold transition-all hover:shadow-lg hover:-translate-y-1">
+                                    Sprawdź program i przejdź do rekrutacji
+                                </button>
 </div>
 </div>
 <div class="relative">
-<div class="aspect-square bg-cover bg-center rounded-[2.5rem] shadow-2xl overflow-hidden" data-alt="Modern office with digital marketing graphs on screen" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAQvQHJiQPL2Pxs6EomE_3Y-yFtua8jaC9DvOXmugCkc-TgXlSSrkS24k60_lyyD6mYaUuDnhAv2f_qaIRm6z5UamcG_ZFZ2VgjaxNR4Fr8OZur-ldeMcnIj7is_WRQbNT2LKAV9WsCSzcY8wYraZNVxNUBFr_lKKJb00J_-XVtYBsL0J7Brwh_6z6ryhGp8fCjAYzAoi6_B3YNN2G5PEkGAcLPaHlOIm7dH9et6U8oNDd8UJ_Lgn79NtRJ_Hvo_OK5kyZ8ihr6FYg");'>
-<div class="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent"></div>
+<div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl shadow-2xl overflow-hidden" data-alt="Modern office space with creative professionals collaborating in a meeting room" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDAEFGdLTc8Gya3M_sPInywKlt_1hq0npBCCwW9gIKMcf9kbuXFGSDly0dHvd1HtrWyk_2ezvJWXVANZoXHQlRMLgKFA0y4ofEHdU_YBzIJBNeMGt9UwDhwczCEsO-E6x77FaRYZ8-aCWqUCUa3FOB7fwZz6SvRawo4qbhjeBgpkV4OZzC6d0GA4omvZjNkPSBrFva6jJDe8P-XTfvdvU_8BYHWR87Cs_1uhusJOmRmMPRgtKuMcZeL7qO7VwByalZNEgYSR3-FfN4");'>
 </div>
-<!-- Floating badge -->
-<div class="absolute -bottom-6 -left-6 bg-white dark:bg-background-dark p-6 rounded-2xl shadow-xl border border-[#e6dbdb] dark:border-[#3d2a2a] flex items-center gap-4">
-<div class="size-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
-<span class="material-symbols-outlined">school</span>
-</div>
-<div>
-<p class="text-sm font-bold">Edycja 2024/2025</p>
-<p class="text-xs text-gray-500">Ostatnie wolne miejsca</p>
-</div>
-</div>
+<div class="absolute -bottom-6 -left-6 bg-white p-6 rounded-lg shadow-xl border border-[#e6dbdb] hidden md:block">
+<p class="text-primary font-bold text-lg">Zarządzanie &amp; Psychologia</p>
+<p class="text-sm text-[#896161]">Wydział Zarządzania PWr</p>
 </div>
 </div>
 </section>
 <!-- Stats Bar -->
-<section class="px-6 lg:px-20 mb-20">
-<div class="bg-white dark:bg-[#1a0c0c] border border-[#e6dbdb] dark:border-[#3d2a2a] rounded-2xl p-2 shadow-sm">
-<div class="flex flex-wrap justify-center md:justify-between items-center text-center md:text-left">
-<div class="flex-1 min-w-[200px] px-8 py-6 border-r border-[#e6dbdb] dark:border-[#3d2a2a] last:border-r-0">
-<p class="text-gray-500 dark:text-gray-400 text-sm font-medium mb-1 flex items-center justify-center md:justify-start gap-2">
-<span class="material-symbols-outlined text-primary text-lg">calendar_today</span>
-                            Czas trwania
-                        </p>
-<p class="text-2xl font-black">2 semestry <span class="text-sm font-normal text-gray-400">(184h)</span></p>
+<section class="grid grid-cols-2 md:grid-cols-4 gap-4 py-8 border-y border-[#e6dbdb] my-10">
+<div class="flex flex-col items-center text-center gap-1 p-4">
+<span class="material-symbols-outlined text-primary text-3xl mb-1">calendar_today</span>
+<p class="text-[#896161] text-xs font-medium uppercase tracking-wider">Czas trwania</p>
+<p class="text-[#181111] text-xl font-bold">2 semestry</p>
 </div>
-<div class="flex-1 min-w-[200px] px-8 py-6 border-r border-[#e6dbdb] dark:border-[#3d2a2a] last:border-r-0">
-<p class="text-gray-500 dark:text-gray-400 text-sm font-medium mb-1 flex items-center justify-center md:justify-start gap-2">
-<span class="material-symbols-outlined text-primary text-lg">workspace_premium</span>
-                            Punkty ECTS
-                        </p>
-<p class="text-2xl font-black">68 ECTS</p>
+<div class="flex flex-col items-center text-center gap-1 p-4 border-l border-[#e6dbdb]">
+<span class="material-symbols-outlined text-primary text-3xl mb-1">schedule</span>
+<p class="text-[#896161] text-xs font-medium uppercase tracking-wider">Godziny dydaktyczne</p>
+<p class="text-[#181111] text-xl font-bold">190 h</p>
 </div>
-<div class="flex-1 min-w-[200px] px-8 py-6 border-r border-[#e6dbdb] dark:border-[#3d2a2a] last:border-r-0">
-<p class="text-gray-500 dark:text-gray-400 text-sm font-medium mb-1 flex items-center justify-center md:justify-start gap-2">
-<span class="material-symbols-outlined text-primary text-lg">verified</span>
-                            Kwalifikacje
-                        </p>
-<p class="text-2xl font-black">Poziom 7 PRK</p>
+<div class="flex flex-col items-center text-center gap-1 p-4 border-l border-[#e6dbdb]">
+<span class="material-symbols-outlined text-primary text-3xl mb-1">school</span>
+<p class="text-[#896161] text-xs font-medium uppercase tracking-wider">Punkty ECTS</p>
+<p class="text-[#181111] text-xl font-bold">30 ECTS</p>
+</div>
+<div class="flex flex-col items-center text-center gap-1 p-4 border-l border-[#e6dbdb]">
+<span class="material-symbols-outlined text-primary text-3xl mb-1">laptop_mac</span>
+<p class="text-[#896161] text-xs font-medium uppercase tracking-wider">Tryb nauki</p>
+<p class="text-[#181111] text-xl font-bold">Online</p>
+</div>
+</section>
+<!-- Kluczowe Atuty -->
+<section class="py-16">
+<h2 class="text-[#181111] text-3xl font-bold tracking-tight mb-12 text-center">Kluczowe atuty programu</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="flex flex-col gap-4 rounded-xl border border-[#e6dbdb] bg-white p-8 transition-all hover:border-primary/30 hover:shadow-md">
+<div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">psychology</span>
+</div>
+<h3 class="text-[#181111] text-xl font-bold leading-tight">Wiedza, nie intuicja</h3>
+<p class="text-[#555] text-sm leading-relaxed">Marketing behawioralny oparty na rzetelnych danych naukowych i psychologii poznawczej.</p>
+</div>
+<div class="flex flex-col gap-4 rounded-xl border border-[#e6dbdb] bg-white p-8 transition-all hover:border-primary/30 hover:shadow-md">
+<div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">ads_click</span>
+</div>
+<h3 class="text-[#181111] text-xl font-bold leading-tight">Precyzyjne projektowanie</h3>
+<p class="text-[#555] text-sm leading-relaxed">Precyzyjne planowanie komunikacji i projektowanie doświadczeń użytkownika (CX).</p>
+</div>
+<div class="flex flex-col gap-4 rounded-xl border border-[#e6dbdb] bg-white p-8 transition-all hover:border-primary/30 hover:shadow-md">
+<div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">business_center</span>
+</div>
+<h3 class="text-[#181111] text-xl font-bold leading-tight">Biznes i psychologia</h3>
+<p class="text-[#555] text-sm leading-relaxed">Unikalne połączenie zaawansowanej psychologii z twardymi realiami nowoczesnego biznesu.</p>
+</div>
+</div>
+</section>
+<!-- Dlaczego marketing behawioralny -->
+<section class="py-16 bg-primary/5 -mx-6 md:-mx-20 px-6 md:px-20 rounded-3xl mb-16">
+<div class="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+<div>
+<h2 class="text-3xl font-black text-[#181111] mb-6">Dlaczego marketing behawioralny?</h2>
+<p class="text-lg text-[#444] leading-relaxed mb-8">
+                                    W świecie nadmiaru bodźców, intuicja to za mało. Marketing behawioralny pozwala zrozumieć prawdziwe mechanizmy stojące za wyborami ludzi. Dzięki temu Twoje działania zyskują nową jakość:
+                                </p>
+<ul class="space-y-4">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary mt-1">check_circle</span>
+<p class="text-base font-medium">Precyzyjne planowanie komunikacji do konkretnych grup odbiorców.</p>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary mt-1">check_circle</span>
+<p class="text-base font-medium">Efektywne i racjonalne wydatkowanie budżetów marketingowych.</p>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary mt-1">check_circle</span>
+<p class="text-base font-medium">Minimalizacja ryzyka niepowodzenia kampanii i produktów.</p>
+</li>
+</ul>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-white p-6 rounded-2xl shadow-sm border border-primary/10 flex flex-col gap-2">
+<p class="text-3xl font-bold text-primary">95%</p>
+<p class="text-sm font-medium">decyzji podejmowanych jest podświadomie</p>
+</div>
+<div class="bg-white p-6 rounded-2xl shadow-sm border border-primary/10 mt-8 flex flex-col gap-2">
+<p class="text-3xl font-bold text-primary">ROI</p>
+<p class="text-sm font-medium">wyższy zwrot z inwestycji dzięki precyzji</p>
 </div>
 </div>
 </div>
 </section>
-<!-- Curriculum Bento Grid -->
-<section class="px-6 lg:px-20 py-10" id="program">
-<div class="mb-12 text-center lg:text-left">
-<h2 class="text-3xl lg:text-4xl font-black tracking-tight mb-4">Program studiów</h2>
-<p class="text-gray-600 dark:text-gray-400 max-w-2xl">Poznaj kompleksowy program nauczania podzielony na kluczowe obszary nowoczesnego e-marketingu, przygotowany przez praktyków rynkowych.</p>
+<!-- Bento Grid Curriculum -->
+<section class="py-16">
+<div class="text-center mb-12">
+<h2 class="text-3xl font-bold tracking-tight text-[#181111]">Program studiów</h2>
+<p class="text-[#896161] mt-2">Kompleksowe moduły opracowane przez ekspertów akademickich i praktyków</p>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-<!-- Card 1 -->
-<div class="group bg-white dark:bg-[#1a0c0c] p-8 rounded-2xl border border-[#e6dbdb] dark:border-[#3d2a2a] hover:border-primary/50 transition-all shadow-sm flex flex-col">
-<div class="size-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
-<span class="material-symbols-outlined">insights</span>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 h-auto md:h-[600px]">
+<!-- Psychologia -->
+<div class="md:col-span-8 bg-white border border-[#e6dbdb] rounded-2xl p-8 flex flex-col justify-between group hover:border-primary transition-all shadow-sm">
+<div>
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-primary text-4xl">neurology</span>
+<h3 class="text-2xl font-bold">Psychologia w marketingu</h3>
 </div>
-<h3 class="text-xl font-bold mb-4">Strategia</h3>
-<ul class="space-y-3 mt-auto">
-<li class="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-2">
-<span class="size-1.5 rounded-full bg-primary"></span> SEO / SEM
-                        </li>
-<li class="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-2">
-<span class="size-1.5 rounded-full bg-primary"></span> Marketing B2B
-                        </li>
-<li class="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-2">
-<span class="size-1.5 rounded-full bg-primary"></span> Strategia komunikacji
-                        </li>
+<p class="text-[#555] mb-6">Fundamenty zachowań konsumenckich oparte na biologii i ewolucji.</p>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div class="bg-background-light p-4 rounded-lg">
+<p class="font-bold text-sm text-primary mb-1">Procesy poznawcze</p>
+<p class="text-xs text-[#555]">Uwaga, pamięć i percepcja w świecie cyfrowym.</p>
+</div>
+<div class="bg-background-light p-4 rounded-lg">
+<p class="font-bold text-sm text-primary mb-1">Psychologia społeczna</p>
+<p class="text-xs text-[#555]">Wpływ grupy, autorytetu i reguły wzajemności.</p>
+</div>
+</div>
+</div>
+<div class="mt-6 flex justify-end">
+<span class="text-xs font-bold uppercase tracking-widest text-[#896161]">Moduł I</span>
+</div>
+</div>
+<!-- Badania -->
+<div class="md:col-span-4 bg-[#221010] text-white rounded-2xl p-8 flex flex-col justify-between hover:scale-[1.02] transition-all shadow-xl">
+<div>
+<span class="material-symbols-outlined text-primary text-4xl mb-4">analytics</span>
+<h3 class="text-2xl font-bold mb-2">Badania i Analiza</h3>
+<p class="text-white/70 text-sm mb-4">Metody badawcze, neuromarketing i analiza dużych zbiorów danych.</p>
+</div>
+<ul class="space-y-2 text-sm">
+<li class="flex gap-2"> <span class="text-primary">●</span> Eye-tracking</li>
+<li class="flex gap-2"> <span class="text-primary">●</span> Badania EEG</li>
+<li class="flex gap-2"> <span class="text-primary">●</span> Analiza jakościowa</li>
 </ul>
+<div class="mt-6">
+<span class="text-xs font-bold uppercase tracking-widest text-primary">Moduł II</span>
 </div>
-<!-- Card 2 -->
-<div class="group bg-white dark:bg-[#1a0c0c] p-8 rounded-2xl border border-[#e6dbdb] dark:border-[#3d2a2a] hover:border-primary/50 transition-all shadow-sm flex flex-col">
-<div class="size-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
-<span class="material-symbols-outlined">campaign</span>
 </div>
-<h3 class="text-xl font-bold mb-4">Content i Social</h3>
-<ul class="space-y-3 mt-auto">
-<li class="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-2">
-<span class="size-1.5 rounded-full bg-primary"></span> Social Media Ads
-                        </li>
-<li class="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-2">
-<span class="size-1.5 rounded-full bg-primary"></span> Branding &amp; Design
-                        </li>
-<li class="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-2">
-<span class="size-1.5 rounded-full bg-primary"></span> Videomarketing i PR
-                        </li>
-</ul>
+<!-- Komunikacja -->
+<div class="md:col-span-4 bg-primary text-white rounded-2xl p-8 flex flex-col justify-between hover:scale-[1.02] transition-all shadow-xl">
+<div>
+<span class="material-symbols-outlined text-white text-4xl mb-4">history_edu</span>
+<h3 class="text-2xl font-bold mb-2">Komunikacja</h3>
+<p class="text-white/90 text-sm">Perswazja językowa, storytelling i nowoczesny content marketing.</p>
 </div>
-<!-- Card 3 -->
-<div class="group bg-white dark:bg-[#1a0c0c] p-8 rounded-2xl border border-[#e6dbdb] dark:border-[#3d2a2a] hover:border-primary/50 transition-all shadow-sm flex flex-col">
-<div class="size-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
-<span class="material-symbols-outlined">smart_toy</span>
+<div class="mt-6">
+<span class="text-xs font-bold uppercase tracking-widest text-white/60">Moduł III</span>
 </div>
-<h3 class="text-xl font-bold mb-4">Technologia i AI</h3>
-<ul class="space-y-3 mt-auto">
-<li class="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-2">
-<span class="size-1.5 rounded-full bg-primary"></span> AI w marketingu
-                        </li>
-<li class="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-2">
-<span class="size-1.5 rounded-full bg-primary"></span> E-commerce tools
-                        </li>
-<li class="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-2">
-<span class="size-1.5 rounded-full bg-primary"></span> Web Development
-                        </li>
-</ul>
 </div>
-<!-- Card 4 -->
-<div class="group bg-white dark:bg-[#1a0c0c] p-8 rounded-2xl border border-[#e6dbdb] dark:border-[#3d2a2a] hover:border-primary/50 transition-all shadow-sm flex flex-col">
-<div class="size-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
-<span class="material-symbols-outlined">leaderboard</span>
+<!-- CX Design -->
+<div class="md:col-span-8 bg-white border border-[#e6dbdb] rounded-2xl p-8 flex flex-col justify-between group hover:border-primary transition-all shadow-sm overflow-hidden relative">
+<div class="flex flex-col md:flex-row gap-8 items-start">
+<div class="flex-1">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-primary text-4xl">frame_inspect</span>
+<h3 class="text-2xl font-bold">CX Design</h3>
 </div>
-<h3 class="text-xl font-bold mb-4">Analityka i UX</h3>
-<ul class="space-y-3 mt-auto">
-<li class="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-2">
-<span class="size-1.5 rounded-full bg-primary"></span> UX / CX Design
-                        </li>
-<li class="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-2">
-<span class="size-1.5 rounded-full bg-primary"></span> Analityka danych
-                        </li>
-<li class="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-2">
-<span class="size-1.5 rounded-full bg-primary"></span> Badania marketingowe
-                        </li>
-</ul>
+<p class="text-[#555] mb-6">Projektowanie doświadczeń klienta i service design na najwyższym poziomie.</p>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-bold">User Experience</span>
+<span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-bold">Service Design</span>
+<span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-bold">Prototyping</span>
+</div>
+</div>
+<div class="w-full md:w-48 h-32 bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center">
+<span class="material-symbols-outlined text-gray-300 text-6xl">design_services</span>
+</div>
+</div>
+<div class="mt-6 flex justify-end">
+<span class="text-xs font-bold uppercase tracking-widest text-[#896161]">Moduł IV</span>
+</div>
 </div>
 </div>
 </section>
-<!-- Graduate Profile Section -->
-<section class="px-6 lg:px-20 py-20 bg-primary/5 dark:bg-primary/10 rounded-[3rem] my-20 mx-6 lg:mx-20 border border-primary/10">
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-<div class="space-y-8">
-<h2 class="text-4xl font-black tracking-tight leading-tight">Sylwetka Absolwenta</h2>
-<p class="text-gray-600 dark:text-gray-300 leading-relaxed text-lg">
-                        Naszym celem jest wykształcenie specjalistów, którzy nie tylko rozumieją teoretyczne aspekty marketingu, ale potrafią je skutecznie wdrożyć w dynamicznym środowisku biznesowym.
-                    </p>
+<!-- Czego uczą te studia? -->
+<section class="py-16">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+<div class="bg-white p-10 rounded-3xl border border-[#e6dbdb] shadow-sm">
+<h2 class="text-3xl font-black mb-8">Czego uczą te studia?</h2>
+<div class="space-y-6">
+<div class="flex gap-4">
+<div class="w-10 h-10 shrink-0 bg-primary rounded-full flex items-center justify-center text-white font-bold">1</div>
+<div>
+<h4 class="font-bold text-lg">Consumer Insights</h4>
+<p class="text-[#555] text-sm">Identyfikowanie głębokich potrzeb i barier konsumenckich przy pomocy narzędzi psychologicznych.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-10 h-10 shrink-0 bg-primary rounded-full flex items-center justify-center text-white font-bold">2</div>
+<div>
+<h4 class="font-bold text-lg">Customer Journey</h4>
+<p class="text-[#555] text-sm">Zarządzanie ścieżką klienta i optymalizacja punktów styku z marką.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-10 h-10 shrink-0 bg-primary rounded-full flex items-center justify-center text-white font-bold">3</div>
+<div>
+<h4 class="font-bold text-lg">Neuromarketing</h4>
+<p class="text-[#555] text-sm">Wykorzystanie wiedzy o działaniu mózgu do tworzenia bardziej skutecznych reklam i komunikatów.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-10 h-10 shrink-0 bg-primary rounded-full flex items-center justify-center text-white font-bold">4</div>
+<div>
+<h4 class="font-bold text-lg">Ethical Persuasion</h4>
+<p class="text-[#555] text-sm">Stosowanie technik perswazji w sposób etyczny i odpowiedzialny społecznie.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-8">
+<h3 class="text-2xl font-bold">Dla kogo są te studia?</h3>
 <div class="grid grid-cols-1 gap-4">
-<div class="flex items-start gap-4 p-4 bg-white dark:bg-[#1a0c0c] rounded-2xl shadow-sm">
-<div class="size-10 rounded-full bg-primary flex items-center justify-center text-white shrink-0">
-<span class="material-symbols-outlined text-lg">check</span>
+<div class="p-6 bg-white border-l-4 border-primary shadow-sm rounded-r-xl">
+<p class="font-bold">Managerowie Marketingu</p>
+<p class="text-sm text-[#555]">Szukający twardych dowodów na skuteczność swoich strategii.</p>
 </div>
-<p class="font-medium text-[#181111] dark:text-white">Samodzielne zarządzanie strategią e-marketingową organizacji</p>
+<div class="p-6 bg-white border-l-4 border-primary shadow-sm rounded-r-xl">
+<p class="font-bold">Specjaliści UX/CX</p>
+<p class="text-sm text-[#555]">Chcący pogłębić wiedzę o psychologicznych aspektach projektowania.</p>
 </div>
-<div class="flex items-start gap-4 p-4 bg-white dark:bg-[#1a0c0c] rounded-2xl shadow-sm">
-<div class="size-10 rounded-full bg-primary flex items-center justify-center text-white shrink-0">
-<span class="material-symbols-outlined text-lg">check</span>
-</div>
-<p class="font-medium text-[#181111] dark:text-white">Biegłość w wykorzystaniu narzędzi AI w procesach twórczych i analitycznych</p>
-</div>
-<div class="flex items-start gap-4 p-4 bg-white dark:bg-[#1a0c0c] rounded-2xl shadow-sm">
-<div class="size-10 rounded-full bg-primary flex items-center justify-center text-white shrink-0">
-<span class="material-symbols-outlined text-lg">check</span>
-</div>
-<p class="font-medium text-[#181111] dark:text-white">Umiejętność optymalizacji budżetów reklamowych (ROAS/ROI)</p>
+<div class="p-6 bg-white border-l-4 border-primary shadow-sm rounded-r-xl">
+<p class="font-bold">Właściciele Firm</p>
+<p class="text-sm text-[#555]">Dążący do lepszego zrozumienia zachowań swoich klientów.</p>
 </div>
 </div>
+<div class="mt-4 p-8 bg-[#221010] rounded-2xl text-white flex items-center justify-between">
+<div>
+<p class="text-xs uppercase tracking-widest text-primary font-bold mb-1">Najbliższa edycja</p>
+<p class="text-xl font-bold">Październik 2024</p>
 </div>
-<div class="relative flex justify-center">
-<div class="w-full max-w-md aspect-[4/5] bg-cover bg-center rounded-3xl overflow-hidden shadow-2xl grayscale hover:grayscale-0 transition-all duration-700" data-alt="Confident professional person working on a laptop" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCEoG70Njkur1lN9s1vaQDx7uHOEY4Mc4wmCmi1z4ukg-1lVVvjWcB5JIT1NZhKQlq_C_or0SvOkTh6IQp4lda2rB46PSHte2_T1DsebWWUNjXDKc7rUUTvVjzn9xpFRW0Rx7g3_EqucJzv1A9A7ophcRHGrVk9MZ3zrSdCGFFv2iCvxwIZS4Q2VrtNEECSoqttm1qrHkCz-pW8DUENRVwkjwMNglnTDOxQExLi9WlsqMxTzF7w72OVMm9keEj5aZkrT_IuO7umnKY");'>
-<div class="absolute inset-0 bg-gradient-to-t from-[#181111] to-transparent opacity-60"></div>
-<div class="absolute bottom-10 left-10 text-white">
-<p class="text-3xl font-black">Ekspert 360°</p>
-<p class="text-sm opacity-80 uppercase tracking-widest mt-1">Status Absolwenta PWr</p>
-</div>
+<button class="bg-primary hover:bg-white hover:text-primary transition-all text-white px-6 py-3 rounded-lg font-bold">
+                                        Zapisz się
+                                    </button>
 </div>
 </div>
 </div>
 </section>
+</div>
 </main>
 <!-- Footer -->
-<footer class="bg-white dark:bg-[#1a0c0c] border-t border-[#e6dbdb] dark:border-[#3d2a2a] pt-20 pb-10" id="kontakt">
-<div class="max-w-[1280px] mx-auto px-6 lg:px-20">
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-<div class="col-span-1 lg:col-span-1">
-<div class="flex items-center gap-3 mb-6">
-<div class="text-primary">
-<svg class="w-8 h-8" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-<path clip-rule="evenodd" d="M39.475 21.6262C40.358 21.4363 40.6863 21.5589 40.7581 21.5934C40.7876 21.655 40.8547 21.857 40.8082 22.3336C40.7408 23.0255 40.4502 24.0046 39.8572 25.2301C38.6799 27.6631 36.5085 30.6631 33.5858 33.5858C30.6631 36.5085 27.6632 38.6799 25.2301 39.8572C24.0046 40.4502 23.0255 40.7407 22.3336 40.8082C21.8571 40.8547 21.6551 40.7875 21.5934 40.7581C21.5589 40.6863 21.4363 40.358 21.6262 39.475C21.8562 38.4054 22.4689 36.9657 23.5038 35.2817C24.7575 33.2417 26.5497 30.9744 28.7621 28.762C30.9744 26.5497 33.2417 24.7574 35.2817 23.5037C36.9657 22.4689 38.4054 21.8562 39.475 21.6262ZM4.41189 29.2403L18.7597 43.5881C19.8813 44.7097 21.4027 44.9179 22.7217 44.7893C24.0585 44.659 25.5148 44.1631 26.9723 43.4579C29.9052 42.0387 33.2618 39.5667 36.4142 36.4142C39.5667 33.2618 42.0387 29.9052 43.4579 26.9723C44.1631 25.5148 44.659 24.0585 44.7893 22.7217C44.9179 21.4027 44.7097 19.8813 43.5881 18.7597L29.2403 4.41187C27.8527 3.02428 25.8765 3.02573 24.2861 3.36776C22.6081 3.72863 20.7334 4.58419 18.8396 5.74801C16.4978 7.18716 13.9881 9.18353 11.5858 11.5858C9.18354 13.988 7.18717 16.4978 5.74802 18.8396C4.58421 20.7334 3.72865 22.6081 3.36778 24.2861C3.02574 25.8765 3.02429 27.8527 4.41189 29.2403Z" fill="currentColor" fill-rule="evenodd"></path>
+<footer class="bg-[#f8f6f6] border-t border-[#e6dbdb] py-16 px-6 md:px-20 mt-10">
+<div class="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
+<div class="flex flex-col gap-6">
+<div class="flex items-center gap-4 text-[#181111]">
+<div class="size-6 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M39.475 21.6262C40.358 21.4363 40.6863 21.5589 40.7581 21.5934C40.7876 21.655 40.8547 21.857 40.8082 22.3336C40.7408 23.0255 40.4502 24.0046 39.8572 25.2301C38.6799 27.6631 36.5085 30.6631 33.5858 33.5858C30.6631 36.5085 27.6632 38.6799 25.2301 39.8572C24.0046 40.4502 23.0255 40.7407 22.3336 40.8082C21.8571 40.8547 21.6551 40.7875 21.5934 40.7581C21.5589 40.6863 21.4363 40.358 21.6262 39.475C21.8562 38.4054 22.4689 36.9657 23.5038 35.2817C24.7575 33.2417 26.5497 30.9744 28.7621 28.762C30.9744 26.5497 33.2417 24.7574 35.2817 23.5037C36.9657 22.4689 38.4054 21.8562 39.475 21.6262ZM4.41189 29.2403L18.7597 43.5881C19.8813 44.7097 21.4027 44.9179 22.7217 44.7893C24.0585 44.659 25.5148 44.1631 26.9723 43.4579C29.9052 42.0387 33.2618 39.5667 36.4142 36.4142C39.5667 33.2618 42.0387 29.9052 43.4579 26.9723C44.1631 25.5148 44.659 24.0585 44.7893 22.7217C44.9179 21.4027 44.7097 19.8813 43.5881 18.7597L29.2403 4.41187C27.8527 3.02428 25.8765 3.02573 24.2861 3.36776C22.6081 3.72863 20.7334 4.58419 18.8396 5.74801C16.4978 7.18716 13.9881 9.18353 11.5858 11.5858C9.18354 13.988 7.18717 16.4978 5.74802 18.8396C4.58421 20.7334 3.72865 22.6081 3.36778 24.2861C3.02574 25.8765 3.02429 27.8527 4.41189 29.2403Z" fill="currentColor"></path>
 </svg>
 </div>
-<h2 class="text-xl font-bold leading-tight">Politechnika Wrocławska</h2>
+<h2 class="text-[#181111] text-md font-bold leading-tight">Politechnika Wrocławska</h2>
 </div>
-<p class="text-gray-500 text-sm leading-relaxed">
-                        Wydział Zarządzania<br/>
-                        Wybrzeże Wyspiańskiego 27<br/>
-                        50-370 Wrocław
-                    </p>
-</div>
-<div>
-<h4 class="font-bold mb-6 text-sm uppercase tracking-widest text-primary">Rekrutacja</h4>
-<ul class="space-y-4">
-<li><a class="text-gray-600 dark:text-gray-400 hover:text-primary text-sm transition-colors" href="#">Wymagane dokumenty</a></li>
-<li><a class="text-gray-600 dark:text-gray-400 hover:text-primary text-sm transition-colors" href="#">Opłaty za studia</a></li>
-<li><a class="text-gray-600 dark:text-gray-400 hover:text-primary text-sm transition-colors" href="#">Terminarz zapisów</a></li>
-<li><a class="text-gray-600 dark:text-gray-400 hover:text-primary text-sm transition-colors" href="#">FAQ</a></li>
-</ul>
-</div>
-<div>
-<h4 class="font-bold mb-6 text-sm uppercase tracking-widest text-primary">Kontakt</h4>
-<ul class="space-y-4 text-sm text-gray-600 dark:text-gray-400">
-<li class="flex items-center gap-3">
-<span class="material-symbols-outlined text-primary text-lg">mail</span>
-                            marketing.podyplomowe@pwr.edu.pl
-                        </li>
-<li class="flex items-center gap-3">
-<span class="material-symbols-outlined text-primary text-lg">call</span>
-                            +48 71 320 23 45
-                        </li>
-<li class="flex items-center gap-3">
-<span class="material-symbols-outlined text-primary text-lg">location_on</span>
-                            Budynek B-4, pok. 120
-                        </li>
-</ul>
-</div>
-<div>
-<h4 class="font-bold mb-6 text-sm uppercase tracking-widest text-primary">Obserwuj nas</h4>
+<p class="text-[#896161] text-sm">Nowoczesne studia podyplomowe łączące świat nauki i biznesu.</p>
 <div class="flex gap-4">
-<a class="size-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all" href="#">
-<span class="material-symbols-outlined">social_leaderboard</span>
+<a class="w-10 h-10 rounded-full bg-white flex items-center justify-center border border-[#e6dbdb] text-[#181111] hover:text-primary transition-colors" href="#">
+<svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path></svg>
 </a>
-<a class="size-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all" href="#">
-<span class="material-symbols-outlined">share</span>
-</a>
-<a class="size-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all" href="#">
-<span class="material-symbols-outlined">link</span>
+<a class="w-10 h-10 rounded-full bg-white flex items-center justify-center border border-[#e6dbdb] text-[#181111] hover:text-primary transition-colors" href="#">
+<svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path d="M22.23 0H1.77C.8 0 0 .77 0 1.72v20.56C0 23.23.8 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.72V1.72C24 .77 23.2 0 22.23 0zM7.27 20.1H3.65V9.24h3.62V20.1zM5.47 7.76c-1.15 0-2.09-.93-2.09-2.09 0-1.15.94-2.09 2.09-2.09 1.15 0 2.09.94 2.09 2.09 0 1.16-.94 2.09-2.09 2.09zM20.45 20.1h-3.63v-5.6c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.95v5.69h-3.63V9.24h3.48v1.56h.05c.48-.91 1.67-1.88 3.42-1.88 3.65 0 4.33 2.41 4.33 5.54v5.64h-.01z"></path></svg>
 </a>
 </div>
 </div>
+<div>
+<h4 class="font-bold mb-6">Kontakt</h4>
+<div class="space-y-4 text-sm text-[#555]">
+<p class="flex items-center gap-3"><span class="material-symbols-outlined text-primary text-sm">apartment</span> Wydział Zarządzania PWr</p>
+<p class="flex items-center gap-3"><span class="material-symbols-outlined text-primary text-sm">location_on</span> ul. M. Smoluchowskiego 25, Wrocław</p>
+<p class="flex items-center gap-3"><span class="material-symbols-outlined text-primary text-sm">mail</span> podyplomowe.wz@pwr.edu.pl</p>
+<p class="flex items-center gap-3"><span class="material-symbols-outlined text-primary text-sm">call</span> +48 71 320 23 41</p>
 </div>
-<div class="border-t border-[#e6dbdb] dark:border-[#3d2a2a] pt-10 flex flex-col md:flex-row justify-between items-center gap-4">
-<p class="text-xs text-gray-500">© 2024 Politechnika Wrocławska. Wszystkie prawa zastrzeżone.</p>
-<div class="flex gap-6">
-<a class="text-xs text-gray-500 hover:text-primary" href="#">Polityka prywatności</a>
-<a class="text-xs text-gray-500 hover:text-primary" href="#">Deklaracja dostępności</a>
 </div>
+<div>
+<h4 class="font-bold mb-6">Ważne linki</h4>
+<ul class="space-y-4 text-sm text-[#555]">
+<li><a class="hover:text-primary transition-colors" href="#">Internetowa Rekrutacja Kandydatów</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Cennik i opłaty</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Harmonogram zjazdów</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Polityka prywatności</a></li>
+</ul>
+</div>
+</div>
+<div class="max-w-[1200px] mx-auto mt-16 pt-8 border-t border-[#e6dbdb] flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-xs text-[#896161]">© 2024 Politechnika Wrocławska. Wszystkie prawa zastrzeżone.</p>
+<div class="flex gap-6 text-xs text-[#896161]">
+<a class="hover:underline" href="#">BIP</a>
+<a class="hover:underline" href="#">Deklaracja dostępności</a>
+<a class="hover:underline" href="#">Mapa serwisu</a>
 </div>
 </div>
 </footer>
+</div>
+</div>
 </body></html>

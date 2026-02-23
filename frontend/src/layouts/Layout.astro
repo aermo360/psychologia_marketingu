@@ -11,12 +11,12 @@ import CookieBanner from "../components/CookieBanner.astro";
 
 const {
 	title,
-	description = "Studia podyplomowe z praktycznego e-marketingu na Politechnice Wrocławskiej. Zdobądź nowoczesne kompetencje w marketingu cyfrowym od czołowych ekspertów z branży.",
+	description = "Studia podyplomowe Psychologia komunikacji marketingowej i zachowań konsumenckich na Politechnice Wrocławskiej. Marketing behawioralny oparty na wiedzy, nie intuicji.",
 	image = "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1200&auto=format&fit=crop",
 	noindex = false,
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://praktycznymarketing.edu.pl");
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://psychologiamarketingu.edu.pl");
 ---
 
 <!doctype html>
@@ -25,25 +25,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://praktycz
 		<!-- Theme detection: run before paint to avoid flash -->
 		<script is:inline>
 			(function(){var t=localStorage.getItem("theme");if(t==="dark"||(!t&&window.matchMedia("(prefers-color-scheme: dark)").matches)){document.documentElement.classList.replace("light","dark")}})();
-		</script>
-
-		<!-- Google Analytics Consent Mode v2 — default denied until user accepts -->
-		<script is:inline>
-			window.dataLayer = window.dataLayer || [];
-			function gtag(){dataLayer.push(arguments);}
-			gtag("consent", "default", {
-				analytics_storage: "denied",
-				wait_for_update: 500
-			});
-			// Restore consent if user previously accepted
-			if (typeof localStorage !== "undefined" && localStorage.getItem("cookie_consent") === "granted") {
-				gtag("consent", "update", { analytics_storage: "granted" });
-			}
-		</script>
-		<script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-KJ5FY3DR7Q"></script>
-		<script is:inline>
-			gtag("js", new Date());
-			gtag("config", "G-KJ5FY3DR7Q");
 		</script>
 
 		<meta charset="UTF-8" />
@@ -65,7 +46,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://praktycz
 		<meta property="og:description" content={description} />
 		<meta property="og:image" content={image} />
 		<meta property="og:locale" content="pl_PL" />
-		<meta property="og:site_name" content="Praktyczny e-marketing - PWr" />
+		<meta property="og:site_name" content="Psychologia komunikacji marketingowej - PWr" />
 
 		<!-- Twitter -->
 		<meta property="twitter:card" content="summary_large_image" />
@@ -74,18 +55,24 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://praktycz
 		<meta property="twitter:description" content={description} />
 		<meta property="twitter:image" content={image} />
 
+		<!-- Inter: Bunny Fonts (EU-hosted, GDPR-compliant, no user consent required) -->
+		<link rel="preconnect" href="https://fonts.bunny.net" />
+		<link
+			href="https://fonts.bunny.net/css?family=inter:400,500,700,900&display=swap"
+			rel="stylesheet"
+		/>
 		<!-- Material Symbols (icon subset — loaded async to avoid render-blocking) -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
 			rel="preload"
 			as="style"
-			href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_back,arrow_forward,arrow_right_alt,calendar_today,call,campaign,check,check_circle,chevron_right,close,dark_mode,edit_note,expand_more,help_center,insights,label,leaderboard,light_mode,link,location_on,mail,menu,person,schedule,school,share,smart_toy,social_leaderboard,trending_up,videocam,workspace_premium&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=ads_click,analytics,arrow_back,arrow_forward,arrow_right_alt,article,business_center,calendar_today,call,campaign,check,check_circle,chevron_right,close,cookie,dark_mode,edit_note,expand_more,frame_inspect,group,help_center,history_edu,insights,label,laptop_mac,leaderboard,light_mode,link,location_on,mail,menu,neurology,person,psychology,schedule,school,share,smart_toy,social_leaderboard,trending_up,videocam,workspace_premium&display=swap"
 			onload="this.onload=null;this.rel='stylesheet'"
 		/>
 		<noscript>
 			<link
-				href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_back,arrow_forward,arrow_right_alt,calendar_today,call,campaign,check,check_circle,chevron_right,close,dark_mode,edit_note,expand_more,help_center,insights,label,leaderboard,light_mode,link,location_on,mail,menu,person,schedule,school,share,smart_toy,social_leaderboard,trending_up,videocam,workspace_premium&display=swap"
+				href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=ads_click,analytics,arrow_back,arrow_forward,arrow_right_alt,article,business_center,calendar_today,call,campaign,check,check_circle,chevron_right,close,cookie,dark_mode,edit_note,expand_more,frame_inspect,group,help_center,history_edu,insights,label,laptop_mac,leaderboard,light_mode,link,location_on,mail,menu,neurology,person,psychology,schedule,school,share,smart_toy,social_leaderboard,trending_up,videocam,workspace_premium&display=swap"
 				rel="stylesheet"
 			/>
 		</noscript>
@@ -95,16 +82,16 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://praktycz
 			{
 				"@context": "https://schema.org",
 				"@type": "EducationalOrganization",
-				"@id": "https://praktycznymarketing.edu.pl/#organization",
-				"name": "Politechnika Wrocławska - Studia Podyplomowe E-marketing",
-				"url": "https://praktycznymarketing.edu.pl",
-				"logo": "https://praktycznymarketing.edu.pl/favicon.png",
-				"description": "Studia podyplomowe z praktycznego e-marketingu",
+				"@id": "https://psychologiamarketingu.edu.pl/#organization",
+				"name": "Politechnika Wrocławska - Psychologia komunikacji marketingowej",
+				"url": "https://psychologiamarketingu.edu.pl",
+				"logo": "https://psychologiamarketingu.edu.pl/favicon.png",
+				"description": "Studia podyplomowe z psychologii komunikacji marketingowej i zachowań konsumenckich",
 				"address": {
 					"@type": "PostalAddress",
 					"streetAddress": "ul. Na Grobli 15",
-					"addressLocality": "Wrocław",
 					"postalCode": "50-421",
+					"addressLocality": "Wrocław",
 					"addressCountry": "PL"
 				},
 				"contactPoint": {
@@ -115,6 +102,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://praktycz
 				}
 			}
 		</script>
+
+		<!-- Google Analytics loaded conditionally after cookie consent (see CookieBanner component) -->
 
 		<style is:global>
 			.material-symbols-outlined {
@@ -132,6 +121,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://praktycz
 	<body
 		class="bg-background-light dark:bg-background-dark text-[#181111] dark:text-white transition-colors duration-200"
 	>
+		<a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[60] focus:px-4 focus:py-2 focus:bg-primary focus:text-white focus:rounded-lg focus:text-sm focus:font-bold">Przejdź do treści</a>
 		<slot />
 		<CookieBanner />
 	</body>
