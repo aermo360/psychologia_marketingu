@@ -2,7 +2,7 @@
 
 ## Projekt
 Strona internetowa studiów podyplomowych "Praktyczny e-marketing" - Politechnika Wrocławska.
-Framework: Astro 5 + Tailwind CSS 4 + Strapi 5 (headless CMS).
+Framework: Astro 6 + Tailwind CSS 4 + Strapi 5 (headless CMS).
 
 ## Konwencje
 - Strony w `frontend/src/pages/` - importują Layout, Header, Footer i sekcję
@@ -110,3 +110,21 @@ Kompleksowy audyt i naprawa problemów z 10 kategorii: bezpieczeństwo (GDPR/coo
 wydajność (fetchpriority, font subset), dostępność (aria-expanded, focus-visible, touch targets),
 SEO (HTTPS canonical, dynamiczny sitemap, noindex dla /blog), RWD (tablet breakpoint, mobile grayscale),
 stabilność (Node 20, set -e, usunięcie nieużywanych plików).
+
+---
+
+## 2026-05-11 - Aktualizacja do Astro 6
+
+### Przeniesione pliki:
+- `frontend/src/content/config.ts` → `frontend/src/content.config.ts` — w Astro 6 wymagana nowa lokalizacja konfiguracji Content Collections (legacy API usunięte)
+
+### Zmodyfikowane pliki:
+- `frontend/package.json` — `astro` `^5.16.9` → `^6.3.1`
+- `frontend/Dockerfile` — `node:18-alpine` → `node:22-alpine` (Astro 6 wymaga Node ≥ 22.12)
+- `frontend/Dockerfile.prod` — `node:20-alpine` → `node:22-alpine`
+
+### Uwagi:
+- Build (`astro build`) działa poprawnie na v6.3.1.
+- `strapi-community-astro-loader@2.0.6` deklaruje peer `astro@^5` (warning od npm), ale nie jest używany — Content Collections korzystają z własnego `customStrapiLoader`, więc brak realnego wpływu.
+- Brak użycia usuniętych API: `Astro.glob`, `<ViewTransitions />`, `entry.render()`, `entry.slug`, client-side `getImage`, `z.string().email()` itp. — migracja była głównie mechaniczna.
+
