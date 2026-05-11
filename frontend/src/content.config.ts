@@ -1,5 +1,4 @@
 import { defineCollection, z } from 'astro:content';
-import { strapiLoader } from "strapi-community-astro-loader";
 
 // Prefer runtime env (Docker), fall back to Vite env, then localhost
 const STRAPI_URL = process.env.STRAPI_URL || import.meta.env.PUBLIC_STRAPI_URL || "http://localhost:1337";
