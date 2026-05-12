@@ -128,3 +128,19 @@ stabilność (Node 20, set -e, usunięcie nieużywanych plików).
 - `strapi-community-astro-loader@2.0.6` deklaruje peer `astro@^5` (warning od npm), ale nie jest używany — Content Collections korzystają z własnego `customStrapiLoader`, więc brak realnego wpływu.
 - Brak użycia usuniętych API: `Astro.glob`, `<ViewTransitions />`, `entry.render()`, `entry.slug`, client-side `getImage`, `z.string().email()` itp. — migracja była głównie mechaniczna.
 
+---
+
+## 2026-05-12 - Fix HTTPS→HTTP downgrade na trailing-slash redirectach
+
+### Zmodyfikowane pliki (na serwerze, poza repo):
+- `/etc/nginx/sites-enabled/psychologiamarketingu` na Hetzner (`157.180.18.130`) — dodano `absolute_redirect off;` i `port_in_redirect off;`. Backup: `psychologiamarketingu.bak.2026-05-11`.
+
+### Problem:
+Cloudflare terminuje TLS przed nginxem, który nasłuchuje tylko na `:80`. Auto-redirect nginx z `/faq` → `/faq/` budował absolutną Location ze schematu nasłuchu (`http://…/faq/`), co powodowało downgrade HTTPS→HTTP i dodatkowy round-trip przez Cloudflare. Dotyczyło wszystkich URL-i bez trailing slash (`/faq`, `/wykladowcy`, `/polityka-prywatnosci`, `/blog`).
+
+### Rozwiązanie:
+`absolute_redirect off` sprawia, że nginx wysyła Location relative (`/faq/`), więc przeglądarka zachowuje oryginalny schemat (HTTPS) i hosta. Po reloadzie: `/faq` → 301 → `https://…/faq/` (1 redirect, bez downgrade'u).
+
+### Uwagi:
+- Astro buduje z `build.format: 'directory'` (default), więc kanoniczne URL-e to wersje z trailing slash — wewnętrzne linki już używają `/faq/`. Redirect jest tylko safety-netem dla wejść z zewnątrz.
+- Pozostałe „smelle" niezwiązane z trailing slash (do osobnego zadania): `/nonexistent` zwraca 200 zamiast 404 (SPA fallback `/index.html` w `try_files`), `/index.html` zwraca 200 zamiast 301 → `/`.
