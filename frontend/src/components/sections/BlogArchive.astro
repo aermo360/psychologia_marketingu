@@ -62,7 +62,7 @@ function formatDate(dateStr?: string) {
         </div>
         {categories.length > 0 && (
             <div class="flex gap-2 text-sm font-medium flex-wrap">
-                <a class="px-4 py-2 rounded-full bg-primary text-white" href="/blog">Wszystkie</a>
+                <a class="px-4 py-2 rounded-full bg-primary text-white" href="/blog/">Wszystkie</a>
                 {categories.map(cat => (
                     <span class="px-4 py-2 rounded-full bg-white dark:bg-white/5 border border-[#e6dbdb] dark:border-[#3d2a2a] hover:border-primary/50 transition-colors cursor-default">{cat}</span>
                 ))}
@@ -93,7 +93,7 @@ function formatDate(dateStr?: string) {
         <!-- Featured article -->
         {featuredArticle && (
         <section class="max-w-[1280px] mx-auto px-6 lg:px-20 pb-12">
-            <a href={`/blog/${featuredArticle.slug}`} class="group relative rounded-3xl overflow-hidden bg-white dark:bg-[#1a0c0c] border border-[#e6dbdb] dark:border-[#3d2a2a] shadow-lg hover:shadow-xl transition-all block">
+            <a href={`/blog/${featuredArticle.slug}/`} class="group relative rounded-3xl overflow-hidden bg-white dark:bg-[#1a0c0c] border border-[#e6dbdb] dark:border-[#3d2a2a] shadow-lg hover:shadow-xl transition-all block">
                 <div class="grid grid-cols-1 lg:grid-cols-2">
                     <div class="aspect-[16/10] lg:aspect-auto lg:min-h-[400px] w-full overflow-hidden">
                         <div
@@ -130,7 +130,7 @@ function formatDate(dateStr?: string) {
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {regularArticles.map(article => (
                     <article class="flex flex-col group h-full">
-                        <a href={`/blog/${article.slug}`} class="block">
+                        <a href={`/blog/${article.slug}/`} class="block">
                             <div class="aspect-[16/10] rounded-2xl overflow-hidden mb-4 bg-gray-100 dark:bg-gray-800 relative">
                                 <div
                                     class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
@@ -145,7 +145,7 @@ function formatDate(dateStr?: string) {
                         </a>
                         <div class="flex-1 flex flex-col">
                             <div class="text-xs text-gray-500 font-medium mb-2">{formatDate(article.publish_date)}</div>
-                            <a href={`/blog/${article.slug}`}>
+                            <a href={`/blog/${article.slug}/`}>
                                 <h3 class="text-xl font-bold mb-3 leading-tight group-hover:text-primary transition-colors">
                                     {article.title}
                                 </h3>
@@ -154,7 +154,7 @@ function formatDate(dateStr?: string) {
                                 {article.excerpt}
                             </p>
                             <div class="mt-auto pt-4 border-t border-gray-100 dark:border-white/5">
-                                <a class="text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all" href={`/blog/${article.slug}`}>
+                                <a class="text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all" href={`/blog/${article.slug}/`}>
                                     Czytaj dalej <span class="material-symbols-outlined text-base" aria-hidden="true">arrow_right_alt</span>
                                 </a>
                             </div>
