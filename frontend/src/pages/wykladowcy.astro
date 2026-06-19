@@ -3,9 +3,22 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import LecturersGrid from "../components/sections/LecturersGrid.astro";
+
+const breadcrumbs = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://psychologiamarketingu.edu.pl/" },
+        { "@type": "ListItem", "position": 2, "name": "Wykładowcy", "item": "https://psychologiamarketingu.edu.pl/wykladowcy/" },
+    ],
+};
 ---
 
-<Layout title="Wykładowcy - Psychologia komunikacji marketingowej | Politechnika Wrocławska">
+<Layout
+    title="Wykładowcy - Psychologia komunikacji marketingowej | Politechnika Wrocławska"
+    description="Poznaj wykładowców studiów podyplomowych Psychologia komunikacji marketingowej na Politechnice Wrocławskiej — akademiccy eksperci i praktycy biznesu z zakresu psychologii konsumenta, neuromarketingu i komunikacji."
+    jsonLd={breadcrumbs}
+>
     <Header />
     <main id="main-content" class="flex-1">
         <LecturersGrid />

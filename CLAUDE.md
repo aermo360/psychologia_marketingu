@@ -144,3 +144,27 @@ Cloudflare terminuje TLS przed nginxem, który nasłuchuje tylko na `:80`. Auto-
 ### Uwagi:
 - Astro buduje z `build.format: 'directory'` (default), więc kanoniczne URL-e to wersje z trailing slash — wewnętrzne linki już używają `/faq/`. Redirect jest tylko safety-netem dla wejść z zewnątrz.
 - Pozostałe „smelle" niezwiązane z trailing slash (do osobnego zadania): `/nonexistent` zwraca 200 zamiast 404 (SPA fallback `/index.html` w `try_files`), `/index.html` zwraca 200 zamiast 301 → `/`.
+
+---
+
+## 2026-06-19 - SEO: strategia + wdrożenie Fazy 1.1 (on-page tech)
+
+### Nowe pliki:
+- `docs/seo-strategia.md` - pełna 6-miesięczna strategia SEO (baseline GSC/Ahrefs, analiza konkurencji z SERP, klastry keywordów, plan 3-fazowy, KPI)
+- `frontend/scripts/generate-og.mjs` - generator brandowanego OG image (sharp, 1200×630), reprodukowalny
+- `frontend/public/og-default.png` - brandowany OG (logo PWr + tytuł, ciemne tło z czerwonym akcentem)
+
+### Zmodyfikowane pliki:
+- `frontend/src/layouts/Layout.astro` - prop `jsonLd` (per-page structured data), OG image domyślnie lokalny `/og-default.png` + rozwiązywany do absolutnego URL, `og:image:width/height`
+- `frontend/src/components/sections/Hero.astro` - lead paragraph z keywordami („studia podyplomowe", „Politechnika Wrocławska", „neuromarketing")
+- `frontend/src/components/sections/LecturersGrid.astro` - `<h2>Nasza kadra</h2>` → keyword-rich `<h1>`, inline JSON-LD `ItemList`/`Person` per wykładowca
+- `frontend/src/components/sections/FaqSection.astro` - refactor do `faqs[]` (jedno źródło prawdy dla HTML i JSON-LD `FAQPage`)
+- `frontend/src/pages/index.astro` - customowy meta description + schema `Course` (provider, offers 7600 PLN, courseMode online+onsite, 206h)
+- `frontend/src/pages/wykladowcy.astro`, `faq.astro`, `blog/index.astro`, `polityka-prywatnosci.astro` - customowe meta descriptions + `BreadcrumbList`
+
+### Kontekst (baseline z 2026-06-19):
+DR=0, 0 backlinków, 27 klików / 845 wyświetleń (90 dni), poz. śr. 22,9. Sleeper hit: `/wykladowcy/` poz. ~6 / CTR 6,5% mimo braku `<h1>`. „marketing behawioralny" już poz. 14. PWr nieobecna w top 11 dla „studia podyplomowe marketing" (vol. 150/mc).
+
+### Uwagi:
+- `Person` schema na `/wykladowcy/` zapełnia się tylko na prodzie (dane wykładowców ze Strapi; lokalnie kolekcja pusta → empty state).
+- Faza 1.2+ (cornerstone content, link building) — patrz `docs/seo-strategia.md`.

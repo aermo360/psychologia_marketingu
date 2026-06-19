@@ -8,9 +8,59 @@ import KeyFeatures from "../components/sections/KeyFeatures.astro";
 import WhyBehavioral from "../components/sections/WhyBehavioral.astro";
 import BentoCurriculum from "../components/sections/BentoCurriculum.astro";
 import WhatYouLearn from "../components/sections/WhatYouLearn.astro";
+
+const courseSchema = {
+	"@context": "https://schema.org",
+	"@type": "Course",
+	"name": "Psychologia komunikacji marketingowej i zachowań konsumenckich",
+	"description":
+		"Studia podyplomowe z marketingu behawioralnego: psychologia konsumenta, neuromarketing, badania i analiza zachowań klientów. Tryb online z końcowym egzaminem stacjonarnym.",
+	"url": "https://psychologiamarketingu.edu.pl/",
+	"inLanguage": "pl",
+	"educationalCredentialAwarded": "Świadectwo ukończenia studiów podyplomowych",
+	"educationalLevel": "Studia podyplomowe",
+	"provider": {
+		"@type": "EducationalOrganization",
+		"@id": "https://psychologiamarketingu.edu.pl/#organization",
+		"name": "Politechnika Wrocławska",
+		"url": "https://psychologiamarketingu.edu.pl/",
+	},
+	"offers": {
+		"@type": "Offer",
+		"category": "Tuition",
+		"price": "7600",
+		"priceCurrency": "PLN",
+		"url": "https://irk.usos.pwr.edu.pl/pl/offer/PDS_2025_2026/programme/PDS-PKMP-000P-NNPW2/?from=field:PKM",
+		"availability": "https://schema.org/InStock",
+	},
+	"hasCourseInstance": {
+		"@type": "CourseInstance",
+		"courseMode": ["online", "onsite"],
+		"courseWorkload": "PT206H",
+		"location": {
+			"@type": "Place",
+			"name": "Politechnika Wrocławska",
+			"address": {
+				"@type": "PostalAddress",
+				"addressLocality": "Wrocław",
+				"addressCountry": "PL",
+			},
+		},
+		"offers": {
+			"@type": "Offer",
+			"category": "Tuition",
+			"price": "7600",
+			"priceCurrency": "PLN",
+		},
+	},
+};
 ---
 
-<Layout title="Psychologia komunikacji marketingowej - Studia Podyplomowe PWr">
+<Layout
+	title="Psychologia komunikacji marketingowej - Studia Podyplomowe PWr"
+	description="Studia podyplomowe Psychologia komunikacji marketingowej na Politechnice Wrocławskiej. Marketing behawioralny, psychologia konsumenta i neuromarketing — 2 semestry, tryb online. Rekrutacja na edycję 2026/2027."
+	jsonLd={courseSchema}
+>
 	<Header />
 	<main id="main-content" class="flex-1">
 		<Hero />

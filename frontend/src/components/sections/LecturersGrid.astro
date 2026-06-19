@@ -28,7 +28,33 @@ try {
 } catch (e) {
     console.warn("Could not fetch lecturers from Strapi.");
 }
+
+// Structured data: list of lecturers as schema.org Person items
+const lecturersJsonLd = lecturers.length > 0 ? {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Wykładowcy studiów podyplomowych Psychologia komunikacji marketingowej",
+    "itemListElement": lecturers.map((lecturer: any, i: number) => ({
+        "@type": "ListItem",
+        "position": i + 1,
+        "item": {
+            "@type": "Person",
+            "name": lecturer.name,
+            "jobTitle": lecturer.role,
+            ...(lecturer.description ? { "description": lecturer.description } : {}),
+            ...((lecturer.finalImageUrl || lecturer.image_url) ? { "image": lecturer.finalImageUrl || lecturer.image_url } : {}),
+            "worksFor": {
+                "@type": "EducationalOrganization",
+                "@id": "https://psychologiamarketingu.edu.pl/#organization",
+            },
+        },
+    })),
+} : null;
 ---
+
+{lecturersJsonLd && (
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(lecturersJsonLd)} />
+)}
 
 <div class="w-full py-10 md:py-16" id="wykladowcy">
     <div class="max-w-[1280px] mx-auto px-6 lg:px-20 flex flex-col flex-1">
@@ -42,17 +68,18 @@ try {
                     Eksperci: doświadczeni praktycy i dydaktycy
                 </p>
             </div>
-            <h2
+            <h1
                 class="text-[#181111] dark:text-white text-4xl md:text-5xl font-black leading-tight tracking-[-0.033em]"
             >
-                Nasza kadra
-            </h2>
+                Wykładowcy studiów podyplomowych z psychologii marketingu
+            </h1>
             <p
                 class="text-[#896161] dark:text-[#b59a9a] text-lg font-normal leading-relaxed max-w-2xl"
             >
-                Poznaj zespół wybitnych wykładowców akademickich oraz cenionych
-                ekspertów z branży, którzy podzielą się z Tobą unikalną,
-                praktyczną wiedzą z zakresu psychologii marketingu i komunikacji.
+                Poznaj zespół wybitnych wykładowców akademickich Politechniki Wrocławskiej
+                oraz cenionych ekspertów z branży, którzy podzielą się z Tobą unikalną,
+                praktyczną wiedzą z zakresu psychologii marketingu, neuromarketingu
+                i komunikacji z konsumentem.
             </p>
         </div>
         <!-- ImageGrid / Teacher Cards -->
