@@ -18,11 +18,13 @@ const courseSchema = {
 	"url": "https://psychologiamarketingu.edu.pl/",
 	"inLanguage": "pl",
 	"educationalCredentialAwarded": "Świadectwo ukończenia studiów podyplomowych",
-	"educationalLevel": "Studia podyplomowe",
+	"educationalLevel": "Studia podyplomowe (Polska Rama Kwalifikacji — poziom 7)",
+	"numberOfCredits": 76,
+	"coursePrerequisites": "Dyplom ukończenia studiów wyższych I lub II stopnia",
 	"provider": {
 		"@type": "EducationalOrganization",
 		"@id": "https://psychologiamarketingu.edu.pl/#organization",
-		"name": "Politechnika Wrocławska",
+		"name": "Wydział Zarządzania Politechniki Wrocławskiej",
 		"url": "https://psychologiamarketingu.edu.pl/",
 	},
 	"offers": {
@@ -37,11 +39,14 @@ const courseSchema = {
 		"@type": "CourseInstance",
 		"courseMode": ["online", "onsite"],
 		"courseWorkload": "PT206H",
+		"maximumAttendeeCapacity": 30,
 		"location": {
 			"@type": "Place",
-			"name": "Politechnika Wrocławska",
+			"name": "Wydział Zarządzania Politechniki Wrocławskiej",
 			"address": {
 				"@type": "PostalAddress",
+				"streetAddress": "ul. Łukasiewicza 5",
+				"postalCode": "50-372",
 				"addressLocality": "Wrocław",
 				"addressCountry": "PL",
 			},
@@ -58,7 +63,7 @@ const courseSchema = {
 
 <Layout
 	title="Psychologia komunikacji marketingowej - Studia Podyplomowe PWr"
-	description="Studia podyplomowe Psychologia komunikacji marketingowej na Politechnice Wrocławskiej. Marketing behawioralny, psychologia konsumenta i neuromarketing — 2 semestry, tryb online. Rekrutacja na edycję 2026/2027."
+	description="Studia podyplomowe Psychologia komunikacji marketingowej i zachowań konsumenckich na Politechnice Wrocławskiej. Marketing behawioralny, psychologia konsumenta i neuromarketing — 2 semestry (206 h, 76 ECTS), tryb online. Rekrutacja otwarta."
 	jsonLd={courseSchema}
 >
 	<Header />
