@@ -6,6 +6,7 @@ import Hero from "../components/sections/Hero.astro";
 import StatsBar from "../components/sections/StatsBar.astro";
 import KeyFeatures from "../components/sections/KeyFeatures.astro";
 import WhyBehavioral from "../components/sections/WhyBehavioral.astro";
+import BehavioralInPractice from "../components/sections/BehavioralInPractice.astro";
 import BentoCurriculum from "../components/sections/BentoCurriculum.astro";
 import WhatYouLearn from "../components/sections/WhatYouLearn.astro";
 
@@ -45,8 +46,8 @@ const courseSchema = {
 			"name": "Wydział Zarządzania Politechniki Wrocławskiej",
 			"address": {
 				"@type": "PostalAddress",
-				"streetAddress": "ul. Łukasiewicza 5",
-				"postalCode": "50-372",
+				"streetAddress": "bud. L-1, ul. Na Grobli 15",
+				"postalCode": "50-421",
 				"addressLocality": "Wrocław",
 				"addressCountry": "PL",
 			},
@@ -63,7 +64,7 @@ const courseSchema = {
 
 <Layout
 	title="Psychologia komunikacji marketingowej - Studia Podyplomowe PWr"
-	description="Studia podyplomowe Psychologia komunikacji marketingowej i zachowań konsumenckich na Politechnice Wrocławskiej. Marketing behawioralny, psychologia konsumenta i neuromarketing — 2 semestry (206 h, 76 ECTS), tryb online. Rekrutacja otwarta."
+	description="Studia podyplomowe Psychologia komunikacji marketingowej i zachowań konsumenckich na Politechnice Wrocławskiej. Marketing behawioralny, psychologia konsumenta i neuromarketing — 2 semestry (206 h, 76 ECTS), tryb online. Rekrutacja na edycję 2026/2027."
 	jsonLd={courseSchema}
 >
 	<Header />
@@ -72,6 +73,7 @@ const courseSchema = {
 		<StatsBar />
 		<KeyFeatures />
 		<WhyBehavioral />
+		<BehavioralInPractice />
 		<BentoCurriculum />
 		<WhatYouLearn />
 	</main>

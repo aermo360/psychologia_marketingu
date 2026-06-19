@@ -73,14 +73,40 @@ const lecturersJsonLd = lecturers.length > 0 ? {
             >
                 Wykładowcy studiów podyplomowych z psychologii marketingu
             </h1>
-            <p
-                class="text-[#896161] dark:text-[#b59a9a] text-lg font-normal leading-relaxed max-w-2xl"
-            >
-                Poznaj zespół wybitnych wykładowców akademickich Politechniki Wrocławskiej
-                oraz cenionych ekspertów z branży, którzy podzielą się z Tobą unikalną,
-                praktyczną wiedzą z zakresu psychologii marketingu, neuromarketingu
-                i komunikacji z konsumentem.
-            </p>
+            <div class="text-[#896161] dark:text-[#b59a9a] text-lg font-normal leading-relaxed max-w-3xl space-y-4">
+                <p>
+                    Siłą studiów podyplomowych <strong class="text-[#181111] dark:text-white font-semibold">Psychologia
+                    komunikacji marketingowej i zachowań konsumenckich</strong> jest kadra, która
+                    łączy dwie perspektywy: akademicką rzetelność nauczycieli Wydziału Zarządzania
+                    Politechniki Wrocławskiej oraz codzienne doświadczenie czynnych praktyków
+                    marketingu, badaczy rynku i specjalistów komunikacji. Dzięki temu wiedza
+                    z zakresu psychologii konsumenta, neuromarketingu, perswazyjności reklamy
+                    i projektowania doświadczeń (CX) jest przekazywana nie jako sucha teoria,
+                    lecz w bezpośrednim odniesieniu do realnych kampanii, marek i decyzji biznesowych.
+                </p>
+                <p>
+                    Opiekę merytoryczną nad programem sprawuje kierownik studiów
+                    <strong class="text-[#181111] dark:text-white font-semibold">dr Mirosława Krzyścin</strong>,
+                    a poszczególne przedmioty prowadzą eksperci specjalizujący się w swoich
+                    dziedzinach — od psychologii sprzedaży i technik wpływu, przez storytelling,
+                    content marketing i emocjonalny branding, po badania zachowań konsumenckich
+                    oraz wykorzystanie sztucznej inteligencji w poznawaniu klienta.
+                </p>
+            </div>
+            <ul class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mt-2">
+                <li class="bg-white dark:bg-background-dark/40 border border-[#f4f0f0] dark:border-[#3d2a2a] rounded-xl p-5">
+                    <p class="text-primary font-bold text-sm mb-1">Nauka + biznes</p>
+                    <p class="text-sm text-[#896161] dark:text-[#b59a9a]">Wykładowcy akademiccy PWr i czynni praktycy w jednym zespole.</p>
+                </li>
+                <li class="bg-white dark:bg-background-dark/40 border border-[#f4f0f0] dark:border-[#3d2a2a] rounded-xl p-5">
+                    <p class="text-primary font-bold text-sm mb-1">Zajęcia w praktyce</p>
+                    <p class="text-sm text-[#896161] dark:text-[#b59a9a]">Wykłady aktywizujące, studia przypadków, warsztaty i ćwiczenia.</p>
+                </li>
+                <li class="bg-white dark:bg-background-dark/40 border border-[#f4f0f0] dark:border-[#3d2a2a] rounded-xl p-5">
+                    <p class="text-primary font-bold text-sm mb-1">Szeroka ekspertyza</p>
+                    <p class="text-sm text-[#896161] dark:text-[#b59a9a]">Psychologia konsumenta, neuromarketing, CX, branding, badania, AI.</p>
+                </li>
+            </ul>
         </div>
         <!-- ImageGrid / Teacher Cards -->
         {lecturers.length === 0 ? (
