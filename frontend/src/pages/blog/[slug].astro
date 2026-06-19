@@ -5,7 +5,10 @@ import Footer from "../../components/Footer.astro";
 import { getCollection } from "astro:content";
 import sanitizeHtml from "sanitize-html";
 
-const STRAPI_URL = process.env.STRAPI_URL || import.meta.env.PUBLIC_STRAPI_URL || "http://localhost:1337";
+// Public base for media <img src> shown in the browser. PUBLIC_STRAPI_URL is the
+// public CMS host; STRAPI_URL is the internal build-time host (not browser-reachable).
+// Data fetching goes through the content loader (content.config.ts) — this is media only.
+const STRAPI_URL = import.meta.env.PUBLIC_STRAPI_URL || process.env.STRAPI_URL || "http://localhost:1337";
 const IRK = "https://irk.usos.pwr.edu.pl/pl/offer/PDS_2025_2026/programme/PDS-PKMP-000P-NNPW2/?from=field:PKM";
 
 interface Article {
