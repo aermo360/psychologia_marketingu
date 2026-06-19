@@ -63,7 +63,7 @@ const { slug } = Astro.params;
 const article = articles.find(a => a.slug === slug);
 
 if (!article) {
-    return Astro.redirect("/blog");
+    return Astro.redirect("/blog/");
 }
 
 // Sanitize HTML content to prevent XSS — allow safe rich-text tags from CMS
@@ -98,9 +98,57 @@ function formatDate(dateStr?: string) {
     const date = new Date(dateStr);
     return date.toLocaleDateString("pl-PL", { day: "numeric", month: "long", year: "numeric" });
 }
+
+// Structured data — BlogPosting (E-E-A-T: author Person + publisher) + breadcrumbs
+const canonical = `https://psychologiamarketingu.edu.pl/blog/${article.slug}/`;
+const ogImage = safeImageUrl(article.featured_image_url);
+const articleSchema: Record<string, any> = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": article.title,
+    "url": canonical,
+    "mainEntityOfPage": canonical,
+    "inLanguage": "pl",
+    ...(article.excerpt ? { "description": article.excerpt } : {}),
+    ...(article.category ? { "articleSection": article.category } : {}),
+    ...(ogImage ? { "image": ogImage } : {}),
+    ...(article.publish_date ? { "datePublished": article.publish_date } : {}),
+    ...(article.author_name ? {
+        "author": {
+            "@type": "Person",
+            "name": article.author_name,
+            ...(article.author_role ? { "jobTitle": article.author_role } : {}),
+            ...(article.author_bio ? { "description": article.author_bio } : {}),
+            ...(safeImageUrl(article.author_image_url) ? { "image": safeImageUrl(article.author_image_url) } : {}),
+        },
+    } : {}),
+    "publisher": {
+        "@type": "EducationalOrganization",
+        "@id": "https://psychologiamarketingu.edu.pl/#organization",
+        "name": "Politechnika Wrocławska - Psychologia komunikacji marketingowej",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://psychologiamarketingu.edu.pl/favicon.png",
+        },
+    },
+};
+const breadcrumbs = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://psychologiamarketingu.edu.pl/" },
+        { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://psychologiamarketingu.edu.pl/blog/" },
+        { "@type": "ListItem", "position": 3, "name": article.title, "item": canonical },
+    ],
+};
 ---
 
-<Layout title={`${article.title} | Blog - Politechnika Wrocławska`}>
+<Layout
+    title={`${article.title} | Blog - Politechnika Wrocławska`}
+    description={article.excerpt}
+    image={ogImage || undefined}
+    jsonLd={[articleSchema, breadcrumbs]}
+>
     <Header />
     <main id="main-content" class="flex-1">
         <!-- Article header -->

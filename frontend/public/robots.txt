@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://psychologiamarketingu.edu.pl/sitemap.xml
+Sitemap: https://psychologiamarketingu.edu.pl/sitemap-index.xml

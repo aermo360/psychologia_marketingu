@@ -202,3 +202,19 @@ Poprawione defaulty na właściwą domenę + `https`. Wymagany rebuild backendu 
 - Wszystkie nowe strony w sitemapie (9 stron total), breadcrumb schema na każdej.
 - Treść zgodna ze źródłem prawdy (memory: `program-source-of-truth`); adres Na Grobli 15, edycja 2026/2027.
 - CTA wciąż na ofercie IRK `PDS_2025_2026` — do podmiany, gdy znany URL 2026/2027.
+
+---
+
+## 2026-06-19 - SEO: przygotowanie bloga pod content (Faza 2 — blokery techniczne)
+
+### Zmodyfikowane pliki:
+- `frontend/public/robots.txt` — `Sitemap: …/sitemap.xml` → `…/sitemap-index.xml` (Astro generuje index, stary URL dawał 404).
+- `frontend/src/pages/blog/[slug].astro` — dodano schema `BlogPosting` (z `author` Person + `publisher`) + `BreadcrumbList`, `description` (excerpt), `image` (featured → OG). Redirect `/blog` → `/blog/`.
+
+### Stan zastany (już OK, bez zmian):
+- Blog **nie ma** `noindex` (zdjęte wcześniej); `/blog/*` **jest** w sitemapie (`sitemap()` bez filtra).
+- Strapi content-type `article` ma komplet pól E-E-A-T: author_name/role/bio/image_url, publish_date, category, featured_image, read_time, excerpt.
+
+### Uwagi:
+- Artykuły budują się przy `astro build` (getStaticPaths ze Strapi) — po publikacji w CMS wymagany rebuild frontu.
+- Opcjonalny `FAQPage` dla cornerstone'ów (z briefów) — do dodania przy budowie konkretnych artykułów (wymaga pola FAQ w Strapi).
