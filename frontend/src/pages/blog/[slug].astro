@@ -6,6 +6,7 @@ import { getCollection } from "astro:content";
 import sanitizeHtml from "sanitize-html";
 
 const STRAPI_URL = process.env.STRAPI_URL || import.meta.env.PUBLIC_STRAPI_URL || "http://localhost:1337";
+const IRK = "https://irk.usos.pwr.edu.pl/pl/offer/PDS_2025_2026/programme/PDS-PKMP-000P-NNPW2/?from=field:PKM";
 
 interface Article {
     title: string;
@@ -84,11 +85,60 @@ const safeContent = article.content
       })
     : "";
 
+// --- Author: article fields, falling back to the matching lecturer (default Arkadiusz Morawski) ---
+let lecturers: any[] = [];
+try {
+    lecturers = (await getCollection("lecturers")).map((l: any) => l.data);
+} catch { /* collection may be empty locally */ }
+const resolveLecturerImage = (l: any): string => {
+    if (l?.image?.url) return l.image.url.startsWith("http") ? l.image.url : `${STRAPI_URL}${l.image.url}`;
+    return l?.image_url || "";
+};
+const authorLecturer = lecturers.find((l: any) =>
+    article.author_name ? l?.name === article.author_name : /morawski/i.test(l?.name || "")
+);
+const authorName = article.author_name || authorLecturer?.name || "Arkadiusz Morawski";
+const authorRole = article.author_role || authorLecturer?.role || "";
+const authorBio = article.author_bio || authorLecturer?.description || "";
+const authorImg = safeImageUrl(article.author_image_url) || safeImageUrl(authorLecturer ? resolveLecturerImage(authorLecturer) : "");
+
+// --- Table of contents: inject ids into <h2> and collect entries ---
+const slugify = (s: string) =>
+    s.toLowerCase()
+        .replace(/[ąàáâ]/g, "a").replace(/ć/g, "c").replace(/[ęèé]/g, "e").replace(/ł/g, "l")
+        .replace(/ń/g, "n").replace(/[óòô]/g, "o").replace(/ś/g, "s").replace(/[żź]/g, "z")
+        .replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+const toc: { id: string; text: string }[] = [];
+const processedContent = safeContent.replace(/<h2\b([^>]*)>([\s\S]*?)<\/h2>/gi, (_m, attrs, inner) => {
+    const text = inner.replace(/<[^>]+>/g, "").trim();
+    const id = slugify(text) || `sekcja-${toc.length + 1}`;
+    toc.push({ id, text });
+    const cleanedAttrs = String(attrs).replace(/\sid="[^"]*"/i, "");
+    return `<h2 id="${id}"${cleanedAttrs}>${inner}</h2>`;
+});
+
+// --- FAQ: parse the "Najczęściej zadawane pytania" section (h3 = question, following = answer) ---
+const faqs: { q: string; a: string }[] = [];
+const faqSection = processedContent.match(/<h2[^>]*>\s*Najczęściej zadawane pytania\s*<\/h2>([\s\S]*?)(?=<h2|$)/i);
+if (faqSection) {
+    const re = /<h3\b[^>]*>([\s\S]*?)<\/h3>([\s\S]*?)(?=<h3|$)/gi;
+    let m;
+    while ((m = re.exec(faqSection[1])) !== null) {
+        const q = m[1].replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+        const a = m[2].replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+        if (q && a) faqs.push({ q, a });
+    }
+}
+
+// --- Meta description: excerpt → first paragraph fallback ---
+const firstPara = safeContent.match(/<p[^>]*>([\s\S]*?)<\/p>/i);
+const autoDesc = firstPara ? firstPara[1].replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim().slice(0, 160) : undefined;
+const metaDescription = (article.excerpt && article.excerpt.trim()) || autoDesc || undefined;
+
 // Related articles: same category first, then fill with others
 const relatedArticles = articles
     .filter(a => a.slug !== slug && a.category === article.category)
     .slice(0, 3);
-
 const moreArticles = relatedArticles.length < 3
     ? [...relatedArticles, ...articles.filter(a => a.slug !== slug && !relatedArticles.includes(a)).slice(0, 3 - relatedArticles.length)]
     : relatedArticles;
@@ -99,7 +149,7 @@ function formatDate(dateStr?: string) {
     return date.toLocaleDateString("pl-PL", { day: "numeric", month: "long", year: "numeric" });
 }
 
-// Structured data — BlogPosting (E-E-A-T: author Person + publisher) + breadcrumbs
+// --- Structured data: BlogPosting (author Person + publisher) + Breadcrumb + FAQPage ---
 const canonical = `https://psychologiamarketingu.edu.pl/blog/${article.slug}/`;
 const ogImage = safeImageUrl(article.featured_image_url);
 const articleSchema: Record<string, any> = {
@@ -109,27 +159,25 @@ const articleSchema: Record<string, any> = {
     "url": canonical,
     "mainEntityOfPage": canonical,
     "inLanguage": "pl",
-    ...(article.excerpt ? { "description": article.excerpt } : {}),
+    ...(metaDescription ? { "description": metaDescription } : {}),
     ...(article.category ? { "articleSection": article.category } : {}),
     ...(ogImage ? { "image": ogImage } : {}),
     ...(article.publish_date ? { "datePublished": article.publish_date } : {}),
-    ...(article.author_name ? {
+    ...(authorName ? {
         "author": {
             "@type": "Person",
-            "name": article.author_name,
-            ...(article.author_role ? { "jobTitle": article.author_role } : {}),
-            ...(article.author_bio ? { "description": article.author_bio } : {}),
-            ...(safeImageUrl(article.author_image_url) ? { "image": safeImageUrl(article.author_image_url) } : {}),
+            "name": authorName,
+            ...(authorRole ? { "jobTitle": authorRole } : {}),
+            ...(authorBio ? { "description": authorBio } : {}),
+            ...(authorImg ? { "image": authorImg } : {}),
+            "url": "https://psychologiamarketingu.edu.pl/wykladowcy/",
         },
     } : {}),
     "publisher": {
         "@type": "EducationalOrganization",
         "@id": "https://psychologiamarketingu.edu.pl/#organization",
         "name": "Politechnika Wrocławska - Psychologia komunikacji marketingowej",
-        "logo": {
-            "@type": "ImageObject",
-            "url": "https://psychologiamarketingu.edu.pl/favicon.png",
-        },
+        "logo": { "@type": "ImageObject", "url": "https://psychologiamarketingu.edu.pl/favicon.png" },
     },
 };
 const breadcrumbs = {
@@ -141,28 +189,53 @@ const breadcrumbs = {
         { "@type": "ListItem", "position": 3, "name": article.title, "item": canonical },
     ],
 };
+const faqSchema = faqs.length ? {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(f => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": { "@type": "Answer", "text": f.a },
+    })),
+} : null;
+const jsonLd = [articleSchema, breadcrumbs, ...(faqSchema ? [faqSchema] : [])];
 ---
 
 <Layout
     title={`${article.title} | Blog - Politechnika Wrocławska`}
-    description={article.excerpt || undefined}
+    description={metaDescription}
     image={ogImage || undefined}
-    jsonLd={[articleSchema, breadcrumbs]}
+    jsonLd={jsonLd}
 >
     <Header />
     <main id="main-content" class="flex-1">
         <!-- Article header -->
-        <section class="max-w-[1280px] mx-auto px-6 lg:px-20 pt-16 pb-12 text-center">
+        <section class="max-w-[1280px] mx-auto px-6 lg:px-20 pt-16 pb-10 text-center">
+            <nav aria-label="Breadcrumb" class="flex items-center justify-center gap-2 text-sm text-gray-500 mb-6">
+                <a class="hover:text-primary" href="/">Strona główna</a>
+                <span class="material-symbols-outlined text-xs" aria-hidden="true">chevron_right</span>
+                <a class="hover:text-primary" href="/blog/">Blog</a>
+            </nav>
             {article.category && (
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider mb-6">
                     <span class="material-symbols-outlined text-sm" aria-hidden="true">label</span>
                     {article.category}
                 </div>
             )}
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-[#181111] dark:text-white leading-tight mb-6">
+            <h1 class="text-4xl md:text-5xl font-black text-[#181111] dark:text-white leading-tight mb-6 max-w-4xl mx-auto">
                 {article.title}
             </h1>
-            <div class="flex flex-wrap items-center justify-center gap-6 text-sm text-gray-500 dark:text-gray-400">
+            <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm text-gray-500 dark:text-gray-400">
+                {authorName && (
+                    <div class="flex items-center gap-2">
+                        {authorImg && (
+                            <div class="size-7 rounded-full bg-gray-200 overflow-hidden">
+                                <img alt={authorName} class="w-full h-full object-cover" src={authorImg} width="28" height="28" />
+                            </div>
+                        )}
+                        <span class="font-medium text-[#181111] dark:text-white">{authorName}</span>
+                    </div>
+                )}
                 {article.publish_date && (
                     <div class="flex items-center gap-2">
                         <span class="material-symbols-outlined text-lg" aria-hidden="true">calendar_today</span>
@@ -175,67 +248,100 @@ const breadcrumbs = {
                         <span>{article.read_time} min czytania</span>
                     </div>
                 )}
-                {article.author_name && (
-                    <div class="flex items-center gap-2">
-                        {article.author_image_url && (
-                            <div class="size-6 rounded-full bg-gray-200 overflow-hidden">
-                                <img alt={article.author_name} class="w-full h-full object-cover" src={article.author_image_url} width="24" height="24" />
-                            </div>
-                        )}
-                        <span class="font-medium text-[#181111] dark:text-white">{article.author_name}</span>
-                    </div>
-                )}
             </div>
         </section>
 
         <!-- Featured image -->
-        {safeImageUrl(article.featured_image_url) && (
-        <section class="max-w-[1280px] mx-auto px-6 lg:px-20 mb-16">
+        {ogImage && (
+        <section class="max-w-[1280px] mx-auto px-6 lg:px-20 mb-14">
             <div
                 class="aspect-[21/9] w-full bg-cover bg-center rounded-[2rem] shadow-xl overflow-hidden relative"
-                style={`background-image: url("${safeImageUrl(article.featured_image_url)}");`}
+                style={`background-image: url("${ogImage}");`}
             >
                 <div class="absolute inset-0 bg-black/10"></div>
             </div>
         </section>
         )}
 
-        <!-- Article content (sanitized HTML from CMS) -->
-        <article class="max-w-[1280px] mx-auto px-6 lg:px-20 mb-20">
-            <div class="max-w-3xl mx-auto prose prose-lg prose-slate dark:prose-invert">
-                <Fragment set:html={safeContent} />
-            </div>
+        <!-- Content + sidebar -->
+        <div class="max-w-[1280px] mx-auto px-6 lg:px-20 mb-20 grid grid-cols-1 lg:grid-cols-12 gap-12">
+            <article class="lg:col-span-8 prose prose-lg prose-slate dark:prose-invert max-w-none prose-headings:scroll-mt-28 prose-headings:font-bold prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-strong:text-[#181111] dark:prose-strong:text-white">
+                <Fragment set:html={processedContent} />
 
-            <!-- Author card -->
-            {article.author_name && (
-            <div class="max-w-3xl mx-auto mt-16 bg-white dark:bg-[#1a0c0c] border border-[#e6dbdb] dark:border-[#3d2a2a] rounded-2xl p-8 flex flex-col sm:flex-row gap-6 items-center sm:items-start text-center sm:text-left">
-                {article.author_image_url && (
-                    <div class="size-20 shrink-0 rounded-full bg-gray-200 overflow-hidden ring-4 ring-primary/10">
-                        <img alt={article.author_name} class="w-full h-full object-cover" src={article.author_image_url} width="80" height="80" />
+                <!-- Author card -->
+                {authorName && (
+                <div class="not-prose mt-16 bg-white dark:bg-[#1a0c0c] border border-[#e6dbdb] dark:border-[#3d2a2a] rounded-2xl p-8 flex flex-col sm:flex-row gap-6 items-center sm:items-start text-center sm:text-left">
+                    {authorImg && (
+                        <div class="size-20 shrink-0 rounded-full bg-gray-200 overflow-hidden ring-4 ring-primary/10">
+                            <img alt={authorName} class="w-full h-full object-cover" src={authorImg} width="80" height="80" />
+                        </div>
+                    )}
+                    <div>
+                        <p class="text-xs font-semibold text-primary uppercase tracking-wider mb-1">Autor</p>
+                        <h2 class="text-lg font-bold text-[#181111] dark:text-white mb-1">{authorName}</h2>
+                        {authorRole && (
+                            <p class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-3">{authorRole}</p>
+                        )}
+                        {authorBio && (
+                            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{authorBio}</p>
+                        )}
+                        <a class="inline-flex items-center gap-1 text-sm text-primary font-semibold mt-3 hover:gap-2 transition-all" href="/wykladowcy/">
+                            Poznaj całą kadrę <span class="material-symbols-outlined text-base" aria-hidden="true">arrow_forward</span>
+                        </a>
                     </div>
-                )}
-                <div>
-                    <h3 class="text-lg font-bold text-[#181111] dark:text-white mb-1">{article.author_name}</h3>
-                    {article.author_role && (
-                        <p class="text-xs font-semibold text-primary uppercase tracking-wider mb-3">{article.author_role}</p>
-                    )}
-                    {article.author_bio && (
-                        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{article.author_bio}</p>
-                    )}
                 </div>
-            </div>
-            )}
-        </article>
+                )}
+            </article>
+
+            <!-- Sidebar -->
+            <aside class="lg:col-span-4">
+                <div class="lg:sticky lg:top-24 flex flex-col gap-6">
+                    {toc.length > 1 && (
+                    <nav aria-label="Spis treści" class="bg-white dark:bg-[#1a0c0c] border border-[#e6dbdb] dark:border-[#3d2a2a] rounded-2xl p-6">
+                        <p class="text-xs font-bold text-primary uppercase tracking-widest mb-4 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-base" aria-hidden="true">article</span>
+                            Spis treści
+                        </p>
+                        <ul class="space-y-2.5 text-sm">
+                            {toc.map((t) => (
+                                <li>
+                                    <a class="text-gray-600 dark:text-gray-400 hover:text-primary transition-colors block leading-snug" href={`#${t.id}`}>{t.text}</a>
+                                </li>
+                            ))}
+                        </ul>
+                    </nav>
+                    )}
+
+                    <!-- CTA -->
+                    <div class="bg-[#221010] text-white rounded-2xl p-6 flex flex-col gap-4">
+                        <div class="size-10 rounded-lg bg-primary/20 flex items-center justify-center text-primary">
+                            <span class="material-symbols-outlined" aria-hidden="true">school</span>
+                        </div>
+                        <div>
+                            <p class="font-bold text-lg leading-tight mb-2">Chcesz zgłębić ten temat?</p>
+                            <p class="text-white/70 text-sm leading-relaxed">
+                                Tej wiedzy uczymy w praktyce na studiach podyplomowych Psychologia komunikacji
+                                marketingowej i zachowań konsumenckich na Politechnice Wrocławskiej.
+                            </p>
+                        </div>
+                        <a class="bg-primary hover:bg-red-700 text-white text-center px-5 py-3 rounded-lg font-bold transition-all hover:scale-[1.02]" href={IRK} target="_blank" rel="noopener noreferrer">
+                            Zapisz się na studia
+                        </a>
+                        <a class="text-center text-sm text-white/70 hover:text-white transition-colors" href="/program/">Zobacz program studiów</a>
+                    </div>
+                </div>
+            </aside>
+        </div>
 
         <!-- Related articles -->
         {moreArticles.length > 0 && (
         <section class="px-6 lg:px-20 py-16 border-t border-[#e6dbdb] dark:border-[#3d2a2a] bg-white dark:bg-[#1a0c0c]">
             <div class="max-w-[1280px] mx-auto">
-                <h3 class="text-2xl font-bold mb-8 text-[#181111] dark:text-white">Zobacz także</h3>
+                <h2 class="text-2xl font-bold mb-8 text-[#181111] dark:text-white">Zobacz także</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {moreArticles.map(related => (
                         <a class="group block" href={`/blog/${related.slug}/`}>
-                            <div class="aspect-video bg-gray-100 rounded-xl overflow-hidden mb-4 relative">
+                            <div class="aspect-video bg-gray-100 dark:bg-background-dark/40 rounded-xl overflow-hidden mb-4 relative">
                                 <div
                                     class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
                                     style={safeImageUrl(related.featured_image_url) ? `background-image: url("${safeImageUrl(related.featured_image_url)}");` : ""}
@@ -244,7 +350,7 @@ const breadcrumbs = {
                             {related.category && (
                                 <div class="text-xs font-bold text-primary mb-2 uppercase">{related.category}</div>
                             )}
-                            <h4 class="font-bold text-lg leading-snug group-hover:text-primary transition-colors mb-2">{related.title}</h4>
+                            <h3 class="font-bold text-lg leading-snug group-hover:text-primary transition-colors mb-2">{related.title}</h3>
                             <p class="text-sm text-gray-500">{formatDate(related.publish_date)}</p>
                         </a>
                     ))}
@@ -255,3 +361,7 @@ const breadcrumbs = {
     </main>
     <Footer />
 </Layout>
+
+<style>
+    html { scroll-behavior: smooth; }
+</style>
