@@ -154,7 +154,8 @@ export default {
           ...permissions,
           'api::module': { controllers: { module: { find: { enabled: true }, findOne: { enabled: true } } } },
           'api::global-setting': { controllers: { 'global-setting': { find: { enabled: true }, findOne: { enabled: true } } } },
-          'api::lecturer': { controllers: { lecturer: { find: { enabled: true }, findOne: { enabled: true } } } }
+          'api::lecturer': { controllers: { lecturer: { find: { enabled: true }, findOne: { enabled: true } } } },
+          'api::article': { controllers: { article: { find: { enabled: true }, findOne: { enabled: true } } } }
         };
 
         await strapi.plugin('users-permissions').service('role').updateRole(publicRole.id, {
