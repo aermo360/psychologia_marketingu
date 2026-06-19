@@ -1,0 +1,194 @@
+---
+// Pełny program studiów. Dane kursów (godziny + ECTS) — źródło prawdy: dokument oferty (Załącznik 4).
+const courses = [
+    { name: "Warsztaty integracyjne", h: 4, ects: 1 },
+    { name: "Wprowadzenie do psychologii konsumenta", h: 8, ects: 3 },
+    { name: "Techniki wpływu społecznego", h: 6, ects: 2 },
+    { name: "Trening umiejętności komunikacyjnych", h: 6, ects: 2 },
+    { name: "Psychologia sprzedaży, negocjacji i mediacji z klientem", h: 8, ects: 3 },
+    { name: "Psychologia reklamy i mediów", h: 8, ects: 3 },
+    { name: "Promocje konsumenckie", h: 6, ects: 2 },
+    { name: "Perswazyjność reklamy", h: 10, ects: 4 },
+    { name: "Motywacje konsumenckie", h: 6, ects: 2 },
+    { name: "Zachowania nabywcze", h: 8, ects: 3 },
+    { name: "CSR i jego wpływ na decyzje konsumenckie", h: 8, ects: 3 },
+    { name: "Storytelling", h: 8, ects: 3 },
+    { name: "Content marketing", h: 8, ects: 3 },
+    { name: "Komunikacja marketingowa", h: 10, ects: 4 },
+    { name: "PR i zarządzanie komunikacją w sytuacjach kryzysowych", h: 8, ects: 3 },
+    { name: "Projektowanie doświadczeń konsumentów", h: 10, ects: 4 },
+    { name: "Emocjonalny branding", h: 8, ects: 3 },
+    { name: "Nowe media i kształtowanie relacji z konsumentem", h: 8, ects: 3 },
+    { name: "Trening kreatywnego myślenia i projektowanie innowacji dla konsumentów", h: 8, ects: 3 },
+    { name: "Autoprezentacja i wystąpienia publiczne", h: 4, ects: 1 },
+    { name: "Employee experience i employer branding", h: 8, ects: 3 },
+    { name: "Prosty język w komunikacji marki", h: 8, ects: 3 },
+    { name: "Nowoczesne trendy w pozyskiwaniu wiedzy o konsumentach: AI, marketplace, analityka, VR", h: 8, ects: 3 },
+    { name: "Trendy konsumenckie w poszukiwaniu wzrostu (growth marketing)", h: 8, ects: 3 },
+    { name: "Badania zachowań konsumenckich", h: 8, ects: 3 },
+    { name: "Praca końcowa — projekt", h: 16, ects: 6 },
+];
+const facts = [
+    { icon: "calendar_today", label: "Czas trwania", value: "2 semestry" },
+    { icon: "schedule", label: "Godziny dydaktyczne", value: "206 h" },
+    { icon: "school", label: "Punkty ECTS", value: "76 ECTS" },
+    { icon: "workspace_premium", label: "Poziom PRK", value: "7" },
+    { icon: "laptop_mac", label: "Tryb", value: "Online" },
+    { icon: "group", label: "Limit miejsc", value: "30 osób" },
+];
+const irk = "https://irk.usos.pwr.edu.pl/pl/offer/PDS_2025_2026/programme/PDS-PKMP-000P-NNPW2/?from=field:PKM";
+---
+
+<section class="max-w-[1280px] mx-auto px-6 lg:px-20 pt-16 pb-8">
+    <nav aria-label="Breadcrumb" class="flex items-center gap-2 text-sm text-gray-500 mb-6">
+        <a class="hover:text-primary" href="/">Strona główna</a>
+        <span class="material-symbols-outlined text-xs" aria-hidden="true">chevron_right</span>
+        <span class="text-gray-900 dark:text-white font-medium" aria-current="page">Program</span>
+    </nav>
+    <div class="max-w-3xl">
+        <div class="flex items-center gap-2 mb-4">
+            <span class="h-1 w-12 bg-primary rounded-full"></span>
+            <p class="text-primary text-sm font-bold tracking-widest uppercase">Studia podyplomowe · Politechnika Wrocławska</p>
+        </div>
+        <h1 class="text-4xl lg:text-5xl font-black text-[#181111] dark:text-white tracking-tight mb-5">
+            Program studiów podyplomowych z psychologii marketingu
+        </h1>
+        <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+            <strong class="text-[#181111] dark:text-white">Psychologia komunikacji marketingowej i zachowań
+            konsumenckich</strong> to interdyscyplinarne studia podyplomowe na Politechnice Wrocławskiej,
+            łączące marketing, psychologię, ekonomię i zarządzanie. Program obejmuje 25 przedmiotów oraz
+            projekt końcowy — od psychologii konsumenta i neuromarketingu, przez perswazję i branding, po
+            badania zachowań i nowoczesne narzędzia (AI, analityka, CX).
+        </p>
+    </div>
+</section>
+
+<!-- Fakty -->
+<section class="max-w-[1280px] mx-auto px-6 lg:px-20 mb-12">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 py-8 border-y border-[#e6dbdb] dark:border-[#3d2a2a]">
+        {facts.map((f) => (
+            <div class="flex flex-col items-center text-center gap-1 p-3">
+                <span class="material-symbols-outlined text-primary text-3xl mb-1" aria-hidden="true">{f.icon}</span>
+                <p class="text-gray-500 dark:text-gray-400 text-xs font-medium uppercase tracking-wider">{f.label}</p>
+                <p class="text-xl font-bold">{f.value}</p>
+            </div>
+        ))}
+    </div>
+    <p class="text-sm text-gray-500 dark:text-gray-400 mt-4 text-center">
+        Studia prowadzone całkowicie online; końcowy egzamin odbywa się stacjonarnie na Uczelni.
+        Kierownik studiów: <strong>dr Mirosława Krzyścin</strong>.
+    </p>
+</section>
+
+<!-- Dla kogo / cel -->
+<section class="max-w-[1280px] mx-auto px-6 lg:px-20 py-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        <div>
+            <h2 class="text-2xl md:text-3xl font-black mb-4 text-[#181111] dark:text-white">Czego się nauczysz</h2>
+            <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                Celem studiów jest podniesienie kwalifikacji w obszarze psychologii konsumenta, motywacji
+                i zachowań nabywczych, projektowania doświadczeń klienta, mechanizmów promocji,
+                perswazyjności reklamy, storytellingu, CSR, zarządzania komunikacją, brandingiem i nowymi
+                mediami. Program uczy, jak kompleksowo zrozumieć konsumenta i precyzyjnie dotrzeć do niego
+                z ofertą — w oparciu o wiedzę, nie intuicję.
+            </p>
+            <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+                Zajęcia prowadzą najlepsi praktycy w swoich dziedzinach oraz nauczyciele akademiccy,
+                w formie wykładów aktywizujących, studiów przypadków, warsztatów i ćwiczeń praktycznych.
+                <a class="text-primary font-semibold hover:underline" href="/wykladowcy/">Poznaj kadrę →</a>
+            </p>
+        </div>
+        <div class="bg-primary/5 dark:bg-primary/10 border border-primary/20 rounded-2xl p-8">
+            <h3 class="text-xl font-bold mb-4 text-[#181111] dark:text-white">Projekt końcowy</h3>
+            <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                Studia kończą się praktycznym projektem: opracowaniem strategii firmy lub sklepu
+                internetowego — od koncepcji do realizacji. Każdy uczestnik korzysta z indywidualnych
+                konsultacji z promotorem, a egzamin końcowy (prezentacja projektu i egzamin ustny)
+                odbywa się stacjonarnie.
+            </p>
+            <p class="text-sm text-gray-500 dark:text-gray-400">
+                Warunkiem ukończenia jest zaliczenie wszystkich kursów, zdanie egzaminu i obrona projektu.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Pełny plan studiów -->
+<section class="max-w-[1280px] mx-auto px-6 lg:px-20 py-12">
+    <div class="text-center mb-10">
+        <h2 class="text-3xl font-black tracking-tight text-[#181111] dark:text-white">Plan studiów</h2>
+        <p class="text-gray-500 dark:text-gray-400 mt-2">25 przedmiotów + projekt końcowy · łącznie 206 godzin i 76 ECTS</p>
+    </div>
+    <div class="overflow-x-auto rounded-2xl border border-[#e6dbdb] dark:border-[#3d2a2a]">
+        <table class="w-full text-left text-sm">
+            <thead class="bg-primary/5 dark:bg-primary/10 text-[#181111] dark:text-white">
+                <tr>
+                    <th class="py-3 px-4 font-bold w-10">#</th>
+                    <th class="py-3 px-4 font-bold">Przedmiot</th>
+                    <th class="py-3 px-4 font-bold text-center whitespace-nowrap">Godziny</th>
+                    <th class="py-3 px-4 font-bold text-center whitespace-nowrap">ECTS</th>
+                </tr>
+            </thead>
+            <tbody>
+                {courses.map((c, i) => (
+                    <tr class="border-t border-[#f0eaea] dark:border-[#2a1a1a] hover:bg-primary/5 dark:hover:bg-primary/10 transition-colors">
+                        <td class="py-3 px-4 text-gray-400 tabular-nums">{i + 1}</td>
+                        <td class="py-3 px-4 text-gray-700 dark:text-gray-300">{c.name}</td>
+                        <td class="py-3 px-4 text-center tabular-nums text-gray-600 dark:text-gray-400">{c.h}</td>
+                        <td class="py-3 px-4 text-center tabular-nums text-gray-600 dark:text-gray-400">{c.ects}</td>
+                    </tr>
+                ))}
+                <tr class="border-t-2 border-primary/30 bg-primary/5 dark:bg-primary/10 font-bold text-[#181111] dark:text-white">
+                    <td class="py-3 px-4"></td>
+                    <td class="py-3 px-4">Razem</td>
+                    <td class="py-3 px-4 text-center tabular-nums">206</td>
+                    <td class="py-3 px-4 text-center tabular-nums">76</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- Sylwetka absolwenta -->
+<section class="max-w-[1280px] mx-auto px-6 lg:px-20 py-12">
+    <h2 class="text-3xl font-black tracking-tight text-[#181111] dark:text-white mb-6">Sylwetka absolwenta</h2>
+    <p class="text-gray-600 dark:text-gray-300 leading-relaxed max-w-3xl mb-8">
+        Absolwent zdobywa wszechstronną wiedzę analityczną, kreatywną i strategiczną, która pozwala
+        podejmować decyzje marketingowe oparte na pogłębionej znajomości zachowań konsumentów.
+        Rozumie i potrafi wyjaśnić zjawiska w przestrzeni komercyjnej oraz zastosować narzędzia
+        do projektowania doświadczeń konsumentów i skutecznej komunikacji marketingowej.
+    </p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white dark:bg-[#1a0c0c] border border-[#e6dbdb] dark:border-[#3d2a2a] rounded-xl p-6">
+            <span class="material-symbols-outlined text-primary text-3xl mb-3" aria-hidden="true">psychology</span>
+            <h3 class="font-bold mb-2">Wiedza</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Psychologia konsumenta: motywacje, percepcja, emocje, postawy i procesy decyzyjne kształtujące preferencje.</p>
+        </div>
+        <div class="bg-white dark:bg-[#1a0c0c] border border-[#e6dbdb] dark:border-[#3d2a2a] rounded-xl p-6">
+            <span class="material-symbols-outlined text-primary text-3xl mb-3" aria-hidden="true">analytics</span>
+            <h3 class="font-bold mb-2">Umiejętności</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Projektowanie badań konsumentów i wykorzystanie danych do tworzenia spersonalizowanej, trafnej oferty.</p>
+        </div>
+        <div class="bg-white dark:bg-[#1a0c0c] border border-[#e6dbdb] dark:border-[#3d2a2a] rounded-xl p-6">
+            <span class="material-symbols-outlined text-primary text-3xl mb-3" aria-hidden="true">workspace_premium</span>
+            <h3 class="font-bold mb-2">Kompetencje</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Kreatywność, analiza sytuacji, identyfikowanie problemów i opracowywanie strategii realizujących cele biznesowe.</p>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="max-w-[1280px] mx-auto px-6 lg:px-20 py-12 mb-8">
+    <div class="rounded-2xl bg-primary/5 dark:bg-primary/10 border border-primary/20 p-8 md:p-12 text-center flex flex-col items-center gap-6">
+        <h2 class="text-3xl md:text-4xl font-black tracking-tight text-[#181111] dark:text-white max-w-[720px]">
+            Dołącz do edycji 2026/2027
+        </h2>
+        <p class="text-lg text-gray-600 dark:text-gray-300 max-w-[600px]">
+            Rekrutacja prowadzona jest według kolejności zgłoszeń. Sprawdź szczegóły procesu albo zapisz się od razu.
+        </p>
+        <div class="flex flex-wrap gap-4 justify-center">
+            <a class="bg-primary hover:bg-red-700 text-white px-8 py-3 rounded-lg font-bold transition-all hover:scale-105 shadow-lg shadow-primary/20" href={irk} target="_blank" rel="noopener noreferrer">Zapisz się (IRK)</a>
+            <a class="border border-primary/30 text-primary hover:bg-primary/5 px-8 py-3 rounded-lg font-bold transition-all" href="/rekrutacja/">Zasady rekrutacji</a>
+        </div>
+    </div>
+</section>

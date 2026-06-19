@@ -1,0 +1,27 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import ForWhomSection from "../components/sections/ForWhomSection.astro";
+
+const breadcrumbs = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://psychologiamarketingu.edu.pl/" },
+        { "@type": "ListItem", "position": 2, "name": "Dla kogo", "item": "https://psychologiamarketingu.edu.pl/dla-kogo/" },
+    ],
+};
+---
+
+<Layout
+    title="Dla kogo — studia podyplomowe z marketingu dla menedżerów | PWr"
+    description="Dla kogo są studia podyplomowe Psychologia komunikacji marketingowej na PWr: menedżerowie marketingu, specjaliści, brand managerowie, agencje, obsługa klienta i przedsiębiorcy."
+    jsonLd={breadcrumbs}
+>
+    <Header />
+    <main id="main-content" class="flex-1">
+        <ForWhomSection />
+    </main>
+    <Footer />
+</Layout>

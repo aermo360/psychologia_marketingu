@@ -1,0 +1,103 @@
+---
+const steps = [
+    { n: 1, title: "Załóż konto w systemie IRK", desc: "Wejdź na stronę rekrutacyjną IRK Politechniki Wrocławskiej, załóż konto (podając e-mail i hasło) i wypełnij wymagane kwestionariusze kandydata." },
+    { n: 2, title: "Wygeneruj i podpisz podanie", desc: "Po wprowadzeniu danych podanie o przyjęcie na studia generuje się automatycznie. Wydrukuj je i podpisz." },
+    { n: 3, title: "Skompletuj dokumenty", desc: "Przygotuj podpisane podanie, odpis dyplomu ukończenia studiów wyższych oraz dwa kolorowe zdjęcia legitymacyjne." },
+    { n: 4, title: "Dostarcz dokumenty w terminie", desc: "Złóż komplet dokumentów w Dziale Kształcenia PWr — osobiście lub pocztą. W rekrutacji biorą udział wyłącznie osoby, które dostarczą komplet w terminie (nie decyduje data stempla)." },
+];
+const irk = "https://irk.usos.pwr.edu.pl/pl/offer/PDS_2025_2026/programme/PDS-PKMP-000P-NNPW2/?from=field:PKM";
+---
+
+<section class="max-w-[1280px] mx-auto px-6 lg:px-20 pt-16 pb-8">
+    <nav aria-label="Breadcrumb" class="flex items-center gap-2 text-sm text-gray-500 mb-6">
+        <a class="hover:text-primary" href="/">Strona główna</a>
+        <span class="material-symbols-outlined text-xs" aria-hidden="true">chevron_right</span>
+        <span class="text-gray-900 dark:text-white font-medium" aria-current="page">Rekrutacja</span>
+    </nav>
+    <div class="max-w-3xl">
+        <div class="flex items-center gap-2 mb-4">
+            <span class="h-1 w-12 bg-primary rounded-full"></span>
+            <p class="text-primary text-sm font-bold tracking-widest uppercase">Edycja 2026/2027</p>
+        </div>
+        <h1 class="text-4xl lg:text-5xl font-black text-[#181111] dark:text-white tracking-tight mb-5">
+            Rekrutacja na studia podyplomowe PWr
+        </h1>
+        <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+            Rekrutacja na studia podyplomowe <strong class="text-[#181111] dark:text-white">Psychologia
+            komunikacji marketingowej i zachowań konsumenckich</strong> na Politechnice Wrocławskiej
+            prowadzona jest według kolejności zgłoszeń. Poniżej znajdziesz wymagania, krok po kroku
+            proces zapisu oraz informacje o opłatach.
+        </p>
+    </div>
+</section>
+
+<!-- Wymagania / fakty -->
+<section class="max-w-[1280px] mx-auto px-6 lg:px-20 py-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white dark:bg-[#1a0c0c] border border-[#e6dbdb] dark:border-[#3d2a2a] rounded-xl p-6">
+            <span class="material-symbols-outlined text-primary text-3xl mb-3" aria-hidden="true">school</span>
+            <h3 class="font-bold mb-2">Kto może aplikować</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">Osoby z dyplomem ukończenia studiów wyższych I lub II stopnia (licencjat, inżynier, magister).</p>
+        </div>
+        <div class="bg-white dark:bg-[#1a0c0c] border border-[#e6dbdb] dark:border-[#3d2a2a] rounded-xl p-6">
+            <span class="material-symbols-outlined text-primary text-3xl mb-3" aria-hidden="true">group</span>
+            <h3 class="font-bold mb-2">Zasady naboru</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">Decyduje kolejność zgłoszeń. Limit przyjęć to 30 osób — warto nie zwlekać z aplikacją.</p>
+        </div>
+        <div class="bg-white dark:bg-[#1a0c0c] border border-[#e6dbdb] dark:border-[#3d2a2a] rounded-xl p-6">
+            <span class="material-symbols-outlined text-primary text-3xl mb-3" aria-hidden="true">laptop_mac</span>
+            <h3 class="font-bold mb-2">Tryb studiów</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">Zajęcia całkowicie online; jedynie końcowy egzamin odbywa się stacjonarnie na Uczelni.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Proces krok po kroku -->
+<section class="max-w-[1280px] mx-auto px-6 lg:px-20 py-12">
+    <h2 class="text-3xl font-black tracking-tight text-[#181111] dark:text-white mb-8">Jak się zapisać — krok po kroku</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {steps.map((s) => (
+            <div class="flex gap-4 bg-white dark:bg-[#1a0c0c] border border-[#e6dbdb] dark:border-[#3d2a2a] rounded-xl p-6">
+                <div class="w-10 h-10 shrink-0 bg-primary rounded-full flex items-center justify-center text-white font-bold">{s.n}</div>
+                <div>
+                    <h3 class="font-bold mb-1 text-[#181111] dark:text-white">{s.title}</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{s.desc}</p>
+                </div>
+            </div>
+        ))}
+    </div>
+    <div class="mt-8 flex flex-wrap gap-4">
+        <a class="bg-primary hover:bg-red-700 text-white px-8 py-3 rounded-lg font-bold transition-all hover:scale-105 shadow-lg shadow-primary/20" href={irk} target="_blank" rel="noopener noreferrer">Przejdź do rekrutacji (IRK)</a>
+        <a class="border border-primary/30 text-primary hover:bg-primary/5 px-8 py-3 rounded-lg font-bold transition-all" href="/faq/">Najczęstsze pytania</a>
+    </div>
+</section>
+
+<!-- Opłaty + kontakt -->
+<section class="max-w-[1280px] mx-auto px-6 lg:px-20 py-12 mb-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div class="bg-primary/5 dark:bg-primary/10 border border-primary/20 rounded-2xl p-8">
+            <h2 class="text-2xl font-black mb-4 text-[#181111] dark:text-white">Opłaty za studia</h2>
+            <p class="text-4xl font-black text-primary mb-2">7600 zł</p>
+            <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                za całość studiów. Opłatę można wnieść w 2 ratach po 3800 zł — na początku każdego
+                z dwóch semestrów.
+            </p>
+            <p class="text-sm text-gray-500 dark:text-gray-400">
+                Studia mogą być finansowane lub współfinansowane przez pracodawcę; w takim przypadku
+                Uczelnia podpisuje umowę trójstronną ze Słuchaczem i podmiotem finansującym.
+            </p>
+        </div>
+        <div class="bg-white dark:bg-[#1a0c0c] border border-[#e6dbdb] dark:border-[#3d2a2a] rounded-2xl p-8">
+            <h2 class="text-2xl font-black mb-4 text-[#181111] dark:text-white">Masz pytania?</h2>
+            <p class="text-gray-600 dark:text-gray-400 text-sm mb-6 leading-relaxed">
+                W sprawach rekrutacji skontaktuj się z Działem Kształcenia Politechniki Wrocławskiej.
+            </p>
+            <ul class="space-y-4 text-sm text-gray-700 dark:text-gray-300">
+                <li class="flex items-center gap-3"><span class="material-symbols-outlined text-primary" aria-hidden="true">person</span> Anna Fąfara</li>
+                <li class="flex items-center gap-3"><span class="material-symbols-outlined text-primary" aria-hidden="true">mail</span> <a class="hover:text-primary transition-colors" href="mailto:anna.fafara@pwr.edu.pl">anna.fafara@pwr.edu.pl</a></li>
+                <li class="flex items-center gap-3"><span class="material-symbols-outlined text-primary" aria-hidden="true">call</span> tel. 71 340 75 15</li>
+                <li class="flex items-center gap-3"><span class="material-symbols-outlined text-primary" aria-hidden="true">location_on</span> bud. L-1, pok. 120, ul. Na Grobli 15, 50-421 Wrocław</li>
+            </ul>
+        </div>
+    </div>
+</section>

@@ -182,3 +182,23 @@ DR=0, 0 backlinków, 27 klików / 845 wyświetleń (90 dni), poz. śr. 22,9. Sle
 
 ### Rozwiązanie:
 Poprawione defaulty na właściwą domenę + `https`. Wymagany rebuild backendu (`docker compose up -d --build backend`) — Strapi wypieka `STRAPI_ADMIN_BACKEND_URL` do bundla admina przy buildzie.
+
+---
+
+## 2026-06-19 - SEO Faza 2.3: hub strony programu (4 nowe strony)
+
+### Nowe pliki:
+- `frontend/src/pages/program.astro` + `components/sections/ProgramOverview.astro` — pełny program, tabela 26 kursów (godz+ECTS ze źródła), sylwetka absolwenta, projekt; schema `Course` (url `/program/`). Target: „studia podyplomowe marketing/psychologia marketingu".
+- `frontend/src/pages/marketing-behawioralny.astro` + `BehavioralManifesto.astro` — strona-manifest (money-keyword „marketing behawioralny"), głębsza niż sekcja na home.
+- `frontend/src/pages/rekrutacja.astro` + `AdmissionsSection.astro` — proces krok-po-kroku, wymagania, opłaty 7600/2 raty, kontakt. Target: „studia podyplomowe pwr".
+- `frontend/src/pages/dla-kogo.astro` + `ForWhomSection.astro` — 6 person adresatów (ze źródła). Target: „studia podyplomowe marketing dla menedżerów/specjalistów".
+
+### Zmodyfikowane pliki:
+- `frontend/src/components/Header.astro` — nawigacja (desktop+mobile): Program→`/program/`, +Dla kogo, +Rekrutacja; usunięto „Dlaczego my?"/„Kontakt"; CTA „Rekrutacja"→„Zapisz się".
+- `frontend/src/components/Footer.astro` — kolumna „Rekrutacja" → „Studia" (linki do 4 hubów + marketing-behawioralny, sitewide).
+- `frontend/src/components/sections/BentoCurriculum.astro`, `BehavioralInPractice.astro`, `WhatYouLearn.astro` — linki kontekstowe z home do nowych stron.
+
+### Uwagi:
+- Wszystkie nowe strony w sitemapie (9 stron total), breadcrumb schema na każdej.
+- Treść zgodna ze źródłem prawdy (memory: `program-source-of-truth`); adres Na Grobli 15, edycja 2026/2027.
+- CTA wciąż na ofercie IRK `PDS_2025_2026` — do podmiany, gdy znany URL 2026/2027.

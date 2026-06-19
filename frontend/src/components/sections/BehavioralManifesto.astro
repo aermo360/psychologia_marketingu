@@ -1,0 +1,104 @@
+---
+const pillars = [
+    { icon: "neurology", title: "Procesy decyzyjne", desc: "Koncepcja „dwóch umysłów”, rola heurystyk, nawyków i kontekstu oraz postrzeganego ryzyka w wyborach konsumenta." },
+    { icon: "ads_click", title: "Mechanizmy wpływu", desc: "Techniki wpływu społecznego i perswazyjność reklamy — świadome, etyczne posługiwanie się nimi w komunikacji." },
+    { icon: "frame_inspect", title: "Projektowanie doświadczeń", desc: "Mapy podróży klienta, CX i emocjonalny branding budowane na realnej wiedzy o zachowaniach, nie na przeczuciach." },
+    { icon: "analytics", title: "Badania i dane", desc: "Profilowanie psychologiczne, targetowanie behawioralne i badania zachowań konsumenckich jako podstawa decyzji." },
+];
+const irk = "https://irk.usos.pwr.edu.pl/pl/offer/PDS_2025_2026/programme/PDS-PKMP-000P-NNPW2/?from=field:PKM";
+---
+
+<section class="max-w-[1280px] mx-auto px-6 lg:px-20 pt-16 pb-8">
+    <nav aria-label="Breadcrumb" class="flex items-center gap-2 text-sm text-gray-500 mb-6">
+        <a class="hover:text-primary" href="/">Strona główna</a>
+        <span class="material-symbols-outlined text-xs" aria-hidden="true">chevron_right</span>
+        <span class="text-gray-900 dark:text-white font-medium" aria-current="page">Marketing behawioralny</span>
+    </nav>
+    <div class="max-w-3xl">
+        <div class="flex items-center gap-2 mb-4">
+            <span class="h-1 w-12 bg-primary rounded-full"></span>
+            <p class="text-primary text-sm font-bold tracking-widest uppercase">Filozofia programu</p>
+        </div>
+        <h1 class="text-4xl lg:text-5xl font-black text-[#181111] dark:text-white tracking-tight mb-5">
+            Marketing behawioralny — fundament tych studiów
+        </h1>
+        <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+            <strong class="text-[#181111] dark:text-white">Marketing behawioralny</strong> to podejście,
+            w którym decyzje marketingowe opierają się na rzeczywistych mechanizmach zachowań konsumentów,
+            a nie na intuicji. To na nim zbudowaliśmy program studiów podyplomowych Psychologia komunikacji
+            marketingowej i zachowań konsumenckich na Politechnice Wrocławskiej.
+        </p>
+    </div>
+</section>
+
+<section class="max-w-[1280px] mx-auto px-6 lg:px-20 py-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+        <div class="space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed">
+            <h2 class="text-2xl md:text-3xl font-black text-[#181111] dark:text-white mb-2">Dlaczego intuicja to za mało</h2>
+            <p>
+                W świecie nadmiaru bodźców samo „wyczucie rynku" przestaje wystarczać. Konsument
+                korzysta z dwóch trybów myślenia: szybkiego, intuicyjnego i emocjonalnego oraz wolnego,
+                analitycznego. Większość codziennych decyzji zakupowych zapada w tym pierwszym trybie —
+                pod wpływem emocji, nawyków, heurystyk i kontekstu.
+            </p>
+            <p>
+                Marketing behawioralny zamienia to zrozumienie w przewagę. Zamiast pytać „co naszym
+                zdaniem spodoba się klientom", pyta „jak ludzie naprawdę podejmują decyzje" — i dopiero
+                na tej podstawie projektuje komunikację, ofertę oraz doświadczenie zakupowe. Pozwala
+                przewidywać reakcje odbiorców zamiast je zgadywać.
+            </p>
+        </div>
+        <div class="bg-[#221010] text-white rounded-2xl p-8 flex flex-col gap-4">
+            <p class="text-5xl font-black text-primary">80%</p>
+            <p class="text-white/80 leading-relaxed">
+                decyzji zakupowych podejmowanych jest pod wpływem emocji — w dużej mierze nieświadomie.
+                Tylko około 20% to chłodna, logiczna analiza. Marketing behawioralny zaczyna się
+                właśnie tam, gdzie kończy się klasyczny model „racjonalnego konsumenta".
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Filary -->
+<section class="max-w-[1280px] mx-auto px-6 lg:px-20 py-12">
+    <h2 class="text-3xl font-black tracking-tight text-[#181111] dark:text-white mb-8">Co to znaczy w praktyce</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {pillars.map((p) => (
+            <div class="flex gap-4 bg-white dark:bg-[#1a0c0c] border border-[#e6dbdb] dark:border-[#3d2a2a] rounded-xl p-6">
+                <span class="material-symbols-outlined text-primary text-3xl shrink-0" aria-hidden="true">{p.icon}</span>
+                <div>
+                    <h3 class="font-bold mb-1 text-[#181111] dark:text-white">{p.title}</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{p.desc}</p>
+                </div>
+            </div>
+        ))}
+    </div>
+</section>
+
+<!-- Jak uczymy -->
+<section class="py-16 bg-primary/5 dark:bg-primary/10">
+    <div class="max-w-[1280px] mx-auto px-6 lg:px-20 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+            <h2 class="text-3xl font-black mb-5 text-[#181111] dark:text-white">Jak uczymy marketingu behawioralnego</h2>
+            <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                Marketing behawioralny nie jest u nas jednym wykładem — to oś całego programu. Przewija się
+                przez przedmioty takie jak <strong class="text-[#181111] dark:text-white">Motywacje
+                konsumenckie</strong>, <strong class="text-[#181111] dark:text-white">Zachowania
+                nabywcze</strong>, <strong class="text-[#181111] dark:text-white">Techniki wpływu
+                społecznego</strong>, <strong class="text-[#181111] dark:text-white">Promocje
+                konsumenckie</strong> czy <strong class="text-[#181111] dark:text-white">Projektowanie
+                doświadczeń konsumentów</strong>.
+            </p>
+            <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+                Łączymy psychologię konsumenta, neuromarketing i nowoczesne narzędzia (AI, analitykę)
+                z praktyką biznesową, dzięki czemu uczysz się podejmować decyzje marketingowe w oparciu
+                o wiedzę, a nie o intuicję.
+            </p>
+        </div>
+        <div class="flex flex-col gap-4">
+            <a class="bg-primary hover:bg-red-700 text-white px-8 py-4 rounded-xl font-bold text-center transition-all hover:scale-[1.02] shadow-lg shadow-primary/20" href={irk} target="_blank" rel="noopener noreferrer">Zapisz się na studia (IRK)</a>
+            <a class="border border-primary/30 text-primary hover:bg-primary/5 px-8 py-4 rounded-xl font-bold text-center transition-all" href="/program/">Zobacz pełny program</a>
+            <a class="text-center text-sm text-gray-500 hover:text-primary transition-colors mt-1" href="/dla-kogo/">Dla kogo są te studia? →</a>
+        </div>
+    </div>
+</section>
