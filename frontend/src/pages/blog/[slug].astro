@@ -145,7 +145,7 @@ const breadcrumbs = {
 
 <Layout
     title={`${article.title} | Blog - Politechnika Wrocławska`}
-    description={article.excerpt}
+    description={article.excerpt || undefined}
     image={ogImage || undefined}
     jsonLd={[articleSchema, breadcrumbs]}
 >
