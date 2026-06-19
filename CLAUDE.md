@@ -168,3 +168,17 @@ DR=0, 0 backlinków, 27 klików / 845 wyświetleń (90 dni), poz. śr. 22,9. Sle
 ### Uwagi:
 - `Person` schema na `/wykladowcy/` zapełnia się tylko na prodzie (dane wykładowców ze Strapi; lokalnie kolekcja pusta → empty state).
 - Faza 1.2+ (cornerstone content, link building) — patrz `docs/seo-strategia.md`.
+
+---
+
+## 2026-06-19 - Fix: CMS przekierowywał na cms.praktycznymarketing.edu.pl
+
+### Zmodyfikowane pliki:
+- `backend/config/server.ts` — `url` default `http://cms.praktycznymarketing.edu.pl` → `https://cms.psychologiamarketingu.edu.pl`
+- `backend/config/admin.ts` — `url` default `http://cms.praktycznymarketing.edu.pl/admin` → `https://cms.psychologiamarketingu.edu.pl/admin`
+
+### Problem:
+`cms.psychologiamarketingu.edu.pl` → 302 → `http://cms.praktycznymarketing.edu.pl/admin` (Strapi root `/` redirectuje na panel admina). Defaulty `PUBLIC_URL`/`ADMIN_URL` w configu backendu wskazywały na inny projekt (pozostałość po skopiowaniu repo z praktycznymarketing); na serwerze brak nadpisania w `.env`, więc Strapi używał błędnych defaultów. Przy okazji `http://` powodował downgrade ze schematu (Cloudflare terminuje TLS).
+
+### Rozwiązanie:
+Poprawione defaulty na właściwą domenę + `https`. Wymagany rebuild backendu (`docker compose up -d --build backend`) — Strapi wypieka `STRAPI_ADMIN_BACKEND_URL` do bundla admina przy buildzie.
