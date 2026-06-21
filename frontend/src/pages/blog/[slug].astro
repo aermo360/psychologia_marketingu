@@ -88,6 +88,60 @@ const safeContent = article.content
       })
     : "";
 
+// De-promote the closing section: rewrite the sentences that name the program lecturer
+// (dr Mirosława Krzyścin) into sensible, name-free versions — preserving the surrounding
+// meaning instead of bluntly cutting sentences (which could orphan a follow-up). Exact-string
+// rewrites for the known passages; a conservative whole-sentence removal catches anything else.
+const PROMO_REWRITES: [string, string][] = [
+    [
+        "Małe grupy sprzyjają wymianie doświadczeń i pogłębianiu wiedzy, a dr Mirosława Krzyścin regularnie aktualizuje zawartość, sięgając po najnowsze studia przypadków z marketingu cyfrowego.",
+        "Małe grupy sprzyjają wymianie doświadczeń i pogłębianiu wiedzy, a zawartość programu jest regularnie aktualizowana o najnowsze studia przypadków z marketingu cyfrowego.",
+    ],
+    [
+        "Grupy liczą maksymalnie trzydzieści osób, co pozwala tutorom skupić się na indywidualnych potrzebach, a przebieg programu nadzoruje dr Mirosława Krzyścin.",
+        "Grupy liczą maksymalnie trzydzieści osób, co pozwala tutorom skupić się na indywidualnych potrzebach uczestników.",
+    ],
+    [
+        "Dr Mirosława Krzyścin kieruje nadzorem merytorycznym, a trzydziestoosobowa grupa uczestników zyskuje wsparcie dydaktyczne skrojone na miarę.",
+        "Trzydziestoosobowa grupa uczestników zyskuje wsparcie dydaktyczne skrojone na miarę.",
+    ],
+    [
+        "Moduł CX kończy się praktycznym projektem pod nadzorem dr Mirosławy Krzyścin.",
+        "Moduł CX kończy się praktycznym projektem.",
+    ],
+    [
+        "Program przewiduje dwadzieścia pięć przedmiotów i projekt pod kierunkiem dr Mirosławy Krzyścin.",
+        "Program przewiduje dwadzieścia pięć przedmiotów i projekt końcowy.",
+    ],
+    [
+        "Studenci prowadzą własne projekty badawcze lub korzystają z mentoringu dr Mirosławy Krzyścin, z regularnymi konsultacjami i wsparciem merytorycznym, zdobywając praktyczne umiejętności w zbieraniu i analizie sygnałów neurologicznych oraz reakcji skórno-galwanicznej.",
+        "Studenci prowadzą własne projekty badawcze, korzystając z regularnych konsultacji i wsparcia merytorycznego oraz zdobywając praktyczne umiejętności w zbieraniu i analizie sygnałów neurologicznych oraz reakcji skórno-galwanicznej.",
+    ],
+    [
+        "Dają <strong>76 punktów ECTS</strong> i kończą się projektem badawczym prowadzonym przez dr Mirosławę Krzyścin.",
+        "Dają <strong>76 punktów ECTS</strong> i kończą się projektem badawczym.",
+    ],
+    [
+        " Zajęcia prowadzi dr Mirosława Krzyścin.",
+        "",
+    ],
+    [
+        "Wykładowca-programista prowadzi zajęcia, a dr Mirosława Krzyścin, kierownik programu z Wydziału Zarządzania Politechniki Wrocławskiej, sprawuje nadzór merytoryczny i organizacyjny nad całością kursu. Wsparcie jest stałe. Dzięki temu studenci korzystają z doświadczenia praktyków i otrzymują asystę eksperta na każdym etapie realizacji projektu.",
+        "Zajęcia prowadzą doświadczeni wykładowcy-praktycy, a nad całością kursu czuwa stały nadzór merytoryczny i organizacyjny. Dzięki temu studenci korzystają z doświadczenia praktyków i otrzymują asystę eksperta na każdym etapie realizacji projektu.",
+    ],
+];
+// Fallback: drop any *remaining* whole sentence that still names the lecturer (future content).
+const stripRemaining = (html: string): string =>
+    html.replace(/<p([^>]*)>([\s\S]*?)<\/p>/gi, (_full: string, attrs: string, inner: string) => {
+        if (!/krzy[śs]cin/i.test(inner.replace(/<[^>]+>/g, ""))) return `<p${attrs}>${inner}</p>`;
+        const kept = inner.split(/(?<=\.)\s+/).filter((s: string) => !/krzy[śs]cin/i.test(s.replace(/<[^>]+>/g, "")));
+        const newInner = kept.join(" ").trim();
+        return newInner ? `<p${attrs}>${newInner}</p>` : "";
+    });
+let cleanContent = safeContent;
+for (const [from, to] of PROMO_REWRITES) cleanContent = cleanContent.split(from).join(to);
+cleanContent = stripRemaining(cleanContent);
+
 // --- Author: article fields, falling back to the matching lecturer (default Arkadiusz Morawski) ---
 let lecturers: any[] = [];
 try {
@@ -124,7 +178,7 @@ const slugify = (s: string) =>
         .replace(/ń/g, "n").replace(/[óòô]/g, "o").replace(/ś/g, "s").replace(/[żź]/g, "z")
         .replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 const toc: { id: string; text: string }[] = [];
-const processedContent = safeContent.replace(/<h2\b([^>]*)>([\s\S]*?)<\/h2>/gi, (_m, attrs, inner) => {
+const processedContent = cleanContent.replace(/<h2\b([^>]*)>([\s\S]*?)<\/h2>/gi, (_m, attrs, inner) => {
     const text = inner.replace(/<[^>]+>/g, "").trim();
     const id = slugify(text) || `sekcja-${toc.length + 1}`;
     toc.push({ id, text });
@@ -146,7 +200,7 @@ if (faqSection) {
 }
 
 // --- Meta description: excerpt → first paragraph fallback ---
-const firstPara = safeContent.match(/<p[^>]*>([\s\S]*?)<\/p>/i);
+const firstPara = cleanContent.match(/<p[^>]*>([\s\S]*?)<\/p>/i);
 const autoDesc = firstPara ? firstPara[1].replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim().slice(0, 160) : undefined;
 const metaDescription = (article.excerpt && article.excerpt.trim()) || autoDesc || undefined;
 
