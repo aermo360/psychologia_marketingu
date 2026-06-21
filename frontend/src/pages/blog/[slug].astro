@@ -97,10 +97,22 @@ const resolveLecturerImage = (l: any): string => {
     if (l?.image?.url) return l.image.url.startsWith("http") ? l.image.url : `${STRAPI_URL}${l.image.url}`;
     return l?.image_url || "";
 };
+// Per-slug author (matched against lecturer names, diacritic-safe); default Arkadiusz Morawski.
+// A CMS `author_name` still wins if set on the article.
+const AUTHOR_KEYWORD_BY_SLUG: Record<string, string> = {
+    "zasady-cialdiniego-marketing": "krzy",
+    "psychologia-konsumenta-decyzje-zakupowe": "krzy",
+    "storytelling-marketingu-relacje-klientami": "krzy",
+    "marketing-behawioralny-analiza-zachowan": "krzy",
+    "bledy-poznawcze-zakupy-decyzje": "krzy",
+    "psychologia-marketingu-umysl-klienta": "krzy",
+};
+const authorKeyword = AUTHOR_KEYWORD_BY_SLUG[article.slug || ""] || "moraw";
+const fallbackAuthorName = authorKeyword === "krzy" ? "Dr Mirosława Krzyścin" : "Arkadiusz Morawski";
 const authorLecturer = lecturers.find((l: any) =>
-    article.author_name ? l?.name === article.author_name : /morawski/i.test(l?.name || "")
+    article.author_name ? l?.name === article.author_name : (l?.name || "").toLowerCase().includes(authorKeyword)
 );
-const authorName = article.author_name || authorLecturer?.name || "Arkadiusz Morawski";
+const authorName = article.author_name || authorLecturer?.name || fallbackAuthorName;
 const authorRole = article.author_role || authorLecturer?.role || "";
 const authorBio = article.author_bio || authorLecturer?.description || "";
 const authorImg = safeImageUrl(article.author_image_url) || safeImageUrl(authorLecturer ? resolveLecturerImage(authorLecturer) : "");
