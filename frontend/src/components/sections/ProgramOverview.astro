@@ -37,7 +37,54 @@ const facts = [
     { icon: "group", label: "Limit miejsc", value: "30 osób" },
 ];
 const irk = "https://irk.usos.pwr.edu.pl/pl/offer/PDS_2025_2026/programme/PDS-PKMP-000P-NNPW2/?from=field:PKM";
+
+// Kompetencje w układzie fasetowym (pod „czego nauczysz się" — łatwe do wyciągnięcia przez wyszukiwarki/AI)
+const skills = [
+    { icon: "psychology", title: "Zachowania konsumenckie", desc: "Co decyduje o decyzjach zakupowych, jak emocje, motywacje i heurystyki wpływają na wybór produktu." },
+    { icon: "campaign", title: "Komunikacja i nowe media", desc: "Jak tworzyć angażujące treści, prowadzić komunikację marki i budować relacje w mediach społecznościowych." },
+    { icon: "ads_click", title: "Perswazja i neuromarketing", desc: "Techniki wywierania wpływu społecznego, perswazyjność reklamy oraz mechanizmy neuromarketingu." },
+    { icon: "frame_inspect", title: "Customer experience (CX)", desc: "Projektowanie doświadczeń klienta, mapy podróży zakupowej i budowanie lojalności wobec marki." },
+];
+// Ścieżki kariery (sylwetka absolwenta → konkretne role)
+const careers = [
+    "Specjalista ds. komunikacji marketingowej",
+    "Brand manager / product manager",
+    "Specjalista ds. public relations (PR)",
+    "Badacz konsumenta / rynku",
+    "Specjalista customer experience (CX)",
+    "Menedżer marketingu",
+];
+// FAQ — answer-first, pod realne pytania (gdzie studiować / podyplomowe vs I stopnia / dla kogo)
+const faqs = [
+    {
+        q: "Gdzie studiować psychologię marketingu?",
+        a: "Psychologię marketingu można studiować na studiach I stopnia, jednolitych magisterskich oraz podyplomowych. Studia podyplomowe Psychologia komunikacji marketingowej i zachowań konsumenckich prowadzi Wydział Zarządzania Politechniki Wrocławskiej — w trybie online, z jednym stacjonarnym egzaminem końcowym.",
+    },
+    {
+        q: "Czym różnią się studia podyplomowe od studiów I stopnia z psychologii marketingu?",
+        a: "Studia I stopnia (licencjackie) to pełny, kilkuletni kierunek dla osób po maturze. Studia podyplomowe trwają 2 semestry i są przeznaczone dla osób, które ukończyły już studia wyższe (I lub II stopnia) i chcą zdobyć praktyczną, skondensowaną wiedzę z psychologii marketingu.",
+    },
+    {
+        q: "Ile trwają i ile kosztują studia podyplomowe z psychologii marketingu na PWr?",
+        a: "Studia trwają 2 semestry (206 godzin, 76 ECTS). Opłata wynosi 7600 zł i można ją wnieść w 2 ratach po 3800 zł.",
+    },
+    {
+        q: "Dla kogo są te studia?",
+        a: "Dla osób pełniących funkcje marketingowe lub przygotowujących się do tej roli: specjalistów i menedżerów marketingu, brand managerów, pracowników PR i agencji, specjalistów obsługi klienta oraz przedsiębiorców.",
+    },
+];
+const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map((f) => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": { "@type": "Answer", "text": f.a },
+    })),
+};
 ---
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
 
 <section class="max-w-[1280px] mx-auto px-6 lg:px-20 pt-16 pb-8">
     <nav aria-label="Breadcrumb" class="flex items-center gap-2 text-sm text-gray-500 mb-6">
@@ -59,6 +106,19 @@ const irk = "https://irk.usos.pwr.edu.pl/pl/offer/PDS_2025_2026/programme/PDS-PK
             łączące marketing, psychologię, ekonomię i zarządzanie. Program obejmuje 25 przedmiotów oraz
             projekt końcowy — od psychologii konsumenta i neuromarketingu, przez perswazję i branding, po
             badania zachowań i nowoczesne narzędzia (AI, analityka, CX).
+        </p>
+    </div>
+</section>
+
+<!-- Definicja answer-first (pod featured snippet / AI Overview) -->
+<section class="max-w-[1280px] mx-auto px-6 lg:px-20 mb-8">
+    <div class="max-w-3xl bg-primary/5 dark:bg-primary/10 border-l-4 border-primary rounded-r-2xl p-6">
+        <h2 class="text-lg font-bold text-[#181111] dark:text-white mb-2">Czym są studia z psychologii marketingu?</h2>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+            Studia z psychologii marketingu łączą wiedzę o mechanizmach ludzkiego zachowania z nowoczesnymi
+            strategiami promocji i sprzedaży. Uczą, jak analizować motywacje konsumentów, projektować
+            doświadczenia klienta i budować skuteczną, etyczną komunikację marki. Można je studiować na
+            poziomie licencjackim, magisterskim oraz — jak na Politechnice Wrocławskiej — podyplomowym.
         </p>
     </div>
 </section>
@@ -110,6 +170,41 @@ const irk = "https://irk.usos.pwr.edu.pl/pl/offer/PDS_2025_2026/programme/PDS-PK
                 Warunkiem ukończenia jest zaliczenie wszystkich kursów, zdanie egzaminu i obrona projektu.
             </p>
         </div>
+    </div>
+</section>
+
+<!-- Czego nauczysz się — fasety (pod AI Overview) -->
+<section class="max-w-[1280px] mx-auto px-6 lg:px-20 py-8">
+    <h2 class="text-2xl md:text-3xl font-black mb-8 text-[#181111] dark:text-white">Czego nauczysz się na studiach z psychologii marketingu</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {skills.map((s) => (
+            <div class="bg-white dark:bg-[#1a0c0c] border border-[#e6dbdb] dark:border-[#3d2a2a] rounded-xl p-6">
+                <span class="material-symbols-outlined text-primary text-3xl mb-3" aria-hidden="true">{s.icon}</span>
+                <h3 class="font-bold mb-2 text-[#181111] dark:text-white">{s.title}</h3>
+                <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{s.desc}</p>
+            </div>
+        ))}
+    </div>
+</section>
+
+<!-- Ścieżki kariery -->
+<section class="max-w-[1280px] mx-auto px-6 lg:px-20 py-8">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
+        <div class="lg:col-span-1">
+            <h2 class="text-2xl md:text-3xl font-black mb-4 text-[#181111] dark:text-white">Ścieżki kariery</h2>
+            <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+                Absolwenci studiów z psychologii marketingu pracują na styku marketingu, badań i komunikacji.
+                Najczęstsze role to m.in.:
+            </p>
+        </div>
+        <ul class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {careers.map((c) => (
+                <li class="flex items-center gap-3 bg-white dark:bg-[#1a0c0c] border border-[#e6dbdb] dark:border-[#3d2a2a] rounded-lg px-4 py-3">
+                    <span class="material-symbols-outlined text-primary" aria-hidden="true">check_circle</span>
+                    <span class="text-sm font-medium text-gray-700 dark:text-gray-200">{c}</span>
+                </li>
+            ))}
+        </ul>
     </div>
 </section>
 
@@ -177,6 +272,24 @@ const irk = "https://irk.usos.pwr.edu.pl/pl/offer/PDS_2025_2026/programme/PDS-PK
     </div>
 </section>
 
+<!-- FAQ (widoczne + FAQPage schema) -->
+<section class="max-w-[1280px] mx-auto px-6 lg:px-20 py-12">
+    <h2 class="text-3xl font-black tracking-tight text-[#181111] dark:text-white mb-8">Najczęściej zadawane pytania</h2>
+    <div class="max-w-3xl space-y-4">
+        {faqs.map((faq) => (
+            <details class="group bg-white dark:bg-[#1a0c0c] border border-[#e6dbdb] dark:border-[#3d2a2a] rounded-xl overflow-hidden transition-all duration-300 hover:border-primary/30">
+                <summary class="flex items-center justify-between p-6 cursor-pointer select-none">
+                    <span class="font-bold text-lg text-gray-900 dark:text-white">{faq.q}</span>
+                    <span class="material-symbols-outlined text-primary icon-expand transition-transform duration-300" aria-hidden="true">expand_more</span>
+                </summary>
+                <div class="px-6 pb-6 text-gray-600 dark:text-gray-400 leading-relaxed border-t border-[#f0eaea] dark:border-[#2a1a1a] pt-4">
+                    <p>{faq.a}</p>
+                </div>
+            </details>
+        ))}
+    </div>
+</section>
+
 <!-- CTA -->
 <section class="max-w-[1280px] mx-auto px-6 lg:px-20 py-12 mb-8">
     <div class="rounded-2xl bg-primary/5 dark:bg-primary/10 border border-primary/20 p-8 md:p-12 text-center flex flex-col items-center gap-6">
@@ -192,3 +305,9 @@ const irk = "https://irk.usos.pwr.edu.pl/pl/offer/PDS_2025_2026/programme/PDS-PK
         </div>
     </div>
 </section>
+
+<style>
+    details > summary { list-style: none; }
+    details > summary::-webkit-details-marker { display: none; }
+    details[open] summary .icon-expand { transform: rotate(180deg); }
+</style>
