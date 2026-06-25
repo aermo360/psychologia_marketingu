@@ -3,20 +3,12 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 
-const breadcrumbs = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://psychologiamarketingu.edu.pl/" },
-        { "@type": "ListItem", "position": 2, "name": "Polityka prywatności", "item": "https://psychologiamarketingu.edu.pl/polityka-prywatnosci/" },
-    ],
-};
 ---
 
 <Layout
     title="Polityka prywatności - Psychologia komunikacji marketingowej | Politechnika Wrocławska"
     description="Polityka prywatności serwisu psychologiamarketingu.edu.pl — informacje o przetwarzaniu danych, plikach cookie i zgodzie na analitykę."
-    jsonLd={breadcrumbs}
+    noindex={true}
 >
     <Header />
     <main id="main-content" class="flex-1">

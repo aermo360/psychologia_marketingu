@@ -7,7 +7,12 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   site: 'https://psychologiamarketingu.edu.pl',
   trailingSlash: 'always',
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      // Keep noindex pages out of the sitemap (e.g. privacy policy)
+      filter: (page) => !page.includes('/polityka-prywatnosci'),
+    }),
+  ],
   vite: {
     plugins: [tailwindcss()],
     server: {
