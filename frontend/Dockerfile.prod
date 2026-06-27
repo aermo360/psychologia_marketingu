@@ -4,7 +4,9 @@ WORKDIR /app
 
 COPY package.json package-lock.json ./
 RUN apk add --no-cache curl
-RUN npm ci
+# npm install (not ci): the lockfile may omit linux-musl native bindings
+# (rolldown/oxide via Astro 7 + Vite 8) when generated on another platform.
+RUN npm install --no-audit --no-fund
 
 COPY . .
 
