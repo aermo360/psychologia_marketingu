@@ -218,3 +218,25 @@ Poprawione defaulty na właściwą domenę + `https`. Wymagany rebuild backendu 
 ### Uwagi:
 - Artykuły budują się przy `astro build` (getStaticPaths ze Strapi) — po publikacji w CMS wymagany rebuild frontu.
 - Opcjonalny `FAQPage` dla cornerstone'ów (z briefów) — do dodania przy budowie konkretnych artykułów (wymaga pola FAQ w Strapi).
+
+---
+
+## 2026-06-27 - Aktualizacja komponentów: Astro 7 + Strapi 5.49
+
+### Frontend — Astro 6.3.1 → 7.0.3 (stabilny):
+- `frontend/package.json` — astro `^7.0.3`, tailwindcss + @tailwindcss/vite `4.3`, @astrojs/sitemap `3.7.3`, sanitize-html `2.17.5`, serve `14.2.6`, @types/sanitize-html `2.16.1`.
+- `frontend/src/components/sections/BlogArchive.astro` — usunięto 3 komentarze HTML wewnątrz wyrażeń JSX (`{cond ? ( <!-- --> )}`); nowy, stricter kompilator Astro 7 (Rust / Vite 8 / rolldown) ich nie akceptuje. **To jedyna zmiana kodu wymagana przez v7.**
+- `frontend/Dockerfile.prod` — `npm ci` → `npm install`: lockfile generowany na macOS pomija linux-musl natywne bindingi (rolldown/oxide), `npm ci` się na nich wywala.
+
+### Backend — Strapi 5.33.3 → 5.49.0 (bezpieczny minor; Strapi 6 nie istnieje):
+- `backend/package.json` — @strapi/strapi + plugin-users-permissions + plugin-cloud → `5.49.0`.
+- `backend/Dockerfile` — `npm ci` → `npm install` (jw., natywne zależności Strapi).
+- Backup bazy przed deployem: `backend/.tmp/data.db.bak.<timestamp>` (na serwerze).
+
+### Weryfikacja (live):
+- Astro 7: 21 stron, generator `Astro v7.0.3`, wszystkie schematy/prose/ToC/autorzy/sitemap-exclusions OK.
+- Strapi 5.49: `started successfully`, `/api/articles` + `/api/lecturers` 200, **dane nienaruszone** (12 art., 10 wykł.), admin 200, bootstrap uprawnień publicznych zadziałał.
+- Node: front node:22-alpine (Astro 7 wymaga ≥22.12 ✓), backend node:20-alpine (Strapi 5.49 wspiera ✓).
+
+### Uwagi:
+- Lockfile frontu zostaje wygenerowany na macOS (niepełny dla linux) — dlatego Docker używa `npm install`, nie `ci`. Przy CI na linuxie można wrócić do `ci`.
