@@ -8,8 +8,9 @@ RUN apk add --no-cache python3 make g++
 # Copy package files
 COPY package.json package-lock.json ./
 
-# Install dependencies
-RUN npm ci
+# Install dependencies (npm install, not ci: resolves correct platform-native
+# bindings and tolerates lockfile drift across the Strapi minor upgrade)
+RUN npm install --no-audit --no-fund
 
 # Copy source code
 COPY . .
