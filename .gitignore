@@ -8,4 +8,4 @@ build
 .cache
 .strapi
 .strapi-updater.json
-.claude/settings.local.json
+.claude/

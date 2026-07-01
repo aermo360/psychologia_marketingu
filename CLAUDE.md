@@ -29,7 +29,7 @@ W `Dockerfile`/`Dockerfile.prod` (obu projektów) używamy `npm install`, nie `n
 - `docs/seo-strategia.md` — pełna strategia SEO (baseline GSC/Ahrefs, klastry keywordów, plan fazowy, KPI). Sprawdzać przed każdą zmianą treści/SEO.
 - Backend `backend/config/server.ts` i `admin.ts` mają defaulty URL — muszą wskazywać na `https://cms.psychologiamarketingu.edu.pl` (nie legacy `praktycznymarketing`, pozostałość po skopiowaniu repo). `.env` na serwerze powinien to nadpisywać, ale defaulty muszą być poprawne jako fallback.
 - Konfiguracja nginx (`/etc/nginx/sites-enabled/psychologiamarketingu` na serwerze Hetzner) leży poza repo — zmiany tam nie są śledzone w git, dokumentuj je tutaj jeśli coś zmienisz.
-- W katalogu głównym repo (poza `frontend/`, `backend/`, `docs/`) leżą materiały robocze niepowiązane z działającą aplikacją: mockupy HTML/PNG, `logotyp/`, pliki `.docx`.
+- `materialy/` — źródłowe materiały niepowiązane z kodem aplikacji: oficjalne logotypy PWr (`logotyp/`), oferta studiów (`.docx`). Stare mockupy HTML/PNG (faq, archive, article, code) i `implementation_plan.md` zostały usunięte — treść już dawno przeniesiona do działających stron Astro, `git log`/`git show` ma historię jeśli potrzebna.
 
 ## Konwencje i styl kodu
 - Nawigacja: desktop nav w Header + mobile menu (oba muszą być aktualizowane razem)
