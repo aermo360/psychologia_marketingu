@@ -48,5 +48,15 @@ npx astro sync
 echo "Building production build..."
 npm run build
 
+# Alias /sitemap.xml -> sitemap-index.xml. Astro generuje tylko sitemap-index.xml,
+# a konwencjonalna sciezka /sitemap.xml kusila do trzymania recznego pliku w public/
+# (przez dlugi czas serwowal tam URL-e praktycznego, po http, z 2025 roku).
+if [ -f dist/sitemap-index.xml ]; then
+    cp dist/sitemap-index.xml dist/sitemap.xml
+    echo "Created dist/sitemap.xml alias"
+else
+    echo "WARNING: dist/sitemap-index.xml not found, skipping /sitemap.xml alias"
+fi
+
 echo "Starting static file server..."
 npx serve dist -l 4321
