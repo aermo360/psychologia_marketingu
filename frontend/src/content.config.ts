@@ -59,6 +59,8 @@ const articles = defineCollection({
     loader: customStrapiLoader("articles", "&sort=publish_date:desc"),
     schema: z.object({
         title: z.string(),
+        // Tytul SEO (tag <title>). Puste = fallback na `title`, zeby nie ruszac widocznego H1.
+        meta_title: z.string().nullable().optional(),
         slug: z.string(),
         excerpt: z.string().nullable().optional(),
         content: z.string().nullable().optional(),

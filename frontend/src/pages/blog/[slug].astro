@@ -291,7 +291,7 @@ const jsonLd = [articleSchema, breadcrumbs, ...(faqSchema ? [faqSchema] : [])];
 ---
 
 <Layout
-    title={`${article.title} | PWr`}
+    title={`${article.meta_title?.trim() || article.title} | PWr`}
     description={metaDescription}
     image={ogImage || undefined}
     jsonLd={jsonLd}
