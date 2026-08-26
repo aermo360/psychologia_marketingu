@@ -7,7 +7,7 @@ import Footer from "../components/Footer.astro";
 
 <Layout
     title="Polityka prywatności - Psychologia komunikacji marketingowej | Politechnika Wrocławska"
-    description="Polityka prywatności serwisu psychologiamarketingu.edu.pl — informacje o przetwarzaniu danych, plikach cookie i zgodzie na analitykę."
+    description="Polityka prywatności serwisu psychologiamarketingu.edu.pl — informacje o przetwarzaniu danych osobowych i analityce bez plików cookies."
     noindex={true}
 >
     <Header />
@@ -50,7 +50,13 @@ import Footer from "../components/Footer.astro";
 
                 <h2 class="text-2xl font-bold mt-10 mb-4">4. Pliki cookies i analityka</h2>
                 <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
-                    Strona wykorzystuje pliki cookies oraz narzędzie Google Analytics do celów statystycznych i analitycznych. Google Analytics zbiera anonimowe informacje o sposobie korzystania ze strony, takie jak liczba odwiedzin, czas spędzony na stronie oraz źródła ruchu. Dane te nie pozwalają na bezpośrednią identyfikację użytkownika. Użytkownik może zarządzać ustawieniami plików cookies w swojej przeglądarce internetowej.
+                    Strona <strong>nie używa plików cookies do celów analitycznych, marketingowych ani profilujących</strong>. Nie wyświetlamy banera zgody na cookies, ponieważ nie zbieramy danych, które takiej zgody wymagają. W pamięci lokalnej przeglądarki (localStorage) zapisujemy wyłącznie preferencję motywu (jasny/ciemny) — dane te pozostają na urządzeniu użytkownika, nie są nikomu przekazywane i można je usunąć, czyszcząc dane strony w przeglądarce.
+                </p>
+                <p class="mb-4">
+                    Do analizy ruchu wykorzystujemy <strong>Umami</strong> — narzędzie analityczne działające bez plików cookies, hostowane na serwerze w Unii Europejskiej (<code>umami.growthhacking.pl</code>). Umami nie zbiera danych osobowych, nie tworzy profili użytkowników i nie śledzi osób pomiędzy serwisami. Gromadzone są wyłącznie zanonimizowane dane statystyczne: adres odwiedzanej podstrony, źródło wejścia, przybliżona lokalizacja na poziomie kraju, typ urządzenia i przeglądarki.
+                </p>
+                <p class="mb-4">
+                    Wszystkie zasoby strony (w tym czcionki tekstowe i ikonowe) serwowane są z naszego serwera. Przeglądanie serwisu nie powoduje połączeń z serwerami firm trzecich, więc adres IP użytkownika nie jest przekazywany podmiotom zewnętrznym — poza opisaną wyżej analityką Umami.
                 </p>
 
                 <h2 class="text-2xl font-bold mt-10 mb-4">5. Okres przechowywania danych</h2>
@@ -72,7 +78,7 @@ import Footer from "../components/Footer.astro";
 
                 <h2 class="text-2xl font-bold mt-10 mb-4">7. Odbiorcy danych</h2>
                 <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
-                    Dane osobowe mogą być udostępniane podmiotom uprawnionym na podstawie przepisów prawa oraz podmiotom przetwarzającym dane na zlecenie Administratora (np. dostawcom usług IT, hostingowych). Dane analityczne mogą być przetwarzane przez Google LLC w ramach usługi Google Analytics.
+                    Dane osobowe mogą być udostępniane podmiotom uprawnionym na podstawie przepisów prawa oraz podmiotom przetwarzającym dane na zlecenie Administratora (np. dostawcom usług IT, hostingowych). Dane analityczne przetwarzane są wyłącznie w ramach samodzielnie hostowanej instancji Umami na serwerze w Unii Europejskiej i nie są przekazywane do państw trzecich.
                 </p>
 
                 <h2 class="text-2xl font-bold mt-10 mb-4">8. Kontakt</h2>

@@ -8,7 +8,6 @@ interface Props {
 }
 
 import "../styles/global.css";
-import CookieBanner from "../components/CookieBanner.astro";
 
 const {
 	title,
@@ -98,7 +97,15 @@ const jsonLdBlocks = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 			<script type="application/ld+json" is:inline set:html={JSON.stringify(block)} />
 		))}
 
-		<!-- Google Analytics loaded conditionally after cookie consent (see CookieBanner component) -->
+		<!-- Umami — analityka bez cookies, nie wymaga zgody (RODO).
+		     data-domains ogranicza zbieranie do domeny produkcyjnej: ruch z localhost,
+		     podgladow i wariantu www nie zasmieca statystyk. -->
+		<script
+			is:inline
+			defer
+			src="https://umami.growthhacking.pl/script.js"
+			data-website-id="9af058a1-0903-4573-8ea3-6c380b08e956"
+			data-domains="psychologiamarketingu.edu.pl"></script>
 
 		<style is:global>
 			.material-symbols-outlined {
@@ -118,6 +125,15 @@ const jsonLdBlocks = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 	>
 		<a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[60] focus:px-4 focus:py-2 focus:bg-primary focus:text-white focus:rounded-lg focus:text-sm focus:font-bold">Przejdź do treści</a>
 		<slot />
-		<CookieBanner />
+		<script is:inline>
+			// Konwersja: kliknięcie w link do zapisów IRK → zdarzenie w Umami
+			document.addEventListener("click", function (e) {
+				var link = e.target.closest('a[href*="irk.usos.pwr.edu.pl"]');
+				if (!link) return;
+				if (window.umami && typeof window.umami.track === "function") {
+					window.umami.track("zapisz-sie-irk", { url: link.href });
+				}
+			});
+		</script>
 	</body>
 </html>

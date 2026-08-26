@@ -48,7 +48,7 @@ W `Dockerfile`/`Dockerfile.prod` (obu projektów) używamy `npm install`, nie `n
 
 ## Ograniczenia i pułapki
 - Nav: desktop (Header) i mobile menu muszą być aktualizowane razem.
-- GA ładuje się wyłącznie po zgodzie w CookieBannerze (Consent Mode v2, domyślnie denied) — nie dodawaj trackerów omijających ten mechanizm.
+- Analityka: **Umami** (self-hosted, `umami.growthhacking.pl`, website ID `9af058a1-0903-4573-8ea3-6c380b08e956`), bez cookies i bez banera zgody. Nie dodawaj trackerów ustawiających cookies ani ładowanych z serwerów firm trzecich — polityka prywatności deklaruje, że serwis nie łączy się z podmiotami trzecimi poza Umami.
 - Dane programu studiów (godziny, ECTS) są statyczne celowo — nie synchronizuj ich z powrotem ze Strapi.
 - nginx (`/etc/nginx/sites-available/psychologiamarketingu`): `absolute_redirect off` / `port_in_redirect off` zapobiega HTTPS→HTTP downgrade na trailing-slash redirectach (Cloudflare terminuje TLS, nginx nasłuchuje na `:80`) — nie usuwaj tej konfiguracji. `try_files` NIE może mieć fallbacku na `/index.html` — to był powód, dla którego `/nonexistent` zwracał 200 zamiast 404. Poprawnie: `try_files $uri $uri/ $uri.html =404;` + `error_page 404 /404.html;`. `www` ma osobny server block z 301 na apex. Ten nginx obsługuje ~55 domen — przy zmianach zawsze backup, `nginx -t`, potem `systemctl reload` (nie restart).
 - **Nie trzymaj ręcznego `frontend/public/sitemap.xml`** — Astro generuje `sitemap-index.xml` + `sitemap-0.xml`. Statyczny plik w `public/` nadpisuje ścieżkę `/sitemap.xml` i zastyga; przez długi czas serwował URL-e `praktycznymarketing.edu.pl` po http, z datą 2025-01-24.
@@ -66,6 +66,7 @@ W `Dockerfile`/`Dockerfile.prod` (obu projektów) używamy `npm install`, nie `n
 - 2026-05-12: fix nginx trailing-slash HTTPS downgrade (patrz Pułapki).
 - 2026-06-19: strategia SEO (`docs/seo-strategia.md`) + Faza 1.1 (schema.org, meta descriptions, OG); fix CMS URL defaults; Faza 2.3 (huby `/program/`, `/marketing-behawioralny/`, `/rekrutacja/`, `/dla-kogo/`); odblokowanie bloga pod SEO (BlogPosting schema, sitemap).
 - 2026-06-27: upgrade Astro 6→7 i Strapi 5.33→5.49 (patrz Komendy: `npm install` vs `npm ci`).
+- 2026-08-26: migracja Google Analytics → Umami (usunięty CookieBanner, zaktualizowana polityka prywatności, zdarzenie `zapisz-sie-irk`).
 - 2026-08-26: audyt techniczny SEO — soft 404 i 301 `www`→apex w nginxie, `PUBLIC_STRAPI_URL` http→https (mixed content), usunięcie martwego `public/sitemap.xml` z URL-ami praktycznego, self-host Material Symbols i usunięcie Bunny Fonts (Inter ładował się dwa razy), 4 hotlinki Unsplash → `astro:assets`, zdjęcia wykładowców 5575 kB → 177 kB (WebP z wariantów Strapi), strona 404, `noindex,follow` na polityce, naprawa ucinania meta description w pół słowa, skrócenie tytułów i opisów.
 
 Pełne szczegóły każdej zmiany (dokładne pliki, diffy) — `git log`.
