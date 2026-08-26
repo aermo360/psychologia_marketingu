@@ -200,8 +200,28 @@ if (faqSection) {
 }
 
 // --- Meta description: excerpt → first paragraph fallback ---
+// Twarde .slice(0, 160) ucinalo opis w polowie slowa ("...zbudowac wrazenie"),
+// co widac bylo w SERP-ach na wszystkich wpisach. Tniemy na granicy zdania,
+// a gdy zdanie nie miesci sie w limicie — na granicy slowa z wielokropkiem.
+const truncateDescription = (text: string, max = 160): string => {
+    const clean = text.replace(/\s+/g, " ").trim();
+    if (clean.length <= max) return clean;
+    const window = clean.slice(0, max);
+    const lastSentence = Math.max(
+        window.lastIndexOf(". "),
+        window.lastIndexOf("! "),
+        window.lastIndexOf("? "),
+    );
+    // Zdanie konczace sie w drugiej polowie limitu daje sensowny, pelny opis
+    if (lastSentence >= max * 0.5) return window.slice(0, lastSentence + 1);
+    const lastSpace = window.lastIndexOf(" ");
+    return (lastSpace > 0 ? window.slice(0, lastSpace) : window).replace(/[,;:]$/, "") + "…";
+};
+
 const firstPara = cleanContent.match(/<p[^>]*>([\s\S]*?)<\/p>/i);
-const autoDesc = firstPara ? firstPara[1].replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim().slice(0, 160) : undefined;
+const autoDesc = firstPara
+    ? truncateDescription(firstPara[1].replace(/<[^>]+>/g, ""))
+    : undefined;
 const metaDescription = (article.excerpt && article.excerpt.trim()) || autoDesc || undefined;
 
 // Related articles: same category first, then fill with others
@@ -271,7 +291,7 @@ const jsonLd = [articleSchema, breadcrumbs, ...(faqSchema ? [faqSchema] : [])];
 ---
 
 <Layout
-    title={`${article.title} | Blog - Politechnika Wrocławska`}
+    title={`${article.title} | PWr`}
     description={metaDescription}
     image={ogImage || undefined}
     jsonLd={jsonLd}

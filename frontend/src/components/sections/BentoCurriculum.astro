@@ -1,5 +1,7 @@
 ---
-
+import { Image } from "astro:assets";
+import psychoImage from "../../assets/psychologia-w-marketingu.jpg";
+import koszykImage from "../../assets/koszyk-zakupowy.jpg";
 ---
 
 <section id="program" class="max-w-[1280px] mx-auto px-6 lg:px-20 py-16">
@@ -33,7 +35,7 @@
                     </div>
                 </div>
                 <div class="w-full md:w-56 h-40 bg-gray-100 dark:bg-background-dark/40 rounded-lg overflow-hidden shrink-0">
-                    <img src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?q=80&w=400&auto=format&fit=crop" alt="Psychologia w marketingu" class="w-full h-full object-cover" />
+                    <Image src={psychoImage} alt="Psychologia w marketingu" class="w-full h-full object-cover" widths={[224, 448]} sizes="224px" format="webp" quality={78} loading="lazy" />
                 </div>
             </div>
             <div class="mt-6 flex justify-end">
@@ -108,7 +110,7 @@
                     </div>
                 </div>
                 <div class="w-full md:w-56 h-40 bg-gray-100 dark:bg-background-dark/40 rounded-lg overflow-hidden shrink-0">
-                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=400&auto=format&fit=crop" alt="Koszyk zakupowy" class="w-full h-full object-cover" />
+                    <Image src={koszykImage} alt="Koszyk zakupowy" class="w-full h-full object-cover" widths={[224, 448]} sizes="224px" format="webp" quality={78} loading="lazy" />
                 </div>
             </div>
             <div class="mt-6 flex justify-end">

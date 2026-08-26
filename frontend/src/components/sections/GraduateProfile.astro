@@ -1,5 +1,6 @@
 ---
-
+import { Image } from "astro:assets";
+import graduateImage from "../../assets/absolwentka.jpg";
 ---
 
 <section
@@ -65,12 +66,14 @@
         </div>
         <div class="relative flex justify-center">
             <div class="w-full max-w-md aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl md:grayscale hover:grayscale-0 transition-all duration-700 relative">
-                <img
-                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop"
+                <Image
+                    src={graduateImage}
                     alt="Pewna siebie profesjonalistka pracująca na laptopie - absolwentka studiów podyplomowych"
                     class="w-full h-full object-cover"
-                    width="800"
-                    height="1000"
+                    widths={[450, 900]}
+                    sizes="(min-width: 1024px) 450px, 100vw"
+                    format="webp"
+                    quality={78}
                     loading="lazy"
                 />
                 <div

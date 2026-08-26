@@ -1,5 +1,6 @@
 ---
-
+import { Image } from "astro:assets";
+import heroImage from "../../assets/hero-psychologia.jpg";
 ---
 
 <section class="max-w-[1280px] mx-auto px-6 lg:px-20 py-12 lg:py-20">
@@ -39,12 +40,14 @@
             <div
                 class="w-full aspect-video rounded-xl shadow-2xl overflow-hidden"
             >
-                <img
-                    src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1200&auto=format&fit=crop"
+                <Image
+                    src={heroImage}
                     alt="Ludzie śmiejący się i dyskutujący na sali seminaryjnej"
                     class="w-full h-full object-cover"
-                    width="960"
-                    height="540"
+                    widths={[640, 960, 1400]}
+                    sizes="(min-width: 1024px) 620px, 100vw"
+                    format="webp"
+                    quality={78}
                     loading="eager"
                 />
             </div>

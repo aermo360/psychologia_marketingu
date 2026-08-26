@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
 
 const STRAPI_URL = import.meta.env.PUBLIC_STRAPI_URL || "http://localhost:1337";
 let lecturers: any[] = [];
@@ -10,17 +11,27 @@ try {
         lecturers = strapiLecturers
             .map((l: any) => {
                 const data = l.data;
-                let finalImageUrl = data.image_url;
+                const absolutize = (url: string) =>
+                    url.startsWith("http") ? url : `${STRAPI_URL}${url}`;
 
+                let finalImageUrl = data.image_url;
                 if (data.image?.url) {
-                    finalImageUrl = data.image.url.startsWith("http")
-                        ? data.image.url
-                        : `${STRAPI_URL}${data.image.url}`;
+                    finalImageUrl = absolutize(data.image.url);
                 }
+
+                // Do wyswietlenia bierzemy wariant medium (750 px) — <Image> przerobi go
+                // przy buildzie na WebP. Renderowanie oryginalow dawalo ~5,5 MB zdjec
+                // na /wykladowcy, w tym pliki 1,4 MB i 2,9 MB.
+                // finalImageUrl (oryginal) zostaje dla schema.org Person.image.
+                const f = data.image?.formats || {};
+                const displayImageUrl = data.image?.url
+                    ? absolutize(f.medium?.url || f.large?.url || f.small?.url || data.image.url)
+                    : data.image_url;
 
                 return {
                     ...data,
                     finalImageUrl,
+                    displayImageUrl,
                 };
             })
             .sort((a: any, b: any) => (a.order || 99) - (b.order || 99));
@@ -120,13 +131,17 @@ const lecturersJsonLd = lecturers.length > 0 ? {
                 lecturers.map((lecturer: any) => (
                     <div class="flex flex-col gap-4 p-5 bg-white dark:bg-background-dark/40 rounded-xl border border-[#f4f0f0] dark:border-[#3d2a2a] shadow-sm hover:shadow-md hover:-translate-y-1 transition-all">
                         <div class="w-full aspect-[4/5] rounded-lg overflow-hidden md:grayscale hover:grayscale-0 transition-all duration-500">
-                            <img
-                                src={lecturer.finalImageUrl || lecturer.image_url}
+                            <Image
+                                src={lecturer.displayImageUrl || lecturer.finalImageUrl || lecturer.image_url}
+                                inferSize
+                                widths={[320, 640]}
+                                sizes="(min-width: 1024px) 320px, (min-width: 768px) 45vw, 90vw"
+                                format="webp"
+                                quality={78}
                                 alt={`${lecturer.name} - ${lecturer.role}`}
                                 class="w-full h-full object-cover"
-                                width="400"
-                                height="500"
                                 loading="lazy"
+                                decoding="async"
                             />
                         </div>
                         <div class="flex flex-col gap-1">
