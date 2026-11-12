@@ -9,3 +9,13 @@ build
 .strapi
 .strapi-updater.json
 .claude/
+
+# Pliki robocze z serwera (porzadki 2026-11-12)
+*.log
+.env.bak*
+*.bak
+*.bak.*
+*.bak-*
+*.pre-upg-*
+*.new
+frontend-dist/
